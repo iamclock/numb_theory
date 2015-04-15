@@ -22,6 +22,7 @@ def old_lyapas_sintax_replace(file_from, file_to):
 	triangle_down = "∇"
 	much_greater = "≫"
 	much_less = "≪"
+	disunction = "∨"
 	x = file_from.read(1)
 	while x != '':
 		if x == '?':
@@ -101,6 +102,9 @@ def old_lyapas_sintax_replace(file_from, file_to):
 					prev = paragraph
 			file_to.write(prev)
 			file_to.write(prev2)
+		elif x == '|':
+			file_to.write(disunction)
+			x = x = file_from.read(1)
 		else:
 			file_to.write(x)
 			x = file_from.read(1)

@@ -9,30 +9,28 @@ import random
 def dihotom(x, y, m):
 	q = x
 	z = 1
-	if (y%2):
-		z = x
 	while y:
-		if (y%2):
+		if (y&1):
 			z = z*q % m
-		y = y > 1
+		y = y >> 1
 		q = q*q % m
 	return z
 
 
 
 #i = 7
-for i in range (23, 29):
+for i in range (29, 35):
 	string = str(i)+".dat"
 	file_dat = open(string, "wt")
 	string = string[0:-4]
 	string = string+".ans"
 	file_ans = open(string, "wt")
 	
-	rand_val1 = random.getrandbits(48)
-	rand_val2 = random.getrandbits(39)
+	rand_val1 = random.getrandbits(73)
+	rand_val2 = random.getrandbits(69)
 	rand_module = 0
 	while rand_module == 0:
-		rand_module = random.getrandbits(12)
+		rand_module = random.getrandbits(17)
 	
 	
 	print(hex(rand_val1))
