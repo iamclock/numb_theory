@@ -1,58 +1,142 @@
-big_int_input:
-  xor eax,eax
-  mov [ebp+36],eax
-  xor eax,eax
-  mov [ebp+40],eax
-  xor eax,eax
-  mov [ebp+48],eax
+print_big_hex:
+  mov byte[ebp+122],1
+  mov ebx,[ebp+1416]
+  mov [ebp+224],ebx
+  mov [ebp+624],dword 100
+  add [ebp+1416],dword 100
+  mov [ebp+1024],dword 0
+  call _addmem
   mov eax,[ebp+1020]
   mov edx,eax
   mov eax,0
   cmp edx,eax
   je .P6
-  mov ebx,[ebp+220]
-  mov eax,[ebx+1]
-  and eax,0x000000ff
+  xor eax,eax
+  mov [ebp+36],eax
+  xor eax,eax
+  mov [ebp+40],eax
+  mov eax,15
+  mov [ebp+100],eax
+  xor eax,eax
+  mov [ebp+24],eax
+  mov eax,48
+  mov ebx,[ebp+1024]
+  mov ecx,[ebp+1024]
+  cmp ecx,[ebp+624]
+  jae _errend
+  mov edi,ecx
+  add edi,[ebp+224]
+  mov esi,edi
+  dec esi
+  sub ecx,ebx
+  std
+  rep movsb
+  add ebx,[ebp+224]
+  mov [ebx],al
+  inc dword [ebp+1024]
+  mov eax,120
+  mov ebx,[ebp+1024]
+  mov ecx,[ebp+1024]
+  cmp ecx,[ebp+624]
+  jae _errend
+  mov edi,ecx
+  add edi,[ebp+224]
+  mov esi,edi
+  dec esi
+  sub ecx,ebx
+  std
+  rep movsb
+  add ebx,[ebp+224]
+  mov [ebx],al
+  inc dword [ebp+1024]
+.P1:
+  mov eax,[ebp+36]
   mov edx,eax
-  mov eax,[ebp+96]
+  mov eax,8
   cmp edx,eax
-  jne .P7
-  mov ebx,[ebp+220]
-  mov eax,[ebx+0]
-  and eax,0x000000ff
+  jae .P4
+  mov eax,[ebp+36]
+  add eax,1
+  mov edx,4
+  mul edx
+  mov [ebp+108],edx
+  mov [ebp+76],eax
+  mov eax,16
+  shl eax,byte 1
+  sub eax,[ebp+76]
+  mov [ebp+76],eax
+  mov ebx,[ebp+40]
+  shl ebx,byte 2
+  add ebx,[ebp+220]
+  mov eax,[ebx]
+  mov cl,[ebp+76]
+  shr eax,cl
+  mov [ebp+96],eax
+  mov eax,[ebp+96]
+  and eax,[ebp+100]
+  mov [ebp+96],eax
+  mov eax,[ebp+96]
+  and eax,eax
+  jz .P2
+  mov eax,1
+  mov [ebp+24],eax
+.P2:
+  mov eax,[ebp+96]
+  mov edx,eax
+  mov eax,10
+  cmp edx,eax
+  jb .P3
+  mov eax,[ebp+36]
+  inc eax
+  mov [ebp+36],eax
+  mov eax,[ebp+96]
+  sub eax,10
+  add eax,65
+  mov ebx,[ebp+1024]
+  mov ecx,[ebp+1024]
+  cmp ecx,[ebp+624]
+  jae _errend
+  mov edi,ecx
+  add edi,[ebp+224]
+  mov esi,edi
+  dec esi
+  sub ecx,ebx
+  std
+  rep movsb
+  add ebx,[ebp+224]
+  mov [ebx],al
+  inc dword [ebp+1024]
+  jmp .P1
+.P3:
+  mov eax,[ebp+36]
+  inc eax
+  mov [ebp+36],eax
+  mov eax,[ebp+24]
   mov edx,eax
   mov eax,0
   cmp edx,eax
-  jne .P7
-  mov eax,2
-  mov [ebp+36],eax
-.P1:
-  mov ebx,[ebp+36]
-  add ebx,[ebp+220]
-  mov ebx,[ebx]
-  and ebx,0x000000ff
-  mov eax,ebx
-  mov edx,eax
-  mov eax,48
-  cmp edx,eax
-  jb .P7
-  mov ebx,[ebp+36]
-  add ebx,[ebp+220]
-  mov ebx,[ebx]
-  and ebx,0x000000ff
-  mov eax,ebx
-  mov edx,eax
-  mov eax,57
-  cmp edx,eax
-  ja .P2
-  mov ebx,[ebp+36]
-  add ebx,[ebp+220]
-  mov ebx,[ebx]
-  and ebx,0x000000ff
-  mov eax,ebx
-  sub eax,48
-  mov [ebp+96],eax
-  mov ebx,[ebp+48]
-  shl ebx,byte 2
+  je .P1
+  mov eax,[ebp+96]
+  add eax,48
+  mov ebx,[ebp+1024]
+  mov ecx,[ebp+1024]
+  cmp ecx,[ebp+624]
+  jae _errend
+  mov edi,ecx
+  add edi,[ebp+224]
+  mov esi,edi
+  dec esi
+  sub ecx,ebx
+  std
+  rep movsb
   add ebx,[ebp+224]
-  mov eax,[ebx]
+  mov [ebx],al
+  inc dword [ebp+1024]
+  jmp .P1
+.P4:
+  mov eax,[ebp+40]
+  and eax,eax
+  jz .P5
+  mov eax,[ebp+40]
+  inc eax
+  mov [ebp+40],eax

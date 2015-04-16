@@ -232,6 +232,9 @@ big_int_input:
   mov eax,[ebp+36]
   inc eax
   mov [ebp+36],eax
+  mov eax,[ebp+48]
+  add eax,1
+  mov [ebp+1024],eax
   mov eax,[ebp+36]
   mov edx,eax
   mov eax,[ebp+1020]
@@ -244,7 +247,7 @@ big_int_input:
   mov edx,eax
   mov eax,8
   cmp edx,eax
-  ja .P5
+  jae .P5
   mov ebx,[ebp+48]
   shl ebx,byte 2
   add ebx,[ebp+224]
@@ -261,14 +264,6 @@ big_int_input:
   mov [ebp+48],eax
   xor eax,eax
   mov [ebp+40],eax
-  mov eax,[ebp+36]
-  inc eax
-  mov [ebp+36],eax
-  mov eax,[ebp+36]
-  mov edx,eax
-  mov eax,[ebp+1020]
-  cmp edx,eax
-  jae .P8
   jmp .P1
 .P6:
   mov eax,4
@@ -283,10 +278,9 @@ big_int_input:
   mov ecx,_M2
   mov edx,_LM2
   int 0x80
-.P8:
-  mov eax,[ebp+48]
-  add eax,1
+  xor eax,eax
   mov [ebp+1024],eax
+.P8:
   ret
 print_big_hex:
   mov byte[ebp+122],1
@@ -296,17 +290,19 @@ print_big_hex:
   add [ebp+1416],dword 100
   mov [ebp+1024],dword 0
   call _addmem
+  mov eax,[ebp+1020]
+  mov edx,eax
+  mov eax,0
+  cmp edx,eax
+  je .P6
   xor eax,eax
   mov [ebp+36],eax
-  mov eax,[ebp+1020]
+  xor eax,eax
   mov [ebp+40],eax
-  mov eax,[ebp+40]
-  dec eax
-  mov [ebp+40],eax
-  mov eax,15
-  mov [ebp+100],eax
   xor eax,eax
   mov [ebp+24],eax
+  mov eax,15
+  mov [ebp+100],eax
   mov eax,48
   mov ebx,[ebp+1024]
   mov ecx,[ebp+1024]
@@ -423,11 +419,15 @@ print_big_hex:
   jmp .P1
 .P4:
   mov eax,[ebp+40]
-  and eax,eax
-  jz .P5
-  mov eax,[ebp+40]
-  dec eax
+  inc eax
   mov [ebp+40],eax
+  xor eax,eax
+  mov [ebp+24],eax
+  mov eax,[ebp+40]
+  mov edx,eax
+  mov eax,[ebp+1020]
+  cmp edx,eax
+  jae .P5
   xor eax,eax
   mov [ebp+36],eax
   jmp .P1
@@ -442,6 +442,7 @@ print_big_hex:
   mov ecx,_M3
   mov edx,_LM3
   int 0x80
+.P6:
   ret
 _addmem:
   push eax

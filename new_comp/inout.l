@@ -1,12 +1,9 @@
-
-
-
-
 main(/)
 	@+F1(100)
 	@+L2(100)
 	/F1<C
 	*big_int_input(L2, F1/L2)
+	*** *printf(Q2/) /'\n'>C
 	*print_big_hex(L2/)
 	**
 
@@ -21,12 +18,12 @@ big_int_input(L2, F1/L2)
 	P3
 		?(F1i<'a')7 ?(F1i>'f')7 F1i-'a'+10=x L2l|x=L2l
 	P4
-		Di ?(i>=Q1)8 Dj ?(j>8)5 L2l<4=L2l ?=1
+		Di l+1=Q2 ?(i>=Q1)8 Dj ?(j>=8)5 L2l<4=L2l ?=1
 	P5
-		Dl Oj Di ?(i>=Q1)8 ?=1
+		Dl Oj ?=1
 	P6
 		/'F1 is empty\n'>C ?=8
 	P7
-		/'ERROR: Not hexadecimal number\n'>C
-	P8 l+1=Q2
+		/'ERROR: Not hexadecimal number\n'>C OQ2
+	P8
 	**
