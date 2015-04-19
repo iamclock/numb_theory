@@ -266,63 +266,6 @@ big_int_input:
   mov eax,[ebp+36]
   inc eax
   mov [ebp+36],eax
-  mov [ebp+48],eax
-.P10:
-  mov ebx,[ebp+48]
-  add ebx,[ebp+220]
-  mov ebx,[ebx]
-  and ebx,0x000000ff
-  mov eax,ebx
-  mov edx,eax
-  mov eax,10
-  cmp edx,eax
-  je .P11
-  mov ebx,[ebp+48]
-  add ebx,[ebp+220]
-  mov ebx,[ebx]
-  and ebx,0x000000ff
-  mov eax,ebx
-  mov edx,eax
-  mov eax,32
-  cmp edx,eax
-  je .P11
-  mov eax,[ebp+48]
-  inc eax
-  mov [ebp+48],eax
-  jmp .P10
-.P11:
-  mov eax,[ebp+48]
-  sub eax,[ebp+36]
-  mov [ebp+48],eax
-  mov eax,[ebp+48]
-  mov ebx,8
-  xor edx,edx
-  div ebx
-  mov [ebp+108],edx
-  mov [ebp+80],eax
-  mov eax,[ebp+80]
-  mov [ebp+1024],eax
-  mov eax,[ebp+48]
-  mov ebx,8
-  xor edx,edx
-  div ebx
-  mov [ebp+108],eax
-  mov eax,edx
-  mov [ebp+80],eax
-  mov eax,[ebp+1024]
-  sub eax,1
-  mov [ebp+48],eax
-  mov eax,[ebp+80]
-  mov edx,eax
-  mov eax,0
-  cmp edx,eax
-  je .P1
-  mov eax,[ebp+48]
-  inc eax
-  mov [ebp+48],eax
-  mov eax,[ebp+48]
-  add eax,1
-  mov [ebp+1024],eax
 .P1:
   mov ebx,[ebp+36]
   add ebx,[ebp+220]
@@ -454,6 +397,9 @@ big_int_input:
   mov eax,[ebp+36]
   inc eax
   mov [ebp+36],eax
+  mov eax,[ebp+48]
+  add eax,1
+  mov [ebp+1024],eax
   mov eax,[ebp+36]
   mov edx,eax
   mov eax,[ebp+1020]
@@ -479,7 +425,7 @@ big_int_input:
   jmp .P1
 .P5:
   mov eax,[ebp+48]
-  dec eax
+  inc eax
   mov [ebp+48],eax
   xor eax,eax
   mov [ebp+40],eax
@@ -500,23 +446,6 @@ big_int_input:
   xor eax,eax
   mov [ebp+1024],eax
 .P8:
-  mov eax,8
-  sub eax,[ebp+40]
-  sub eax,1
-  mov [ebp+40],eax
-  mov eax,[ebp+40]
-  shl eax,byte 2
-  mov [ebp+40],eax
-  mov ebx,[ebp+48]
-  shl ebx,byte 2
-  add ebx,[ebp+224]
-  mov eax,[ebx]
-  mov cl,[ebp+40]
-  shl eax,cl
-  mov ebx,[ebp+48]
-  shl ebx,byte 2
-  add ebx,[ebp+224]
-  mov [ebx],eax
 .P9:
   mov eax,[ebp+36]
   inc eax
@@ -537,8 +466,7 @@ print_big_hex:
   je .P6
   xor eax,eax
   mov [ebp+36],eax
-  mov eax,[ebp+1020]
-  sub eax,1
+  xor eax,eax
   mov [ebp+40],eax
   xor eax,eax
   mov [ebp+24],eax
@@ -660,7 +588,7 @@ print_big_hex:
   jmp .P1
 .P4:
   mov eax,[ebp+40]
-  dec eax
+  inc eax
   mov [ebp+40],eax
   mov eax,[ebp+40]
   mov edx,eax
