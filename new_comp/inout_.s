@@ -308,6 +308,23 @@ big_int_input:
   xor eax,eax
   mov [ebp+1024],eax
 .P8:
+  mov eax,8
+  sub eax,[ebp+40]
+  sub eax,1
+  mov [ebp+40],eax
+  mov eax,[ebp+40]
+  shl eax,byte 2
+  mov [ebp+40],eax
+  mov ebx,[ebp+48]
+  shl ebx,byte 2
+  add ebx,[ebp+224]
+  mov eax,[ebx]
+  mov cl,[ebp+40]
+  shl eax,cl
+  mov ebx,[ebp+48]
+  shl ebx,byte 2
+  add ebx,[ebp+224]
+  mov [ebx],eax
 .P9:
   mov eax,[ebp+36]
   inc eax

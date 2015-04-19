@@ -164,14 +164,14 @@ big_int_input(L2, F1, i/L2, i)
 		/'F1 is empty\n'>C →8
 	§7
 		/'ERROR: Not hexadecimal number\n'>C OQ2
-	§8 ***8-j-1⇒j j<2⇒j L2l<j⇒L2l
+	§8 8-j-1⇒j j<2⇒j L2l<j⇒L2l
 	§9 ∆i **
 
 
 
 
 
-*** ввод большого числа // первый вариант
+*** ввод большого числа // второй вариант
 second_big_int_input(L2, F1, i/L2, i)
 	Oj Ol
 	↑(Q1=0)6
@@ -216,6 +216,12 @@ second_print_big_hex(L1/)
 	§4 ∇j ↑(j≥Q1)5 Oi →1
 	§5 /F2>C /'\n'>C
 	§6 **
+
+
+
+
+
+
 
 *** вывод большого числа в шестнадцатеричном виде // первый вариант
 print_big_hex(L1/)
