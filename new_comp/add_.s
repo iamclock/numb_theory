@@ -14,11 +14,11 @@ _start:
   mov ebx,0
   int 0x80
 main:
-  mov byte[ebp+121],1
+  mov byte[ebp+121],0
   mov ebx,[ebp+1416]
   mov [ebp+220],ebx
-  mov [ebp+620],dword 100
-  add [ebp+1416],dword 100
+  mov [ebp+620],dword 400
+  add [ebp+1416],dword 400
   mov [ebp+1020],dword 0
   call _addmem
   mov byte[ebp+122],0
@@ -28,14 +28,78 @@ main:
   add [ebp+1416],dword 400
   mov [ebp+1024],dword 0
   call _addmem
+  mov byte[ebp+123],1
+  mov ebx,[ebp+1416]
+  mov [ebp+228],ebx
+  mov [ebp+628],dword 100
+  add [ebp+1416],dword 100
+  mov [ebp+1028],dword 0
+  call _addmem
   mov eax,3
   mov ebx,0
-  mov ecx,[ebp+220]
-  add ecx, [ebp+1020]
-  mov edx,[ebp+620]
+  mov ecx,[ebp+228]
+  add ecx, [ebp+1028]
+  mov edx,[ebp+628]
   int 0x80
   dec eax
-  add [ebp+1020],eax
+  add [ebp+1028],eax
+  sub esp,1420
+  push ebp
+  mov edx,esp
+  mov ebx,[ebp+1416]
+  mov [edx+1416],ebx
+  mov al,[ebp+121]
+  mov [edx+122],al
+  mov eax,[ebp+220]
+  mov [edx+224],eax
+  mov eax,[ebp+620]
+  mov [edx+624],eax
+  mov eax,[ebp+1020]
+  mov [edx+1024],eax
+  mov al,[ebp+123]
+  mov [edx+121],al
+  mov eax,[ebp+228]
+  mov [edx+220],eax
+  mov eax,[ebp+628]
+  mov [edx+620],eax
+  mov eax,[ebp+1028]
+  mov [edx+1020],eax
+  mov [edx+36],dword 0
+  mov al,[ebp+121]
+  mov [edx+122],al
+  mov eax,[ebp+220]
+  mov [edx+224],eax
+  mov eax,[ebp+620]
+  mov [edx+624],eax
+  mov eax,[ebp+1020]
+  mov [edx+1024],eax
+  mov ebp,edx
+  call big_int_input
+  mov edx,esp
+  pop ebp
+  add esp,1420
+  mov eax,[edx+1024]
+  mov [ebp+1020],eax
+  mov eax,[edx+36]
+  mov [ebp+36],eax
+  sub esp,1420
+  push ebp
+  mov edx,esp
+  mov ebx,[ebp+1416]
+  mov [edx+1416],ebx
+  mov al,[ebp+121]
+  mov [edx+121],al
+  mov eax,[ebp+220]
+  mov [edx+220],eax
+  mov eax,[ebp+620]
+  mov [edx+620],eax
+  mov eax,[ebp+1020]
+  mov [edx+1020],eax
+  mov ebp,edx
+  call print_big_hex
+  mov edx,esp
+  pop ebp
+  add esp,1420
   sub esp,1420
   push ebp
   mov edx,esp
@@ -49,15 +113,16 @@ main:
   mov [edx+624],eax
   mov eax,[ebp+1024]
   mov [edx+1024],eax
-  mov al,[ebp+121]
+  mov al,[ebp+123]
   mov [edx+121],al
-  mov eax,[ebp+220]
+  mov eax,[ebp+228]
   mov [edx+220],eax
-  mov eax,[ebp+620]
+  mov eax,[ebp+628]
   mov [edx+620],eax
-  mov eax,[ebp+1020]
+  mov eax,[ebp+1028]
   mov [edx+1020],eax
-  mov [edx+36],dword 0
+  mov eax,[ebp+36]
+  mov [edx+36],eax
   mov al,[ebp+122]
   mov [edx+122],al
   mov eax,[ebp+224]
@@ -87,6 +152,79 @@ main:
   mov eax,[ebp+624]
   mov [edx+620],eax
   mov eax,[ebp+1024]
+  mov [edx+1020],eax
+  mov ebp,edx
+  call print_big_hex
+  mov edx,esp
+  pop ebp
+  add esp,1420
+  mov ecx,[ebp+1020]
+  mov [ebp+112],ecx
+  mov esi,[ebp+220]
+  mov edi,ebp
+  sub edi,64
+.M1:
+  mov eax,[esi]
+  mov [edi],eax
+  add esi,4
+  sub edi,4
+  loop .M1
+  mov esi,ebp
+  sub esi,64
+  mov edi,[ebp+224]
+  mov ecx,[ebp+112]
+  cmp ecx,[ebp+1024]
+  jbe .M2
+  mov ecx,[ebp+1024]
+.M2:
+  mov eax,[edi]
+  adc [esi],eax
+  dec esi
+  dec esi
+  dec esi
+  dec esi
+  inc edi
+  inc edi
+  inc edi
+  inc edi
+  loop .M2
+.M3:
+  jnc .M4
+  adc [esi],dword 0
+  dec esi
+  dec esi
+  dec esi
+  dec esi
+  jc .M3
+.M4:
+  mov ecx,[ebp+112]
+  shl ecx,2
+  cmp [ebp+620+0*4],ecx
+  jb _errend
+  mov esi,ebp
+   sub esi,64
+  mov edi,[ebp+220+0*4]
+  shr ecx,2
+.M5:
+  mov eax,[esi]
+  mov [edi],eax
+  sub esi,4
+  add edi,4
+  loop .M5
+  mov ecx,[ebp+112]
+  mov [ebp+1020+0*4],ecx
+  sub esp,1420
+  push ebp
+  mov edx,esp
+  mov ebx,[ebp+1416]
+  mov [edx+1416],ebx
+  mov al,[ebp+121]
+  mov [edx+121],al
+  mov eax,[ebp+220]
+  mov [edx+220],eax
+  mov eax,[ebp+620]
+  mov [edx+620],eax
+  mov eax,[ebp+1020]
   mov [edx+1020],eax
   mov ebp,edx
   call print_big_hex
@@ -362,6 +500,23 @@ big_int_input:
   xor eax,eax
   mov [ebp+1024],eax
 .P8:
+  mov eax,8
+  sub eax,[ebp+40]
+  sub eax,1
+  mov [ebp+40],eax
+  mov eax,[ebp+40]
+  shl eax,byte 2
+  mov [ebp+40],eax
+  mov ebx,[ebp+48]
+  shl ebx,byte 2
+  add ebx,[ebp+224]
+  mov eax,[ebx]
+  mov cl,[ebp+40]
+  shl eax,cl
+  mov ebx,[ebp+48]
+  shl ebx,byte 2
+  add ebx,[ebp+224]
+  mov [ebx],eax
 .P9:
   mov eax,[ebp+36]
   inc eax
