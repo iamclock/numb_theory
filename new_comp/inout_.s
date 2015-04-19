@@ -281,6 +281,23 @@ big_int_input:
   xor eax,eax
   mov [ebp+1024],eax
 .P8:
+  mov eax,8
+  sub eax,[ebp+40]
+  sub eax,1
+  mov [ebp+40],eax
+  mov eax,[ebp+40]
+  shl eax,byte 2
+  mov [ebp+40],eax
+  mov ebx,[ebp+48]
+  shl ebx,byte 2
+  add ebx,[ebp+224]
+  mov eax,[ebx]
+  mov cl,[ebp+40]
+  shl eax,cl
+  mov ebx,[ebp+48]
+  shl ebx,byte 2
+  add ebx,[ebp+224]
+  mov [ebx],eax
   ret
 print_big_hex:
   mov byte[ebp+122],1
@@ -400,6 +417,45 @@ print_big_hex:
   mov eax,0
   cmp edx,eax
   je .P1
+  mov eax,[ebp+1020]
+  sub eax,1
+  mov [ebp+80],eax
+  mov eax,[ebp+40]
+  mov edx,eax
+  mov eax,[ebp+80]
+  cmp edx,eax
+  je .P7
+  mov eax,[ebp+96]
+  add eax,48
+  mov ebx,[ebp+1024]
+  mov ecx,[ebp+1024]
+  cmp ecx,[ebp+624]
+  jae _errend
+  mov edi,ecx
+  add edi,[ebp+224]
+  mov esi,edi
+  dec esi
+  sub ecx,ebx
+  std
+  rep movsb
+  add ebx,[ebp+224]
+  mov [ebx],al
+  inc dword [ebp+1024]
+  jmp .P1
+.P7:
+  mov eax,32
+  sub eax,[ebp+76]
+  sub eax,4
+  mov [ebp+80],eax
+  mov ebx,[ebp+40]
+  shl ebx,byte 2
+  add ebx,[ebp+220]
+  mov eax,[ebx]
+  mov cl,[ebp+80]
+  shl eax,cl
+  mov [ebp+80],eax
+  and eax,eax
+  jz .P4
   mov eax,[ebp+96]
   add eax,48
   mov ebx,[ebp+1024]
@@ -421,8 +477,6 @@ print_big_hex:
   mov eax,[ebp+40]
   inc eax
   mov [ebp+40],eax
-  xor eax,eax
-  mov [ebp+24],eax
   mov eax,[ebp+40]
   mov edx,eax
   mov eax,[ebp+1020]

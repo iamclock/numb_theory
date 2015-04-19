@@ -4,6 +4,7 @@ main(/)
 	/F1<C
 	*big_int_input(L2, F1/L2)
 	*** *printf(Q2/) /'\n'>C
+	*** *printf(L2.8/) /'\n'>C
 	*print_big_hex(L2/)
 	**
 
@@ -25,5 +26,5 @@ big_int_input(L2, F1/L2)
 		/'F1 is empty\n'>C ?=8
 	P7
 		/'ERROR: Not hexadecimal number\n'>C OQ2
-	P8
+	P8 8-j-1=j j<2=j L2l<j=L2l
 	**

@@ -15,10 +15,10 @@ print_big_hex:
   mov [ebp+36],eax
   xor eax,eax
   mov [ebp+40],eax
-  mov eax,15
-  mov [ebp+100],eax
   xor eax,eax
   mov [ebp+24],eax
+  mov eax,15
+  mov [ebp+100],eax
   mov eax,48
   mov ebx,[ebp+1024]
   mov ecx,[ebp+1024]
@@ -79,64 +79,3 @@ print_big_hex:
   and eax,eax
   jz .P2
   mov eax,1
-  mov [ebp+24],eax
-.P2:
-  mov eax,[ebp+96]
-  mov edx,eax
-  mov eax,10
-  cmp edx,eax
-  jb .P3
-  mov eax,[ebp+36]
-  inc eax
-  mov [ebp+36],eax
-  mov eax,[ebp+96]
-  sub eax,10
-  add eax,65
-  mov ebx,[ebp+1024]
-  mov ecx,[ebp+1024]
-  cmp ecx,[ebp+624]
-  jae _errend
-  mov edi,ecx
-  add edi,[ebp+224]
-  mov esi,edi
-  dec esi
-  sub ecx,ebx
-  std
-  rep movsb
-  add ebx,[ebp+224]
-  mov [ebx],al
-  inc dword [ebp+1024]
-  jmp .P1
-.P3:
-  mov eax,[ebp+36]
-  inc eax
-  mov [ebp+36],eax
-  mov eax,[ebp+24]
-  mov edx,eax
-  mov eax,0
-  cmp edx,eax
-  je .P1
-  mov eax,[ebp+96]
-  add eax,48
-  mov ebx,[ebp+1024]
-  mov ecx,[ebp+1024]
-  cmp ecx,[ebp+624]
-  jae _errend
-  mov edi,ecx
-  add edi,[ebp+224]
-  mov esi,edi
-  dec esi
-  sub ecx,ebx
-  std
-  rep movsb
-  add ebx,[ebp+224]
-  mov [ebx],al
-  inc dword [ebp+1024]
-  jmp .P1
-.P4:
-  mov eax,[ebp+40]
-  and eax,eax
-  jz .P5
-  mov eax,[ebp+40]
-  inc eax
-  mov [ebp+40],eax
