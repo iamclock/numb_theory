@@ -158,9 +158,10 @@ big_int_input(L2, F1, i/L2, k)
 	↑(Q1=0)6
 	*** /'i= '>C *printf(i/) /'\n'>C
 	↑(F1i≠'0')7 ∆i ↑(F1i≠'x')7 ∆i⇒l⇒e
+	*** /'e= '>C *printf(e/) /'\n'>C
 	
 	§10 ↑(F1l=10)11 ↑(F1l=' ')11 ∆l →10
-	§11 l⇒k-1⇒i i-2/8⇒Q2 i-2;8⇒t ∆k Ol OL2l ↑(t=0)1 Q2+1⇒Q2
+	§11 l⇒k-1⇒i i-e+1/8⇒Q2 i-e+1;8⇒t ∆k Ol OL2l ↑(t=0)1 Q2+1⇒Q2
 	§1 
 		↑(F1i<'0')7 ↑(F1i>'9')2 F1i-'0'⇒x →4
 	§2
@@ -170,7 +171,7 @@ big_int_input(L2, F1, i/L2, k)
 	§4
 		x<s⇒x s+4⇒s L2l∨x⇒L2l ∇i ↑(i<e)8 ∆j ↑(j≥8)5 →1
 	§5
-		∆l OL2l Oj →1
+		∆l OL2l⇒s⇒j →1
 	§6
 		/'F1 is empty\n'>C →8
 	§7
