@@ -1,81 +1,15 @@
-print_big_hex:
-  mov byte[ebp+122],1
+main:
+  mov byte[ebp+121],1
+  mov ebx,[ebp+1416]
+  mov [ebp+220],ebx
+  mov [ebp+620],dword 100
+  add [ebp+1416],dword 100
+  mov [ebp+1020],dword 0
+  call _addmem
+  mov byte[ebp+122],0
   mov ebx,[ebp+1416]
   mov [ebp+224],ebx
-  mov [ebp+624],dword 100
-  add [ebp+1416],dword 100
+  mov [ebp+624],dword 400
+  add [ebp+1416],dword 400
   mov [ebp+1024],dword 0
   call _addmem
-  mov eax,[ebp+1020]
-  mov edx,eax
-  mov eax,0
-  cmp edx,eax
-  je .P6
-  xor eax,eax
-  mov [ebp+36],eax
-  xor eax,eax
-  mov [ebp+40],eax
-  xor eax,eax
-  mov [ebp+24],eax
-  mov eax,15
-  mov [ebp+100],eax
-  mov eax,48
-  mov ebx,[ebp+1024]
-  mov ecx,[ebp+1024]
-  cmp ecx,[ebp+624]
-  jae _errend
-  mov edi,ecx
-  add edi,[ebp+224]
-  mov esi,edi
-  dec esi
-  sub ecx,ebx
-  std
-  rep movsb
-  add ebx,[ebp+224]
-  mov [ebx],al
-  inc dword [ebp+1024]
-  mov eax,120
-  mov ebx,[ebp+1024]
-  mov ecx,[ebp+1024]
-  cmp ecx,[ebp+624]
-  jae _errend
-  mov edi,ecx
-  add edi,[ebp+224]
-  mov esi,edi
-  dec esi
-  sub ecx,ebx
-  std
-  rep movsb
-  add ebx,[ebp+224]
-  mov [ebx],al
-  inc dword [ebp+1024]
-.P1:
-  mov eax,[ebp+36]
-  mov edx,eax
-  mov eax,8
-  cmp edx,eax
-  jae .P4
-  mov eax,[ebp+36]
-  add eax,1
-  mov edx,4
-  mul edx
-  mov [ebp+108],edx
-  mov [ebp+76],eax
-  mov eax,16
-  shl eax,byte 1
-  sub eax,[ebp+76]
-  mov [ebp+76],eax
-  mov ebx,[ebp+40]
-  shl ebx,byte 2
-  add ebx,[ebp+220]
-  mov eax,[ebx]
-  mov cl,[ebp+76]
-  shr eax,cl
-  mov [ebp+96],eax
-  mov eax,[ebp+96]
-  and eax,[ebp+100]
-  mov [ebp+96],eax
-  mov eax,[ebp+96]
-  and eax,eax
-  jz .P2
-  mov eax,1

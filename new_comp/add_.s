@@ -74,7 +74,7 @@ main:
   mov eax,[ebp+1020]
   mov [edx+1024],eax
   mov ebp,edx
-  call big_int_input
+  call second_big_int_input
   mov edx,esp
   pop ebp
   add esp,1420
@@ -96,7 +96,7 @@ main:
   mov eax,[ebp+1020]
   mov [edx+1020],eax
   mov ebp,edx
-  call print_big_hex
+  call second_print_big_hex
   mov edx,esp
   pop ebp
   add esp,1420
@@ -132,7 +132,7 @@ main:
   mov eax,[ebp+1024]
   mov [edx+1024],eax
   mov ebp,edx
-  call big_int_input
+  call second_big_int_input
   mov edx,esp
   pop ebp
   add esp,1420
@@ -154,7 +154,7 @@ main:
   mov eax,[ebp+1024]
   mov [edx+1020],eax
   mov ebp,edx
-  call print_big_hex
+  call second_print_big_hex
   mov edx,esp
   pop ebp
   add esp,1420
@@ -232,7 +232,7 @@ main:
   pop ebp
   add esp,1420
   ret
-big_int_input:
+second_big_int_input:
   xor eax,eax
   mov [ebp+40],eax
   xor eax,eax
@@ -266,6 +266,63 @@ big_int_input:
   mov eax,[ebp+36]
   inc eax
   mov [ebp+36],eax
+  mov [ebp+48],eax
+.P10:
+  mov ebx,[ebp+48]
+  add ebx,[ebp+220]
+  mov ebx,[ebx]
+  and ebx,0x000000ff
+  mov eax,ebx
+  mov edx,eax
+  mov eax,10
+  cmp edx,eax
+  je .P11
+  mov ebx,[ebp+48]
+  add ebx,[ebp+220]
+  mov ebx,[ebx]
+  and ebx,0x000000ff
+  mov eax,ebx
+  mov edx,eax
+  mov eax,32
+  cmp edx,eax
+  je .P11
+  mov eax,[ebp+48]
+  inc eax
+  mov [ebp+48],eax
+  jmp .P10
+.P11:
+  mov eax,[ebp+48]
+  sub eax,[ebp+36]
+  mov [ebp+48],eax
+  mov eax,[ebp+48]
+  mov ebx,8
+  xor edx,edx
+  div ebx
+  mov [ebp+108],edx
+  mov [ebp+80],eax
+  mov eax,[ebp+80]
+  mov [ebp+1024],eax
+  mov eax,[ebp+48]
+  mov ebx,8
+  xor edx,edx
+  div ebx
+  mov [ebp+108],eax
+  mov eax,edx
+  mov [ebp+80],eax
+  mov eax,[ebp+1024]
+  sub eax,1
+  mov [ebp+48],eax
+  mov eax,[ebp+80]
+  mov edx,eax
+  mov eax,0
+  cmp edx,eax
+  je .P1
+  mov eax,[ebp+48]
+  inc eax
+  mov [ebp+48],eax
+  mov eax,[ebp+48]
+  add eax,1
+  mov [ebp+1024],eax
 .P1:
   mov ebx,[ebp+36]
   add ebx,[ebp+220]
@@ -397,9 +454,6 @@ big_int_input:
   mov eax,[ebp+36]
   inc eax
   mov [ebp+36],eax
-  mov eax,[ebp+48]
-  add eax,1
-  mov [ebp+1024],eax
   mov eax,[ebp+36]
   mov edx,eax
   mov eax,[ebp+1020]
@@ -425,7 +479,7 @@ big_int_input:
   jmp .P1
 .P5:
   mov eax,[ebp+48]
-  inc eax
+  dec eax
   mov [ebp+48],eax
   xor eax,eax
   mov [ebp+40],eax
@@ -467,6 +521,167 @@ big_int_input:
   mov eax,[ebp+36]
   inc eax
   mov [ebp+36],eax
+  ret
+second_print_big_hex:
+  mov byte[ebp+122],1
+  mov ebx,[ebp+1416]
+  mov [ebp+224],ebx
+  mov [ebp+624],dword 100
+  add [ebp+1416],dword 100
+  mov [ebp+1024],dword 0
+  call _addmem
+  mov eax,[ebp+1020]
+  mov edx,eax
+  mov eax,0
+  cmp edx,eax
+  je .P6
+  xor eax,eax
+  mov [ebp+36],eax
+  mov eax,[ebp+1020]
+  sub eax,1
+  mov [ebp+40],eax
+  xor eax,eax
+  mov [ebp+24],eax
+  mov eax,15
+  mov [ebp+100],eax
+  mov eax,48
+  mov ebx,[ebp+1024]
+  mov ecx,[ebp+1024]
+  cmp ecx,[ebp+624]
+  jae _errend
+  mov edi,ecx
+  add edi,[ebp+224]
+  mov esi,edi
+  dec esi
+  sub ecx,ebx
+  std
+  rep movsb
+  add ebx,[ebp+224]
+  mov [ebx],al
+  inc dword [ebp+1024]
+  mov eax,120
+  mov ebx,[ebp+1024]
+  mov ecx,[ebp+1024]
+  cmp ecx,[ebp+624]
+  jae _errend
+  mov edi,ecx
+  add edi,[ebp+224]
+  mov esi,edi
+  dec esi
+  sub ecx,ebx
+  std
+  rep movsb
+  add ebx,[ebp+224]
+  mov [ebx],al
+  inc dword [ebp+1024]
+.P1:
+  mov eax,[ebp+36]
+  mov edx,eax
+  mov eax,8
+  cmp edx,eax
+  jae .P4
+  mov eax,[ebp+36]
+  add eax,1
+  mov edx,4
+  mul edx
+  mov [ebp+108],edx
+  mov [ebp+76],eax
+  mov eax,16
+  shl eax,byte 1
+  sub eax,[ebp+76]
+  mov [ebp+76],eax
+  mov ebx,[ebp+40]
+  shl ebx,byte 2
+  add ebx,[ebp+220]
+  mov eax,[ebx]
+  mov cl,[ebp+76]
+  shr eax,cl
+  mov [ebp+96],eax
+  mov eax,[ebp+96]
+  and eax,[ebp+100]
+  mov [ebp+96],eax
+  mov eax,[ebp+96]
+  and eax,eax
+  jz .P2
+  mov eax,1
+  mov [ebp+24],eax
+.P2:
+  mov eax,[ebp+96]
+  mov edx,eax
+  mov eax,10
+  cmp edx,eax
+  jb .P3
+  mov eax,[ebp+36]
+  inc eax
+  mov [ebp+36],eax
+  mov eax,[ebp+96]
+  sub eax,10
+  add eax,65
+  mov ebx,[ebp+1024]
+  mov ecx,[ebp+1024]
+  cmp ecx,[ebp+624]
+  jae _errend
+  mov edi,ecx
+  add edi,[ebp+224]
+  mov esi,edi
+  dec esi
+  sub ecx,ebx
+  std
+  rep movsb
+  add ebx,[ebp+224]
+  mov [ebx],al
+  inc dword [ebp+1024]
+  jmp .P1
+.P3:
+  mov eax,[ebp+36]
+  inc eax
+  mov [ebp+36],eax
+  mov eax,[ebp+24]
+  mov edx,eax
+  mov eax,0
+  cmp edx,eax
+  je .P1
+  mov eax,[ebp+96]
+  add eax,48
+  mov ebx,[ebp+1024]
+  mov ecx,[ebp+1024]
+  cmp ecx,[ebp+624]
+  jae _errend
+  mov edi,ecx
+  add edi,[ebp+224]
+  mov esi,edi
+  dec esi
+  sub ecx,ebx
+  std
+  rep movsb
+  add ebx,[ebp+224]
+  mov [ebx],al
+  inc dword [ebp+1024]
+  jmp .P1
+.P4:
+  mov eax,[ebp+40]
+  dec eax
+  mov [ebp+40],eax
+  mov eax,[ebp+40]
+  mov edx,eax
+  mov eax,[ebp+1020]
+  cmp edx,eax
+  jae .P5
+  xor eax,eax
+  mov [ebp+36],eax
+  jmp .P1
+.P5:
+  mov eax,4
+  mov ebx,1
+  mov ecx,[ebp+224]
+  mov edx,[ebp+1024]
+  int 0x80
+  mov eax,4
+  mov ebx,1
+  mov ecx,_M3
+  mov edx,_LM3
+  int 0x80
+.P6:
   ret
 print_big_hex:
   mov byte[ebp+122],1
@@ -623,8 +838,8 @@ print_big_hex:
   int 0x80
   mov eax,4
   mov ebx,1
-  mov ecx,_M3
-  mov edx,_LM3
+  mov ecx,_M4
+  mov edx,_LM4
   int 0x80
 .P6:
   ret
@@ -685,3 +900,5 @@ _M2: db  'ERROR: Not hexadecimal number',10,''
 _LM2 equ $-_M2
 _M3: db  '',10,''
 _LM3 equ $-_M3
+_M4: db  '',10,''
+_LM4 equ $-_M4
