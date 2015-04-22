@@ -49,10 +49,10 @@ main(/)
 	***@+L4(100)
 	
 	
-	
 	Oj=s 1=i
-	P1 L2j>s=t Ds ?(t=0)2 t&i=t *printf(t/) ?=1
-	P2 Dj ?(j>=Q2)3 ?=1
+	P1 L2j>s=t Ds ?(s>32)2 ?(t#0)4 Q2-1=l ?(j>=l)3
+	P4 t&i=t *printf(t/) ?=1
+	P2 Dj ?(j>=Q2)3 Os ?=1
 	P3 /'\n'>C **
 	
 	
