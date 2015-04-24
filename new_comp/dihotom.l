@@ -41,7 +41,7 @@ main(/)
 	
 	
 *** Дихотомический алг-тм возведения в степень
-*** L1 - число возводимое в степень, L2 - степень этого числа, L2 - модуль
+*** L1 - число возводимое в степень, L2 - степень этого числа, L3 - модуль
 	dihotom_big_int(L1, L2, L3/L3)
 	@+L5(100)
 	@+L6(100)
@@ -49,8 +49,12 @@ main(/)
 	
 	1=Q5=Q6=Q4=L4.0 Oj
 	L1⇒L6 1⇒L5.0⇒i L2j&1↪3 L1⇒L5 *** /'d L5= '>C *print_big_hex(L5/)
-	§3 i<1⇒i ↑(i>=L2j)4 Q6+Q6+1=l *optimize(L6, l/L6) L6*L6;L3⇒L6 i&L2j↪3 Q5+Q6+1=l *optimize(L5, l/L5) L5*L6;L3⇒L5 ↑(i>=2147483648)4 →3
-	P4 Dj ?(j>=Q2)5 1=i i>1=i
+	§3 i<1⇒i ↑(i=0)4 Q6+Q6+1=l *optimize(L6, l/L6) L6*L6;L3⇒L6
+	*** /'L6= '>C *print_big_hex(L6/)
+	i&L2j↪3 Q5+Q6+1=l *optimize(L5, l/L5) L5*L6;L3⇒L5
+	*** /'L5= '>C *print_big_hex(L5/)
+	→3
+	P4 Dj ?(j>=Q2)5 1=i →3
 	§5 L5=L3 **
 
 *** /'d L5= '>C *print_big_hex(L5/)
