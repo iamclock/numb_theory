@@ -2,28 +2,17 @@ main(/)
 	@+F1(100)
 	@+L2(100)
 	@+L3(100)
+	@+L4(100)
 	
 	
 	/F1<C
 	
-	*** *big_int_input(L2, F1, 0/L2, i)
-	*** *big_int_input(L3, F1, i/L3, i)
-	*scanf(F1, 0, 10/x, i)
-	*test(x, 1/x)
-	*printf(x/) /'\n'>C
+	*big_int_input(L2, F1, 0/L2, i)
+	*print_big_hex(L2/)
+	*big_int_input(L3, F1, i/L3, i)
+	*print_big_hex(L3/)
+	*karatsuba(L2, L3, L4/L4)
 	
-	
-**
-
-
-
-
-
-test(x, y/x)
-	Yx *printf(y/) /' '>C Dy
-	?(x=0)1
-	*test(x, y/x)
-	P1
 **
 
 
@@ -32,10 +21,14 @@ test(x, y/x)
 
 
 
-karatsuba(/)
+
+karatsuba(L1, L2, L3/L3)
+	@+L4(100)
 	
-	
-	
+	Ok Q2/2=L4k
+	?(Q1>Q2)1 Q1/2=L4k
+	P1 Dk
+	=v =u
 	
 	
 	
