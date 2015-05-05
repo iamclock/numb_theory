@@ -29,7 +29,7 @@ karatsuba(L1, L2, L3/L3)
 	
 	
 	
-	16=q Ol Q1=m Q2=n *printf(Q1/) /' '>C *printf(Q2/) /'\n'>C
+	16=q Ol Q1=m Q2=n
 	P1 m=g ?(m>n)2 n=g
 	P2 ?(g<1)5 g=L5l Dl g/2=x g⊕m↦3 x=m ?=4
 	P3 x=n
@@ -43,19 +43,6 @@ karatsuba(L1, L2, L3/L3)
 	P7 /'\n'>C
 	
 	
-	
-	
-	
-	
-	/*
-	16=q Ol
-	P1 Q1=n ?(Q1>Q2)2 Q2=n
-	P2 n/2=L5l Dl
-	
-	16=q Oi=j Q1=L5i Q2=L6j
-	P1 L5i=n Di ?(Q1>Q2)2 L6j=n Yi Dj
-	P2 n/2=L5l Dl
-	*/
 	
 	
 	
