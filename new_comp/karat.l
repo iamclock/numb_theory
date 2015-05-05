@@ -29,10 +29,10 @@ karatsuba(L1, L2, L3/L3)
 	
 	
 	
-	16=q Ol Q1=m Q2=n
+	16=q Ol Q1=m Q2=n *printf(Q1/) /' '>C *printf(Q2/) /'\n'>C
 	P1 m=g ?(m>n)2 n=g
-	P2 ?(g<1)5 g=L5l Dl g/2=L5l g⊕m↦3 L5l=m Dl ?=4
-	P3 L5l=n
+	P2 ?(g<1)5 g=L5l Dl g/2=x g⊕m↦3 x=m ?=4
+	P3 x=n
 	P4 g;2?-1 Dg ?=1
 	
 	
