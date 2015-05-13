@@ -23,6 +23,7 @@ def old_lyapas_sintax_replace(file_from, file_to):
 	much_greater = "≫"
 	much_less = "≪"
 	disunction = "∨"
+	xor = "⊕"
 	x = file_from.read(1)
 	while x != '':
 		if x == '?':
