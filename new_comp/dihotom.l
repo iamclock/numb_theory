@@ -3,25 +3,36 @@ main(/)
 	@+L2(100)
 	@+L3(100)
 	@+L4(100)
+	@+L5(100)
 	
-	*** X=x x;10+5=Q3 *** /'Q3= '>C *printf(Q3/) /'\n'>C /'x= '>C *printf(x/) /'\n'>C
-	*** X=x x;20+1=Q2 *** /'Q2= '>C *printf(Q2/) /'\n'>C /'x= '>C *printf(x/) /'\n'>C
-	*** *big_int_rand(L2/)
+	OQ1 @'0x1ffffffffffffffffffffff'>F1
+	*big_int_input(L3, F1, 0/L3, i)
+	Oi
+	P1 *** X=x x;10+5=Q3 *** /'Q3= '>C *printf(Q3/) /'\n'>C /'x= '>C *printf(x/) /'\n'>C
+		X=x x;20+1=Q2 *** /'Q2= '>C *printf(Q2/) /'\n'>C /'x= '>C *printf(x/) /'\n'>C
+		*big_int_rand(L2/)
 	*** *big_int_rand(L3/)
 	*** /'L2= '>C *print_big_hex(L2/) /'L3= '>C *print_big_hex(L3/)
 	
-	/F1<C
+	***/F1<C
 	
-	*big_int_input(L2, F1, i/L2, i)
+	L2;L3=L2
+	Di
+	
 	*** *print_big_hex(L2/)
-	*big_int_input(L3, F1, i/L3, i)
 	*** *print_big_hex(L3/)
-	*** /'i= '>C *printf(i/)  /'\n'>C
-	*big_int_input(L4, F1, i/L4, i)
-	*** *print_big_hex(L4/)
 	
-	*dihotom_big_int(L2, L3, L4/L4)
-	*print_big_hex(L4/)
+	*dihotom_big_int(L2, L3, L3/L5)
+	/'Experiment #'>C *printf(i/) /'\n'>C
+	 *print_big_hex(L2/)
+	 *print_big_hex(L5/)
+	
+	
+	?(Q5=Q2)1
+	*printf(i/) /'\n'>C
+	*print_big_hex(L3/)
+	*print_big_hex(L2/)
+	*print_big_hex(L5/)
 	*** /'Q3= '>C *printf(Q4/) /'\n'>C
 	
 	
@@ -42,8 +53,7 @@ main(/)
 	
 *** Дихотомический алг-тм возведения в степень
 *** L1 - число возводимое в степень, L2 - степень этого числа, L3 - модуль
-	dihotom_big_int(L1, L2, L3/L3)
-	@+L5(100)
+	dihotom_big_int(L1, L2, L3/L5)
 	@+L6(100)
 	@+L4(100)
 	
@@ -55,7 +65,7 @@ main(/)
 	*** /'L5= '>C *print_big_hex(L5/)
 	P6 Ds i<1⇒i →3
 	P4 Dj ?(j>=Q2)5 Os 1=i →3
-	§5 L5=L3 **
+	§5 **
 
 *** /'d L5= '>C *print_big_hex(L5/)
 *** /'Q5= '>C *printf(Q5/) /' '>C
@@ -67,8 +77,5 @@ optimize(L1, n/L1)
 	Q1=i n=Q1
 	P1 ?(i>n)2 OL1i Di ?=1
 	P2 
-	
-	
-	
 	**
 
