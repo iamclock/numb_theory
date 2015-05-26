@@ -110,12 +110,15 @@ c2n(a/b)
 *** x - число возводимое в степень, y - степень этого числа, m - модуль
 dihotom(x, y, m/z)
 	x⇒q 1⇒z⇒i y&1↪3 x⇒z
-	§3 i<1⇒i ↑(i>y)5 q*q;m⇒q i&y↪3 z*q;m⇒z →3
+	§3 i<1⇒i ↑(i>y)5 q*q;m⇒q *printf(q/) /'\n'>C i&y↪3 z*q;m⇒z *printf(z/) /'\n'>C →3
 	§5 **
 
 
 
-
+dihotom2(x, y/z)
+	x⇒q 1⇒z⇒i y&1↪3 x⇒z
+	§3 i<1⇒i ↑(i>y)5 q*q⇒q *printf(q/) /'\n'>C i&y↪3 z*q⇒z *printf(z/) /'\n'>C →3
+	§5 **
 
 
 
