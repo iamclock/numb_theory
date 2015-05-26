@@ -23,19 +23,16 @@ main(/)
 barmod(b, x, m/r)
 	Oz
 	?(m=0)9 ?(b<3)10
-	80000000h=y Ok Dk
+	80000000h=y Ok
 	*** *printf(m/) /'\n'>C
-	P1 m/b=t Dk ?(t>0)2 ?=1
+	m=t
+	P1 t/b=t Dk ?(t>0)1
 	P2 2*k=t
-	*printf(k/) /'\n'>C
-	*printf(t/) /'\n'>C
 	*dihotom2(b, t/y)
-	*printf(y/) /'\n'>C
 	y/m=z
-	
-	*printf(z/) /'\n'>C
-	
-	
+	k-1=t
+	dihotom2()
+	=q
 	
 	
 	
