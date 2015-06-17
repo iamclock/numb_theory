@@ -11,17 +11,14 @@ main(/)
 	
 	*big_int_input(L2, F1, 0/L2, i)
 	*big_int_input(L3, F1, i/L3, i)
+	?(Q3>Q2)10
 	*bigint_bits_count(L2/k)
 	*bigint_bits_count(L3/l)
-	*printf(k/) /'\n'>C
-	*printf(l/) /'\n'>C
-	*print_big_hex(L2/)
-	*print_big_hex(L3/)
 	?=11
 	
 	
 	
-	*** *barmod(10, 1234, 20/r)
+	*** *barmod(L1, L2, b/r)
 	
 	
 	
@@ -34,12 +31,11 @@ main(/)
 
 ***подсчёт битов в числе
 bigint_bits_count(L1/k)
-	Ok=i ?(Q1=0)4
-	Q1-1=i
-	P1 32=s Ox
-	P2 Ys 1<s=t L1j&t=x /'x= '>C *printf(x/) /'\n'>C s=k ?(x=0)3 Dk ?=4
-	P3 ?(s>0)2
-	P4 i*32+k=k
+	Ok=i ?(Q1=0)3
+	Q1-1=i 32=s
+	P1 Ys 1<s=t L1i&t=x s=k ?(x=0)2 Dk ?=3
+	P2 ?(s>0)1
+	P3 i*32+k=k
 	**
 
 
