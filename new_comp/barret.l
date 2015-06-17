@@ -51,7 +51,8 @@ barmod(L1, L2, b/L4)
 	@+L5(100)
 	@+L6(100)
 	b=L3.0 1=Q3 *print_big_hex(L3/) *bigint_bits_count(L1/k) 1=Q6 2*k=L6.0 *print_big_hex(L6/) *bigint_pow(L3, L6/L5)
-	*print_big_hex(L5/)
+	*printf(Q5/)
+	/'L5= '>C *print_big_hex(L5/)
 	0=L4.0 OQ4
 	
 	
@@ -98,7 +99,7 @@ optimize(L1, n/L1)
 
 
 
-barmod(b, x, m/r)
+barmod_little(b, x, m/r)
 	Oz
 	?(m=0)9 ?(b<3)10
 	80000000h=y Ok
