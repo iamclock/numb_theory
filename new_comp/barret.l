@@ -16,15 +16,17 @@ main(/)
 	*big_int_input(L2, F1, 0/L2, i)
 	*big_int_input(L3, F1, i/L3, i)
 	?(Q3>Q2)10
-	*bigint_bits_count(L2/k)
-	*bigint_bits_count(L3/l)
+	*bigint_bits_count(L2, 4/k)
+	/'k= '>C *printf(k/) /'\n'>C
+	*bigint_bits_count(L3, 4/l)
+	/'l= '>C *printf(l/) /'\n'>C
 	k*2=q
 	?(l>q)10
 	
 	
-	2=b
+	4=b
 	
-	*barmod(L2, L3, b/L4)
+	*** *barmod(L2, L3, b/L4)
 	/'Q4= '>C *printf(Q4/)
 	?=21
 	
@@ -37,11 +39,17 @@ main(/)
 	**
 
 ***подсчёт битов в числе
-bigint_bits_count(L1/k)
+*** L1 - большое число, b - система счисления
+*** сделать подсчёт битов по системе счисления 4=2 бита, 5=3 бита
+bigint_bits_count(L1, b/k)
+	Oy=j b=t
+	P4 t>1=t ?(t=0)5 Dj y<1=y y|1=y ?=4
+	P5
+	/'j= '>C *printf(j/) /'\n'>C
 	Ok=i Q1?-3
 	Q1-1=i 32=s
-	P1 Ys 1<s=t s=k L1i&t=x?-2 Dk ?=3
-	P2 ?(s>0)1
+	P1  y<s=t s=k L1i&t=x?-2 Dk ?=3
+	P2 s-j=s ?(s<32)1
 	P3 i*32+k=k
 **
 
@@ -67,7 +75,10 @@ barmod(L1, L2, b/L4)
 	L1;L5=L8
 	L6*L2=L9 L9;L5=L9
 	
-	?(Q8>=Q9)
+	
+	
+	
+	
 	
 	/'r2= '>C *print_big_hex(L9/)
 	/'r1= '>C *print_big_hex(L8/)
@@ -114,6 +125,75 @@ optimize(L1, n/L1)
 	Q1=i n=Q1
 	P1 ?(i>n)2 OL1i Di ?=1
 	P2 
+**
+
+
+bigint_greater(L1, L2/b)
+	Oj=b Db ?(Q1>Q2)end ?(Q1=Q2)1 ?=preend
+	P1 ?(j>=Q1)preend ?()
+	
+	
+	
+	
+	
+	
+	Ppreend
+	Pend
+**
+
+
+
+bigint_less(L1, L2/b)
+	Oj=b Db ?(Q1<Q2)end ?(Q1=Q2)1 Ob ?=end
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	Pend
+**
+
+
+
+bigint_equals(L1, L2/b)
+	Oj=b Db ?(Q1=Q2)1 ?=2
+	P1 ?(j>=Q1)3 ?(L1j#L2j)2 Dj ?=1
+	P2 Ob
+	P3
+**
+
+
+
+bigint_greq(L1, L2/b)
+	
+	
+	
+	
+	
+	
+	
+	
+	
+**
+
+
+
+bigint_lesseq(L1, L2/b)
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 **
 
 
