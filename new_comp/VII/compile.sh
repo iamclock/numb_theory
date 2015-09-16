@@ -12,6 +12,6 @@ if [ $# -eq 0 ]
 else
 	file_name=$1
 fi
-echo ~/2015/numb_theory/new_comp/for_compile/translator.py $file_name".l"
-echo ~/2015/numb_theory/new_comp/for_compile/ltc $file_name"_.l"
+~/2015/numb_theory/for_compile/translator.py $file_name".l"
+~/2015/numb_theory/for_compile/ltc $file_name"_.l"
 

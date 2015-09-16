@@ -12,7 +12,8 @@ main(/)
 	
 	
 	3=L1.0 5=L1.1 7=L1.2 11=L1.3 4=Q1
-	*trial_division_method(6/)
+	6=k
+	*trial_division_method(k, L1/)
 	
 	
 	
