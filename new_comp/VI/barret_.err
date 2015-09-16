@@ -1,0 +1,58 @@
+bigint_bits_count:
+  xor eax,eax
+  mov [ebp+100],eax
+  mov [ebp+40],eax
+  mov eax,[ebp+8]
+  mov [ebp+80],eax
+.P4:
+  mov eax,[ebp+80]
+  shr eax,byte 1
+  mov [ebp+80],eax
+  mov eax,[ebp+80]
+  mov edx,eax
+  mov eax,0
+  cmp edx,eax
+  je .P5
+  mov eax,[ebp+40]
+  inc eax
+  mov [ebp+40],eax
+  mov eax,[ebp+100]
+  shl eax,byte 1
+  mov [ebp+100],eax
+  mov eax,[ebp+100]
+  or eax,1
+  mov [ebp+100],eax
+  jmp .P4
+.P5:
+  mov eax,4
+  mov ebx,1
+  mov ecx,_M11
+  mov edx,_LM11
+  int 0x80
+  sub esp,1420
+  push ebp
+  mov edx,esp
+  mov ebx,[ebp+1416]
+  mov [edx+1416],ebx
+  mov eax,[ebp+40]
+  mov [edx+44],eax
+  mov ebp,edx
+  call printf
+  mov edx,esp
+  pop ebp
+  add esp,1420
+  mov eax,4
+  mov ebx,1
+  mov ecx,_M12
+  mov edx,_LM12
+  int 0x80
+  xor eax,eax
+  mov [ebp+44],eax
+  mov [ebp+36],eax
+  mov eax,[ebp+1020]
+  and eax,eax
+  jz .P3
+  mov eax,[ebp+1020]
+  sub eax,1
+  mov [ebp+36],eax
+  mov eax,32
