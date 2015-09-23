@@ -14,4 +14,5 @@ else
 fi
 ~/2015/numb_theory/for_compile/translator.py $file_name".l"
 ~/2015/numb_theory/for_compile/ltc $file_name"_.l"
+rm $file_name"_.l" $file_name"_.s"
 
