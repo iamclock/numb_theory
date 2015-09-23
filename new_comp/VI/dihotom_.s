@@ -14,6 +14,18 @@ _start:
   mov ebx,0
   int 0x80
 main:
+  sub esp,1420
+  push ebp
+  mov edx,esp
+  mov ebx,[ebp+1416]
+  mov [edx+1416],ebx
+  mov ebp,edx
+  call main2
+  mov edx,esp
+  pop ebp
+  add esp,1420
+  ret
+main2:
   mov byte[ebp+121],1
   mov ebx,[ebp+1416]
   mov [ebp+220],ebx
@@ -48,6 +60,13 @@ main:
   mov [ebp+636],dword 400
   add [ebp+1416],dword 400
   mov [ebp+1036],dword 0
+  call _addmem
+  mov byte[ebp+126],0
+  mov ebx,[ebp+1416]
+  mov [ebp+240],ebx
+  mov [ebp+640],dword 400
+  add [ebp+1416],dword 400
+  mov [ebp+1040],dword 0
   call _addmem
   xor eax,eax
   mov [ebp+1020],eax
@@ -144,9 +163,55 @@ main:
   xor eax,eax
   mov [ebp+36],eax
 .P1:
-  mov ecx,[ebp+1024]
+  mov eax,4
+  mov ebx,1
+  mov ecx,_M2
+  mov edx,_LM2
+  int 0x80
+  sub esp,1420
+  push ebp
+  mov edx,esp
+  mov ebx,[ebp+1416]
+  mov [edx+1416],ebx
+  mov al,[ebp+122]
+  mov [edx+121],al
+  mov eax,[ebp+224]
+  mov [edx+220],eax
+  mov eax,[ebp+624]
+  mov [edx+620],eax
+  mov eax,[ebp+1024]
+  mov [edx+1020],eax
+  mov ebp,edx
+  call print_big_hex
+  mov edx,esp
+  pop ebp
+  add esp,1420
+  mov eax,4
+  mov ebx,1
+  mov ecx,_M3
+  mov edx,_LM3
+  int 0x80
+  sub esp,1420
+  push ebp
+  mov edx,esp
+  mov ebx,[ebp+1416]
+  mov [edx+1416],ebx
+  mov al,[ebp+123]
+  mov [edx+121],al
+  mov eax,[ebp+228]
+  mov [edx+220],eax
+  mov eax,[ebp+628]
+  mov [edx+620],eax
+  mov eax,[ebp+1028]
+  mov [edx+1020],eax
+  mov ebp,edx
+  call print_big_hex
+  mov edx,esp
+  pop ebp
+  add esp,1420
+  mov ecx,[ebp+1028]
   mov [ebp+112],ecx
-  mov esi,[ebp+224]
+  mov esi,[ebp+228]
   mov edi,ebp
   sub edi,64
 .M1:
@@ -162,12 +227,12 @@ main:
   push edi
   push esi
   mov ecx,[ebp+112]
-  mov eax, [ebp + 1028]
+  mov eax, [ebp + 1024]
   mov edx,eax
   dec edx
   shl edx,2
   xor ebx,ebx
-  mov edi,[ebp+ 228]
+  mov edi,[ebp+ 224]
   add edi,edx
 .M2:
   cmp [edi],ebx
@@ -177,7 +242,7 @@ main:
   jnz .M2
   jmp .M31
 .M3:
-  mov [ebp + 1028],eax
+  mov [ebp + 1024],eax
   cmp [ebp+112],eax
   jae .M_3
   jmp .M30
@@ -193,7 +258,7 @@ main:
   sub esi,64
   sub esi,ebx
   xor edx,edx
-  mov edi,[ebp + 228]
+  mov edi,[ebp + 224]
   mov ebx,[edi]
 .M5:
   mov eax,[esi]
@@ -206,10 +271,10 @@ main:
   mov ecx,1
   jmp  .M30
 .M4:
-  mov ecx,[ebp + 1028]
+  mov ecx,[ebp + 1024]
   dec ecx
   shl ecx,2
-  mov esi,[ebp +228]
+  mov esi,[ebp +224]
   add esi,ecx
   mov ebx,[esi]
   inc ebx
@@ -266,14 +331,14 @@ main:
   cmp eax,1
   je .M10
   sub esi,4
-  mov edi,[ebp+228]
-  mov ecx,[ebp + 1028]
+  mov edi,[ebp+224]
+  mov ecx,[ebp + 1024]
   dec eax
   jnz .M7
 .M10:
   inc dword [ebp+112]
   mov ecx,[ebp+112]
-  sub ecx,[ebp + 1028]
+  sub ecx,[ebp + 1024]
   mov eax,ecx
   dec ecx
   shl ecx,2
@@ -294,7 +359,7 @@ main:
   pop edi
   push edi
   push esi
-  mov ecx,[ebp + 1028]
+  mov ecx,[ebp + 1024]
   mov edx,[edi]
   mov eax,[edi+4]
   mov ebx,[esi]
@@ -377,7 +442,7 @@ main:
   jmp .M26
 .M32:
   push ebx
-  mov ecx,[ebp + 1028]
+  mov ecx,[ebp + 1024]
   pop ebx
   pop edi
   pop eax
@@ -415,7 +480,7 @@ main:
   push esi
   push ebx
   sub esi,4
-  mov ecx, [ebp + 1028]
+  mov ecx, [ebp + 1024]
   mov edx,ecx
   inc ecx
   xor eax,eax
@@ -451,7 +516,7 @@ main:
   push esi
   push edi
   push ebx
-  mov eax, [ebp + 1028]
+  mov eax, [ebp + 1024]
   mov ecx,eax
   shl eax,2
   add esi,eax
@@ -483,7 +548,7 @@ main:
   dec ebx
   push ebx
   push edi
-  mov ecx,[ebp + 1028]
+  mov ecx,[ebp + 1024]
   mov edx,ecx
 .M35:
   mov eax,[esi]
@@ -564,11 +629,11 @@ main:
   pop eax
   mov ecx,[ebp+112]
   shl ecx,2
-  cmp [ebp+620+1*4],ecx
+  cmp [ebp+620+2*4],ecx
   jb _errend
   mov esi,ebp
    sub esi,64
-  mov edi,[ebp+220+1*4]
+  mov edi,[ebp+220+2*4]
   shr ecx,2
 .M38:
   mov eax,[esi]
@@ -577,38 +642,65 @@ main:
   add edi,4
   loop .M38
   mov ecx,[ebp+112]
-  mov [ebp+1020+1*4],ecx
+  mov [ebp+1020+2*4],ecx
   mov eax,[ebp+36]
   inc eax
   mov [ebp+36],eax
+  mov ecx,[ebp+1024]
+  mov [ebp+112],ecx
+  mov esi,[ebp+224]
+  mov edi,ebp
+  sub edi,64
+.M39:
+  mov eax,[esi]
+  mov [edi],eax
+  add esi,4
+  sub edi,4
+  loop .M39
+  mov ecx,[ebp+112]
+  shl ecx,2
+  cmp [ebp+620+5*4],ecx
+  jb _errend
+  mov esi,ebp
+   sub esi,64
+  mov edi,[ebp+220+5*4]
+  shr ecx,2
+.M40:
+  mov eax,[esi]
+  mov [edi],eax
+  sub esi,4
+  add edi,4
+  loop .M40
+  mov ecx,[ebp+112]
+  mov [ebp+1020+5*4],ecx
   sub esp,1420
   push ebp
   mov edx,esp
   mov ebx,[ebp+1416]
   mov [edx+1416],ebx
-  mov al,[ebp+122]
+  mov al,[ebp+123]
   mov [edx+121],al
-  mov eax,[ebp+224]
+  mov eax,[ebp+228]
   mov [edx+220],eax
-  mov eax,[ebp+624]
+  mov eax,[ebp+628]
   mov [edx+620],eax
-  mov eax,[ebp+1024]
+  mov eax,[ebp+1028]
   mov [edx+1020],eax
-  mov al,[ebp+123]
+  mov al,[ebp+122]
   mov [edx+122],al
-  mov eax,[ebp+228]
+  mov eax,[ebp+224]
   mov [edx+224],eax
-  mov eax,[ebp+628]
+  mov eax,[ebp+624]
   mov [edx+624],eax
-  mov eax,[ebp+1028]
+  mov eax,[ebp+1024]
   mov [edx+1024],eax
-  mov al,[ebp+123]
+  mov al,[ebp+126]
   mov [edx+123],al
-  mov eax,[ebp+228]
+  mov eax,[ebp+240]
   mov [edx+228],eax
-  mov eax,[ebp+628]
+  mov eax,[ebp+640]
   mov [edx+628],eax
-  mov eax,[ebp+1028]
+  mov eax,[ebp+1040]
   mov [edx+1028],eax
   mov al,[ebp+125]
   mov [edx+125],al
@@ -627,8 +719,8 @@ main:
   mov [ebp+1036],eax
   mov eax,4
   mov ebx,1
-  mov ecx,_M2
-  mov edx,_LM2
+  mov ecx,_M4
+  mov edx,_LM4
   int 0x80
   sub esp,1420
   push ebp
@@ -644,8 +736,8 @@ main:
   add esp,1420
   mov eax,4
   mov ebx,1
-  mov ecx,_M3
-  mov edx,_LM3
+  mov ecx,_M5
+  mov edx,_LM5
   int 0x80
   sub esp,1420
   push ebp
@@ -683,6 +775,99 @@ main:
   mov edx,esp
   pop ebp
   add esp,1420
+  sub esp,1420
+  push ebp
+  mov edx,esp
+  mov ebx,[ebp+1416]
+  mov [edx+1416],ebx
+  mov eax,[ebp+36]
+  mov [edx+44],eax
+  mov ebp,edx
+  call printf
+  mov edx,esp
+  pop ebp
+  add esp,1420
+  mov eax,4
+  mov ebx,1
+  mov ecx,_M6
+  mov edx,_LM6
+  int 0x80
+  sub esp,1420
+  push ebp
+  mov edx,esp
+  mov ebx,[ebp+1416]
+  mov [edx+1416],ebx
+  mov al,[ebp+123]
+  mov [edx+121],al
+  mov eax,[ebp+228]
+  mov [edx+220],eax
+  mov eax,[ebp+628]
+  mov [edx+620],eax
+  mov eax,[ebp+1028]
+  mov [edx+1020],eax
+  mov ebp,edx
+  call print_big_hex
+  mov edx,esp
+  pop ebp
+  add esp,1420
+  sub esp,1420
+  push ebp
+  mov edx,esp
+  mov ebx,[ebp+1416]
+  mov [edx+1416],ebx
+  mov al,[ebp+122]
+  mov [edx+121],al
+  mov eax,[ebp+224]
+  mov [edx+220],eax
+  mov eax,[ebp+624]
+  mov [edx+620],eax
+  mov eax,[ebp+1024]
+  mov [edx+1020],eax
+  mov ebp,edx
+  call print_big_hex
+  mov edx,esp
+  pop ebp
+  add esp,1420
+  sub esp,1420
+  push ebp
+  mov edx,esp
+  mov ebx,[ebp+1416]
+  mov [edx+1416],ebx
+  mov al,[ebp+125]
+  mov [edx+121],al
+  mov eax,[ebp+236]
+  mov [edx+220],eax
+  mov eax,[ebp+636]
+  mov [edx+620],eax
+  mov eax,[ebp+1036]
+  mov [edx+1020],eax
+  mov ebp,edx
+  call print_big_hex
+  mov edx,esp
+  pop ebp
+  add esp,1420
+  mov eax,4
+  mov ebx,1
+  mov ecx,_M7
+  mov edx,_LM7
+  int 0x80
+  sub esp,1420
+  push ebp
+  mov edx,esp
+  mov ebx,[ebp+1416]
+  mov [edx+1416],ebx
+  mov eax,[ebp+1032]
+  mov [edx+44],eax
+  mov ebp,edx
+  call printf
+  mov edx,esp
+  pop ebp
+  add esp,1420
+  mov eax,4
+  mov ebx,1
+  mov ecx,_M8
+  mov edx,_LM8
+  int 0x80
   ret
 big_int_input:
   xor eax,eax
@@ -926,15 +1111,15 @@ big_int_input:
 .P6:
   mov eax,4
   mov ebx,1
-  mov ecx,_M4
-  mov edx,_LM4
+  mov ecx,_M9
+  mov edx,_LM9
   int 0x80
   jmp .P9
 .P7:
   mov eax,4
   mov ebx,1
-  mov ecx,_M5
-  mov edx,_LM5
+  mov ecx,_M10
+  mov edx,_LM10
   int 0x80
   xor eax,eax
   mov [ebp+1024],eax
@@ -942,12 +1127,173 @@ big_int_input:
 .P8:
   mov eax,4
   mov ebx,1
-  mov ecx,_M6
-  mov edx,_LM6
+  mov ecx,_M11
+  mov edx,_LM11
   int 0x80
   xor eax,eax
   mov [ebp+1024],eax
 .P9:
+  ret
+print_big_hex:
+  mov byte[ebp+122],1
+  mov ebx,[ebp+1416]
+  mov [ebp+224],ebx
+  mov [ebp+624],dword 100
+  add [ebp+1416],dword 100
+  mov [ebp+1024],dword 0
+  call _addmem
+  mov eax,[ebp+1020]
+  mov edx,eax
+  mov eax,0
+  cmp edx,eax
+  je .P6
+  xor eax,eax
+  mov [ebp+36],eax
+  mov [ebp+24],eax
+  mov eax,4
+  mov [ebp+76],eax
+  mov eax,[ebp+1020]
+  sub eax,1
+  mov [ebp+40],eax
+  mov eax,15
+  mov [ebp+100],eax
+  mov eax,48
+  mov ebx,[ebp+1024]
+  mov ecx,[ebp+1024]
+  cmp ecx,[ebp+624]
+  jae _errend
+  mov edi,ecx
+  add edi,[ebp+224]
+  mov esi,edi
+  dec esi
+  sub ecx,ebx
+  std
+  rep movsb
+  add ebx,[ebp+224]
+  mov [ebx],al
+  inc dword [ebp+1024]
+  mov eax,120
+  mov ebx,[ebp+1024]
+  mov ecx,[ebp+1024]
+  cmp ecx,[ebp+624]
+  jae _errend
+  mov edi,ecx
+  add edi,[ebp+224]
+  mov esi,edi
+  dec esi
+  sub ecx,ebx
+  std
+  rep movsb
+  add ebx,[ebp+224]
+  mov [ebx],al
+  inc dword [ebp+1024]
+.P1:
+  mov eax,[ebp+36]
+  mov edx,eax
+  mov eax,8
+  cmp edx,eax
+  jae .P4
+  mov eax,16
+  shl eax,byte 1
+  sub eax,[ebp+76]
+  mov [ebp+80],eax
+  mov ebx,[ebp+40]
+  shl ebx,byte 2
+  add ebx,[ebp+220]
+  mov eax,[ebx]
+  mov cl,[ebp+80]
+  shr eax,cl
+  mov [ebp+96],eax
+  mov eax,[ebp+96]
+  and eax,[ebp+100]
+  mov [ebp+96],eax
+  mov eax,[ebp+76]
+  add eax,4
+  mov [ebp+76],eax
+  mov eax,[ebp+96]
+  and eax,eax
+  jz .P2
+  mov eax,1
+  mov [ebp+24],eax
+.P2:
+  mov eax,[ebp+96]
+  mov edx,eax
+  mov eax,10
+  cmp edx,eax
+  jb .P3
+  mov eax,[ebp+36]
+  inc eax
+  mov [ebp+36],eax
+  mov eax,[ebp+96]
+  sub eax,10
+  add eax,65
+  mov ebx,[ebp+1024]
+  mov ecx,[ebp+1024]
+  cmp ecx,[ebp+624]
+  jae _errend
+  mov edi,ecx
+  add edi,[ebp+224]
+  mov esi,edi
+  dec esi
+  sub ecx,ebx
+  std
+  rep movsb
+  add ebx,[ebp+224]
+  mov [ebx],al
+  inc dword [ebp+1024]
+  jmp .P1
+.P3:
+  mov eax,[ebp+36]
+  inc eax
+  mov [ebp+36],eax
+  mov eax,[ebp+24]
+  mov edx,eax
+  mov eax,0
+  cmp edx,eax
+  je .P1
+  mov eax,[ebp+96]
+  add eax,48
+  mov ebx,[ebp+1024]
+  mov ecx,[ebp+1024]
+  cmp ecx,[ebp+624]
+  jae _errend
+  mov edi,ecx
+  add edi,[ebp+224]
+  mov esi,edi
+  dec esi
+  sub ecx,ebx
+  std
+  rep movsb
+  add ebx,[ebp+224]
+  mov [ebx],al
+  inc dword [ebp+1024]
+  jmp .P1
+.P4:
+  mov eax,[ebp+40]
+  mov edx,eax
+  mov eax,0
+  cmp edx,eax
+  je .P5
+  mov eax,4
+  mov [ebp+76],eax
+  mov eax,[ebp+40]
+  dec eax
+  mov [ebp+40],eax
+  xor eax,eax
+  mov [ebp+36],eax
+  jmp .P1
+.P5:
+  mov eax,4
+  mov ebx,1
+  mov ecx,[ebp+224]
+  mov edx,[ebp+1024]
+  int 0x80
+  mov eax,4
+  mov ebx,1
+  mov ecx,_M12
+  mov edx,_LM12
+  int 0x80
+.P6:
   ret
 dihotom_big_int:
   mov byte[ebp+126],0
@@ -1602,8 +1948,8 @@ dihotom_big_int:
   mov [ebp+1020+5*4],ecx
   mov eax,4
   mov ebx,1
-  mov ecx,_M7
-  mov edx,_LM7
+  mov ecx,_M13
+  mov edx,_LM13
   int 0x80
   sub esp,1420
   push ebp
@@ -2185,8 +2531,8 @@ dihotom_big_int:
   mov [ebp+1020+4*4],ecx
   mov eax,4
   mov ebx,1
-  mov ecx,_M8
-  mov edx,_LM8
+  mov ecx,_M14
+  mov edx,_LM14
   int 0x80
   sub esp,1420
   push ebp
@@ -2268,167 +2614,6 @@ printf:
   mov ecx,[ebp+220]
   mov edx,[ebp+1020]
   int 0x80
-  ret
-print_big_hex:
-  mov byte[ebp+122],1
-  mov ebx,[ebp+1416]
-  mov [ebp+224],ebx
-  mov [ebp+624],dword 100
-  add [ebp+1416],dword 100
-  mov [ebp+1024],dword 0
-  call _addmem
-  mov eax,[ebp+1020]
-  mov edx,eax
-  mov eax,0
-  cmp edx,eax
-  je .P6
-  xor eax,eax
-  mov [ebp+36],eax
-  mov [ebp+24],eax
-  mov eax,4
-  mov [ebp+76],eax
-  mov eax,[ebp+1020]
-  sub eax,1
-  mov [ebp+40],eax
-  mov eax,15
-  mov [ebp+100],eax
-  mov eax,48
-  mov ebx,[ebp+1024]
-  mov ecx,[ebp+1024]
-  cmp ecx,[ebp+624]
-  jae _errend
-  mov edi,ecx
-  add edi,[ebp+224]
-  mov esi,edi
-  dec esi
-  sub ecx,ebx
-  std
-  rep movsb
-  add ebx,[ebp+224]
-  mov [ebx],al
-  inc dword [ebp+1024]
-  mov eax,120
-  mov ebx,[ebp+1024]
-  mov ecx,[ebp+1024]
-  cmp ecx,[ebp+624]
-  jae _errend
-  mov edi,ecx
-  add edi,[ebp+224]
-  mov esi,edi
-  dec esi
-  sub ecx,ebx
-  std
-  rep movsb
-  add ebx,[ebp+224]
-  mov [ebx],al
-  inc dword [ebp+1024]
-.P1:
-  mov eax,[ebp+36]
-  mov edx,eax
-  mov eax,8
-  cmp edx,eax
-  jae .P4
-  mov eax,16
-  shl eax,byte 1
-  sub eax,[ebp+76]
-  mov [ebp+80],eax
-  mov ebx,[ebp+40]
-  shl ebx,byte 2
-  add ebx,[ebp+220]
-  mov eax,[ebx]
-  mov cl,[ebp+80]
-  shr eax,cl
-  mov [ebp+96],eax
-  mov eax,[ebp+96]
-  and eax,[ebp+100]
-  mov [ebp+96],eax
-  mov eax,[ebp+76]
-  add eax,4
-  mov [ebp+76],eax
-  mov eax,[ebp+96]
-  and eax,eax
-  jz .P2
-  mov eax,1
-  mov [ebp+24],eax
-.P2:
-  mov eax,[ebp+96]
-  mov edx,eax
-  mov eax,10
-  cmp edx,eax
-  jb .P3
-  mov eax,[ebp+36]
-  inc eax
-  mov [ebp+36],eax
-  mov eax,[ebp+96]
-  sub eax,10
-  add eax,65
-  mov ebx,[ebp+1024]
-  mov ecx,[ebp+1024]
-  cmp ecx,[ebp+624]
-  jae _errend
-  mov edi,ecx
-  add edi,[ebp+224]
-  mov esi,edi
-  dec esi
-  sub ecx,ebx
-  std
-  rep movsb
-  add ebx,[ebp+224]
-  mov [ebx],al
-  inc dword [ebp+1024]
-  jmp .P1
-.P3:
-  mov eax,[ebp+36]
-  inc eax
-  mov [ebp+36],eax
-  mov eax,[ebp+24]
-  mov edx,eax
-  mov eax,0
-  cmp edx,eax
-  je .P1
-  mov eax,[ebp+96]
-  add eax,48
-  mov ebx,[ebp+1024]
-  mov ecx,[ebp+1024]
-  cmp ecx,[ebp+624]
-  jae _errend
-  mov edi,ecx
-  add edi,[ebp+224]
-  mov esi,edi
-  dec esi
-  sub ecx,ebx
-  std
-  rep movsb
-  add ebx,[ebp+224]
-  mov [ebx],al
-  inc dword [ebp+1024]
-  jmp .P1
-.P4:
-  mov eax,[ebp+40]
-  mov edx,eax
-  mov eax,0
-  cmp edx,eax
-  je .P5
-  mov eax,4
-  mov [ebp+76],eax
-  mov eax,[ebp+40]
-  dec eax
-  mov [ebp+40],eax
-  xor eax,eax
-  mov [ebp+36],eax
-  jmp .P1
-.P5:
-  mov eax,4
-  mov ebx,1
-  mov ecx,[ebp+224]
-  mov edx,[ebp+1024]
-  int 0x80
-  mov eax,4
-  mov ebx,1
-  mov ecx,_M9
-  mov edx,_LM9
-  int 0x80
-.P6:
   ret
 optimize:
   mov eax,[ebp+1020]
@@ -2634,21 +2819,31 @@ _I:
   dd 0x1,0x2,0x4,0x8,0x10,0x20,0x40,0x80,0x100,0x200,0x400,0x800,0x1000,0x2000,0x4000,0x8000
   dd 0x10000,0x20000,0x40000,0x80000,0x100000,0x200000,0x400000,0x800000
   dd 0x1000000,0x2000000,0x4000000,0x8000000,0x10000000,0x20000000,0x40000000,0x80000000
-_M1: db '0x1ffffffffffffffffffffff 0xe92593c7d74c93b4'
+_M1: db '0xE92593C7D74C93B4 0x1ffffffffffffffffffffff'
 _LM1 equ $-_M1
-_M2: db  'Experiment #'
+_M2: db  'L2= '
 _LM2 equ $-_M2
-_M3: db  '',10,''
+_M3: db  'L3= '
 _LM3 equ $-_M3
-_M4: db  'ОШИБКА: Символьный комплекс пустой',10,''
+_M4: db  'Experiment #'
 _LM4 equ $-_M4
-_M5: db  'ОШИБКА: Число не шестнадцатеричное',10,''
+_M5: db  '',10,''
 _LM5 equ $-_M5
-_M6: db  'ОШИБКА: Символьный комплекс закончился.',10,''
+_M6: db  '',10,''
 _LM6 equ $-_M6
-_M7: db  'L6= '
+_M7: db  'Q3= '
 _LM7 equ $-_M7
-_M8: db  'L5= '
+_M8: db  '',10,''
 _LM8 equ $-_M8
-_M9: db  '',10,''
+_M9: db  'ОШИБКА: Символьный комплекс пустой',10,''
 _LM9 equ $-_M9
+_M10: db  'ОШИБКА: Число не шестнадцатеричное',10,''
+_LM10 equ $-_M10
+_M11: db  'ОШИБКА: Символьный комплекс закончился.',10,''
+_LM11 equ $-_M11
+_M12: db  '',10,''
+_LM12 equ $-_M12
+_M13: db  'L6= '
+_LM13 equ $-_M13
+_M14: db  'L5= '
+_LM14 equ $-_M14
