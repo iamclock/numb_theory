@@ -2,7 +2,7 @@
 main(/)
 	
 	
-	*test(/)
+	*test2(/)
 	
 	
 	
@@ -16,6 +16,42 @@ main(/)
 	
 	
 **
+
+
+
+test2(/)
+	@+F1(100)
+	@+L2(100)
+	@+L3(100)
+	@+L4(100)
+	@+L5(100)
+	
+	OQ1 @'0x227DAAF754ED6AE027534ACEC12A8455894A8FEC565A8'>F1
+	*big_int_input(L3, F1, 0/L3, i)
+	***	*big_int_input(L2, F1, i/L2, i)
+	*** /'z = '>C *print_big_hex(L2/)
+	/'q = '>C *print_big_hex(L3/)
+	OQ1 @'0x1ffffffffffffffffffffff'>F1
+	*big_int_input(L5, F1, 0/L5, i)
+	/'m = '>C *print_big_hex(L5/)
+	
+	
+	
+	*** Q2+Q3+1=l *optimize(L3, l/L3) L3*L2=L4
+	*** /'q*z = '>C *print_big_hex(L4/)
+	*** L4;L5=L4
+	*** /'q*z%m = '>C *print_big_hex(L4/)
+	
+	L3;L5=L4
+	/'z%m = '>C *print_big_hex(L4/)
+	
+	
+	
+	
+**
+
+
+
 
 
 test(/)

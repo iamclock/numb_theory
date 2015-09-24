@@ -27,7 +27,8 @@ x = 0xE92593C7D74C93B4
 y = 0x1ffffffffffffffffffffff
 #z = dihotom(x,y,y)
 
-z = 0x1C681D5039DB64C1E40B99C * 0x136D49B73FB874345ADC506
+#z = 0x1C681D5039DB64C1E40B99C * 0x136D49B73FB874345ADC506
+z = 0x227daaf754ed6ae027534acec12a8455894a8fec565a8
 print(hex(z))
 z = z % 0x1ffffffffffffffffffffff
 print(hex(z))
