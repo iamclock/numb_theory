@@ -2,10 +2,9 @@
 main(/)
 	
 	
-	*test2(/)
+	*** *test2(/)
 	
-	
-	
+	*main2(/)
 	
 	
 	
@@ -42,6 +41,8 @@ test2(/)
 	*** L4;L5=L4
 	*** /'q*z%m = '>C *print_big_hex(L4/)
 	
+	L3/L5=L4
+	/'z/m = '>C *print_big_hex(L4/)
 	L3;L5=L4
 	/'z%m = '>C *print_big_hex(L4/)
 	
@@ -102,7 +103,7 @@ main1(/)
 		 X=x x;20+1=Q2 *** /'Q2= '>C *printf(Q2/) /'\n'>C /'x= '>C *printf(x/) /'\n'>C
 		*big_int_rand(L2/)
 		*** *big_int_rand(L3/)
-		 /'L2= '>C *print_big_hex(L2/) /'L3= '>C *print_big_hex(L3/)
+		*** /'L2= '>C *print_big_hex(L2/) /'L3= '>C *print_big_hex(L3/)
 	
 	***/F1<C
 	
@@ -117,13 +118,12 @@ main1(/)
 	*print_big_hex(L2/)
 	*print_big_hex(L5/)
 	
-	
 	?(Q5=Q2)1
 	*printf(i/) /'\n'>C
 	*print_big_hex(L3/)
 	*print_big_hex(L2/)
 	*print_big_hex(L5/)
-	/'Q3= '>C *printf(Q4/) /'\n'>C
+	***/'Q3= '>C *printf(Q4/) /'\n'>C
 	
 	
 	
@@ -211,9 +211,9 @@ main2(/)
 	1=Q5=Q6=Q4=L4.0 Oj
 	L1⇒L6 1⇒L5.0⇒i=s i<1⇒i L2j&1↪3 L1⇒L5
 	§3 ↑(s>=32)4 Q6+Q6+1=l *optimize(L6, l/L6) L6*L6;L3⇒L6
-	 /'L6= '>C *print_big_hex(L6/)
+	  /'L6= '>C *print_big_hex(L6/)
 	i&L2j↪6 Q5+Q6+1=l *optimize(L5, l/L5) L5*L6;L3⇒L5
-	 /'L5= '>C *print_big_hex(L5/)
+	  /'L5= '>C *print_big_hex(L5/)
 	P6 Ds i<1⇒i →3
 	P4 Dj ?(j>=Q2)5 Os 1=i →3
 	§5 *** /'L1= '>C *print_big_hex(L1/) 
