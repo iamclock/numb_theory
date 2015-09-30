@@ -1,0 +1,892 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                    %
+%                                ``SIBECRYPT''                       %
+%                                                                    %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                    %
+%                     copyleft (GPL) K.V. Vorontsov, 2007            %
+%                    copyleft (GPL) D.A. Stephantsov, 2009           %
+%                                                                    %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% standard actions to make the ``documentclass'' file
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{sibecrypt}[2009/21/06 SIBECRYPT]
+
+\ProcessOptions
+
+% the ``Require'' section -- the necessary packages are included
+\RequirePackage[cp1251]{inputenc}
+\RequirePackage[T2A]{fontenc}
+\RequirePackage{amssymb}
+\RequirePackage{amsmath}
+\RequirePackage{mathrsfs}
+\RequirePackage{euscript}
+\RequirePackage[english,russian]{babel}
+\RequirePackage{array}
+\RequirePackage{theorem}
+\RequirePackage[ruled]{algorithm}
+\RequirePackage[noend]{algorithmic}
+\RequirePackage[all]{xy}
+\RequirePackage{graphicx}
+\RequirePackage{color}
+\RequirePackage{ifthen}
+\RequirePackage{url}
+\RequirePackage{makeidx}
+\RequirePackage{pb-diagram}
+\RequirePackage{listings}
+\RequirePackage{fancyhdr}
+\RequirePackage{misccorr}
+\RequirePackage{indentfirst}
+\RequirePackage{tocloft}
+\RequirePackage{soul}
+\RequirePackage{nomencl}
+%\RequirePackage{caption}
+\RequirePackage{float}
+\RequirePackage{subfig}
+\RequirePackage{wrapfig}
+\RequirePackage{textcase}
+\RequirePackage{calc}
+
+% note: abbreviation sbcr is derived from ``SIBECRYPT'' and used in
+% this file as the default prefix for command and variable names
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Solving problems with labels duplication --
+%   -- taken from K.V. Vorontsov's mmro.sty file
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% paper counter
+\newcounter{PaperNo}
+\def\thePaperNo{\arabic{PaperNo}}
+
+% adding the paper counter to the labels names -- this technique
+% will be called private labeling further in the text
+\let\globallabel\label
+\let\globalltx@label\ltx@label
+\let\globalref\ref
+\let\globalpageref\pageref
+\let\globalcitex\@citex
+\let\globalbibitem\bibitem
+\def\sbcr@label#1{\globallabel{#1:\thePaperNo:}}
+\def\sbcr@ref#1{\globalref{#1:\thePaperNo:}}
+\def\sbcr@pageref#1{\globalpageref{#1:\thePaperNo:}}
+\def\sbcr@bibitem#1{\globalbibitem{#1:\thePaperNo:}}
+\def\sbcr@citex[#1]#2{%
+  \let\@citea\@empty
+  \@cite{\@for\@citeb:=#2\do
+    {\@citea\def\@citea{,\penalty\@m\ }%
+     \edef\@citeb{\expandafter\@firstofone\@citeb\@empty:\thePaperNo:}%
+     \if@filesw\immediate\write\@auxout{\string\citation{\@citeb}}\fi
+     \@ifundefined{b@\@citeb}{\mbox{\reset@font\bfseries ?}%
+       \G@refundefinedtrue
+       \@latex@warning{Citation `\@citeb' on page \thepage \space undefined}}%
+       {\hbox{\csname b@\@citeb\endcsname}}}}{#1}%
+}
+
+% command to change default labeling to private labeling
+\newcommand\SetPrivateLabeling{%
+    \let\label\sbcr@label
+    \let\ltx@label\sbcr@label % для корректной работы AmSLaTeX
+    \let\ref\sbcr@ref
+    \let\pageref\sbcr@pageref
+    \let\@citex\sbcr@citex
+    \let\bibitem\sbcr@bibitem
+}
+
+% command to change private labeling to default labeling
+\newcommand\RestoreDefaultLabeling{
+    \let\label\globallabel
+    \let\ltx@label\globalltx@label
+    \let\ref\globalref
+    \let\pageref\globalpageref
+    \let\@citex\globalcitex
+    \let\bibitem\globalbibitem
+}
+
+% actions taken at the beginning of every paper
+\newcommand{\@BeginDocument}{
+  % tuning list appearance
+  \renewcommand{\@listi}{%
+    \topsep=\smallskipamount % around the list
+    \parsep=0pt% between pars inside an item
+    \parskip=0pt% between pars
+    \itemsep=0pt% between items
+    \itemindent=0pt% par indentation
+    \labelsep=1.5ex% space before separator
+    \leftmargin=3.5ex% left margin
+    \rightmargin=0pt} % right margin
+  % list labels tuning
+  \renewcommand{\@listii}{\@listi\topsep=0pt}%
+  \renewcommand{\@listiii}{\@listii}%
+  \renewcommand{\@listiv}{\@listii}%
+  \renewcommand{\labelitemi}{---}%
+  \renewcommand{\labelitemii}{---}%
+  \renewcommand{\labelitemiii}{---}%
+  \renewcommand{\labelitemiv}{---}%
+  \renewcommand{\theenumii}{\asbuk{enumii}}%
+  % refreshing counters
+  \setcounter{section}{0}%
+  \setcounter{equation}{0}%
+  \setcounter{table}{0}%
+  \setcounter{figure}{0}%
+  \setcounter{algorithm}{0}%
+  \setcounter{footnote}{0}%
+  \setcounter{Theorem}{0}%
+  \setcounter{Lemma}{0}%
+  \setcounter{Corollary}{0}%
+  \setcounter{Def}{0}%
+  \setcounter{State}{0}%
+  \setcounter{Axiom}{0}%
+  \setcounter{Hypothesis}{0}%
+  \setcounter{Problem}{0}%
+  \setcounter{Example}{0}%
+  \setcounter{Remark}{0}%
+  \setcounter{State-rm}{0}%
+  \setcounter{Definition}{0}%
+  % the paper counter
+  \refstepcounter{PaperNo}%
+}
+
+% actions taken at the end of every paper
+\newcommand\@EndDocument{}
+
+% environment for arranging multiple papers
+\newenvironment{papers}{%
+    % refreshing paper name
+    \gdef\@paper@name{}%
+    % disabling commands at document's preable
+    \renewcommand{\documentclass}[2][0]{\relax}%
+    \renewcommand{\usepackage}[2][0]{\relax}%
+    \renewcommand\RestoreDefaultLabeling{\relax}%
+    \renewenvironment{document}%
+                     {\SetPrivateLabeling\@clear@title}%
+                     {\@EndDocument\vskip 3ex}%
+    \gdef\sbcrIssueCompilation{None}%
+}{}
+
+% command for adding the paper (used only within papers environment)
+\def\paper#1{%
+    \gdef\@paper@name{#1}%
+    \input{\@paper@name}%
+    \gdef\@paper@name{}%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Tuning the document geometry -- partly taken from ``mmro.sty''
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% interline interval
+\renewcommand{\baselinestretch}{1}
+
+\textheight=245mm
+\headsep=5mm
+\footskip=3mm
+\textwidth=163mm
+\topmargin=-7mm
+\oddsidemargin=0mm
+\evensidemargin=0mm
+\marginparwidth=36pt
+\parindent=3.5ex
+\tolerance=3000
+\hbadness=2000
+\raggedbottom
+
+% deprecating clubs and widows
+\clubpenalty=10000
+\widowpenalty=10000
+
+\def\MinMargins{
+    \textheight=240mm
+    \textwidth=160mm
+    \oddsidemargin=5mm
+    \evensidemargin=5mm
+    \marginparwidth=36pt
+    \topmargin=-10mm
+    \footnotesep=3ex
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Changing footers and headers
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\gdef\@standardHeaderCEtext{Прикладная дискретная математика. Приложение}
+\gdef\@headerCEtext{\@standardHeaderCEtext}
+\gdef\@innertext{}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[CO]{\selectlanguage{russian}{{\footnotesize\it\sffamily \@chapterShortName}}}
+\fancyhead[CE]{\selectlanguage{russian}{{\footnotesize\it\sffamily \@headerCEtext}}}
+\fancyhead[LE,RO]{\selectlanguage{russian}{{\footnotesize\sffamily \thepage}}}
+\fancyhead[RE,LO]{\selectlanguage{russian}{{\footnotesize\it\sffamily \@innertext}}}
+%\renewcommand{\headrulewidth}{0pt}
+
+\fancypagestyle{contents}{%
+  \selectlanguage{russian}
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \fancyhead[RO,LE]{{\selectlanguage{russian}\footnotesize\sffamily \thepage}}
+  \fancyhead[RE,LO]{{\selectlanguage{russian}\footnotesize\it\sffamily Содержание}}
+}
+
+\fancypagestyle{plain}{%
+  \selectlanguage{russian}
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \fancyhead[C]{%
+    \footnotesize\sffamily
+    \MakeUppercase{Прикладная дискретная математика}\\
+    \vspace{4pt}
+    \hrule{}
+    \vspace{2mm}
+    \MakeUppercase{Приложение}
+  }
+  \fancyhead[R]{{\footnotesize\sffamily \sbcrYear}}
+  \fancyhead[L]{{\footnotesize\sffamily \sbcrIssue}}
+  %\fancyfoot[LE,RO]{\selectlanguage{russian}{\thepage}}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Changing sections typesetting -- partly taken from ``mmro.sty''
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newlength\vskipBeforeTitle
+\newlength\vskipAfterTitle
+\newlength\vskipBeforeSection
+\newlength\vskipAfterSection
+\newlength\vskipBeforeSubsection
+\newlength\vskipAfterSubsection
+
+\setlength\vskipBeforeTitle{3ex}
+\setlength\vskipAfterTitle{1ex}
+\setlength\vskipBeforeSection{3mm}
+\setlength\vskipAfterSection{1mm}
+\setlength\vskipBeforeSubsection{1mm}
+\setlength\vskipAfterSubsection{1mm}
+
+\renewcommand{\section}{%
+  \@startsection{section}%
+                {1}%
+                {0mm}%
+                {\vskipBeforeSection}%
+                {\vskipAfterSection}%
+                {\normalfont\bfseries\centering}%
+}
+
+\renewcommand{\subsection}{%
+  \@startsection{subsection}%
+                {2}%
+                {0mm}%
+                {\vskipBeforeSubsection}%
+                {\vskipAfterSubsection}%
+                {\normalfont\centering}%
+}
+
+\let\oldsubsection\subsection
+\renewcommand{\subsection}[1]{\oldsubsection{\so{#1}}}
+
+% dealing with chapters
+\newcounter{ChapterNo}
+\def\theChapterNo{\arabic{ChapterNo}}
+
+\gdef\@chapterName{null chapter name}
+\gdef\@chapterShortName{Неозаглавленная секция}
+
+\newcommand*{\chapter}{\secdef{\chap}{\chaps}}
+\newcommand\chap[3][]{%
+    \refstepcounter{ChapterNo}%
+    \pagebreak%
+    \thispagestyle{plain}%
+    \ifthenelse{\equal{#1}{}}%
+    {%
+    	\gdef\@chapterShortName{#3}%
+        \gdef\@innertext{}%
+        \gdef\@headerCEtext{\@standardHeaderCEtext}%
+    }{%
+    	\gdef\@chapterShortName{#1}%
+        \gdef\@innertext{}%
+        \gdef\@headerCEtext{\@standardHeaderCEtext}%
+    }%
+    \gdef\@chapterFormatName{#2}%
+    \gdef\@chapterName{#3}%
+    % updating table of contents
+    \addtocontents{rucont}{%
+      \vskip \sbcrContBeforeSkip%
+      \protect\begin{center}%
+        {\footnotesize {Секция \theChapterNo}}\par\vskip \sbcrContInterSkip%
+        {\small\bfseries \MakeUppercase{\@chapterName}}%
+      \protect\end{center}%
+      \vskip \sbcrContAfterSkip%
+    }%
+    % updating english abstract list
+    \addtocontents{enabstr}{%
+        \selectlanguage{english}%
+        {\protect\begin{center} {\footnotesize\bfseries\MakeUppercase{Section \theChapterNo}} \protect\end{center}}
+        \selectlanguage{russian}%
+    }
+    % typing the chapter heading
+    \noindent\parbox{\textwidth}{%
+        \vskip 10mm%
+        \centering%
+        \so{Секция \theChapterNo}\par%
+        \vskip 5mm%
+        {\large\bfseries\MakeUppercase{\@chapterFormatName}}%
+        \vskip 10mm%
+    }%
+}
+\newcommand\chaps[3][]{%
+    \pagebreak%
+    \thispagestyle{plain}%
+    \ifthenelse{\equal{#1}{}}%
+    {%
+    	\gdef\@chapterShortName{#3}%
+        \gdef\@innertext{}%
+        \gdef\@headerCEtext{\@standardHeaderCEtext}%
+    }{%
+    	\gdef\@chapterShortName{#1}%
+        \gdef\@innertext{}%
+        \gdef\@headerCEtext{\@standardHeaderCEtext}%
+    }%
+    \gdef\@chapterFormatName{#2}%
+    \gdef\@chapterName{#3}%
+    % updating table of contents
+    \addtocontents{rucont}{\vskip 2mm}%
+    \addcontentsline{rucont}{rupaper}{%
+      {\small \MakeUppercase{\@chapterName}}%
+    }%
+    % typing the chapter heading
+    \noindent\parbox{\textwidth}{%
+        \vskip 10mm%
+        \centering%
+        {\large\bfseries\MakeUppercase{\@chapterFormatName}}%
+    }%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Table of contents
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newlength{\sbcrContBeforeSkip}
+\newlength{\sbcrContInterSkip}
+\newlength{\sbcrContAfterSkip}
+
+\setlength{\sbcrContBeforeSkip}{0mm}
+\setlength{\sbcrContInterSkip}{0mm}
+\setlength{\sbcrContAfterSkip}{0mm}
+
+\newcommand{\setSbcrContTitleSkip}[1]{%
+    \setlength{\cftafterruconttitleskip}{#1}%
+}
+
+\renewcommand{\cftdotsep}{0.5}
+\renewcommand{\@tocrmarg}{5em}
+
+% new list -- table of contents in Russian
+\ifthenelse{\isundefined{\rupapertitle}}{%
+  \newcommand{\rupapertitle}{Содержание}
+  \newlistof{rupaper}{rucont}{\rupapertitle}
+  \renewcommand{\cftruconttitlefont}{\hfill\large\bfseries\MakeUppercase}
+  \renewcommand{\cftafterruconttitle}{\hfill}
+  \setlength{\cftafterruconttitleskip}{0mm}
+}{}
+
+% removing headers from the contents
+\let\old@listofrupaper\listofrupaper
+\renewcommand{\listofrupaper}[0]{%
+  %\gdef\@innertext{Содержание}
+  \gdef\@chapterShortName{Содержание}
+  \gdef\@headerCEtext{Содержание}
+  \tocloftpagestyle{empty}
+  \old@listofrupaper
+  \tocloftpagestyle{plain}
+}
+
+% making header variable definition for table of contents
+%\let\oldlistofrupaper\listofrupaper
+%\renewcommand{\listofrupaper}[0]{%
+%  \gdef\@jpart{contents}
+%  \gdef\@chapterShortName{Содержание}%
+%  \oldlistofrupaper%
+%  \gdef\@jpart{rest}
+%}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Data about the issue
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\gdef\sbcrYear{20XX}
+\gdef\sbcrIssue{\No X(X)}
+
+\newcommand{\setSbcrYear}[1]{\gdef\sbcrYear{#1}}
+\newcommand{\setSbcrIssue}[1]{\gdef\sbcrIssue{#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Data about the paper
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\@clear@title{%
+    \gdef\@author{}%
+    \gdef\@authorrev{}%
+    \gdef\@title{}%
+    \gdef\@titleformat{}%
+    \gdef\@enauthor{}%
+    \gdef\@entitle{}%
+    \gdef\@organization{}%
+    \gdef\@email{}%
+    \gdef\@entitle{}%
+    \gdef\@udk{}%
+}
+\renewcommand{\title}[4][]{%
+    \gdef\@titleformat{#2}%
+    \gdef\@title{#3}%
+    \gdef\@entitle{#4}%
+}
+\renewcommand{\author}[3]{%
+    \gdef\@author{#1}%
+    \gdef\@authorrev{#2}%
+    \gdef\@enauthor{#3}%
+}
+\newcommand{\organization}[1]{\gdef\@organization{#1}}
+\newcommand{\email}[1]{\gdef\@email{#1}}
+\newcommand{\udk}[1]{\gdef\@udk{#1}}
+
+\renewenvironment{abstract}[0]{%
+    \begin{list}{}{\rightmargin=1cm\leftmargin=\rightmargin}\small\item[]\par
+    %\noindent\ignorespaces
+}
+{
+    \end{list}
+    %\par\noindent\ignorespacesafterend
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Heading layout
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand\typeTitle[1]{\textbf{\MakeTextUppercase{#1}}}
+\newcommand\typeAuthor[1]{#1}
+\newcommand\typeOrganization[1]{\small\textit #1}
+\newcommand\typeEmail[1]{\textbf{E-mail:} #1}
+\newcommand\typeUdk[1]{{\footnotesize\MakeUppercase{УДК #1}}}
+
+\def\maketitle{%
+    % starting the document
+    \@BeginDocument%
+    % adding paper to the table of contents
+    \addcontentsline{rucont}{rupaper}{%
+        {\small{\bfseries \@authorrev} \@title}%
+    }\nopagebreak%
+    % typesetting article heading
+    \noindent\typeUdk{\@udk}\par\nopagebreak%
+    {\centering%
+      \vskip 2mm%
+      {\typeTitle{\@titleformat}}\\*
+      \vskip 2mm%
+      {\typeAuthor\@author}\nopagebreak\\*
+    }\vskip 2mm\nopagebreak%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Bibliography layout -- taken from ``mmro.sty'' file
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand\typeBibliography[0]{%
+  \section*{{\normalfont\MakeUppercase{Литература}}}%
+}
+
+\def\BibAuthor#1{\emph{#1}}
+\def\BibTitle#1{#1}
+\def\BibUrl#1{{\small\url{#1}}}
+\def\BibHttp#1{{\small\url{http://#1}}}
+\def\BibFtp#1{{\small\url{ftp://#1}}}
+\def\typeBibItem{\small\sloppy}
+
+\renewenvironment{thebibliography}[1]%
+{\typeBibliography%
+  %\list{\@biblabel{\@arabic\c@enumiv}}{%
+  \list{{\@arabic\c@enumiv}.}{%
+    \settowidth\labelwidth{\@biblabel{#1}}%
+    \leftmargin\labelwidth%
+    \advance\leftmargin by 1ex%
+    \topsep=0pt\parsep=2pt\itemsep=0ex%
+    \@openbib@code%
+    \usecounter{enumiv}%
+    \let\p@enumiv\@empty%
+    \renewcommand\theenumiv{\@arabic\c@enumiv}%
+  }%
+  \typeBibItem%
+}{%
+  \def\@noitemerr{\@latex@warning{Empty `thebibliography' environment}}%
+  \endlist
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Math settings -- taken from ``mmro.sty'' file
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\theoremstyle{plain}
+% putting dot after the theorem number
+\gdef\th@plain{\normalfont
+  \def\@begintheorem##1##2{%
+    \item[\hskip\labelsep\theorem@headerfont \hspace*{5mm} ##1\ ##2. ]}%
+  \def\@opargbegintheorem##1##2##3{%
+    \item[\hskip\labelsep\theorem@headerfont \hspace*{5mm} ##1\ ##2 {\normalfont ##3.} ]}%
+}
+% theorem-like environments
+\theorempreskipamount=\smallskipamount
+\theorempreskipamount=\smallskipamount
+\theorembodyfont{\rmfamily}
+\newtheorem{Theorem}{Теорема}
+\newtheorem{Lemma}{Лемма}
+\newtheorem{State}{Утверждение}
+\newtheorem{Corollary}{Следствие}
+\newtheorem{Def}{Определение}
+\newtheorem{Definition}{Определение}
+\theorembodyfont{\rmfamily}
+\newtheorem{Axiom}{Аксиома}
+\newtheorem{Hypothesis}{Гипотеза}
+\newtheorem{Problem}{Задача}
+\newtheorem{Example}{Пример}
+\newtheorem{Remark}{Замечание}
+\newtheorem{State-rm}{Утверждение}
+% the proof
+\newenvironment{Proof}[0]{%
+    {\itshape\bfseries \hspace*{5mm} Доказательство.}
+}
+{%
+    \qed
+    \vskip 7pt
+}
+% ending of the proof
+\def\qed{\rule{6pt}{6pt}}
+
+\renewcommand{\geq}{\geqslant}
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\ge}{\geqslant}
+\renewcommand{\le}{\leqslant}
+\renewcommand{\emptyset}{\varnothing}
+\renewcommand{\kappa}{\varkappa}
+\renewcommand{\phi}{\varphi}
+\renewcommand{\epsilon}{\varepsilon}
+
+\renewcommand{\vec}[1]{\mathbf{#1}}
+\renewcommand{\complement}{\mathsf{C}}
+\newcommand{\T}{^{\text{\rm т}}}
+
+\newcommand\myop[1]{\mathop{\operator@font #1}\nolimits}
+\newcommand\mylim[1]{\mathop{\operator@font #1}\limits}
+
+\renewcommand\lim{\mylim{lim}}
+\renewcommand\limsup{\mylim{lim\,sup}}
+\renewcommand\liminf{\mylim{lim\,inf}}
+\renewcommand\max{\mylim{max}}
+\renewcommand\min{\mylim{min}}
+\renewcommand\sup{\mylim{sup}}
+\renewcommand\inf{\mylim{inf}}
+\newcommand\argmin{\mylim{arg\,min}}
+\newcommand\argmax{\mylim{arg\,max}}
+\newcommand\Tr{\myop{tr}}
+\newcommand\rank{\myop{rank}}
+\newcommand\diag{\myop{diag}}
+\newcommand\sign{\mylim{sign}}
+\newcommand\const{\myop{const}}
+
+\newcommand{\erf}{\myop{erf}}
+\newcommand{\Expect}{\mathsf{E}}
+\newcommand{\Var}{\mathsf{D}}
+\newcommand\Normal{\mathcal{N}}
+\newcommand{\cond}{\mspace{3mu}{|}\mspace{3mu}}
+
+\def\QQ{\mathbb{Q}}
+\def\RR{\mathbb{R}}
+\def\NN{\mathbb{N}}
+\def\ZZ{\mathbb{Z}}
+\def\LL{\mathbb{L}}
+\def\II{\mathbb{I}}
+\def\DD{\mathbb{D}}
+
+\def\cL{\mathscr{L}}
+\def\cF{\mathscr{F}}
+\def\cG{\mathscr{G}}
+\def\cB{\mathscr{B}}
+\def\cK{\mathscr{K}}
+
+\def\cJ{\mathcal{J}}
+\def\cN{\mathcal{N}}
+
+\def\fF{\mathfrak{F}}
+\def\fI{\mathfrak{I}}
+\def\fM{\mathfrak{M}}
+\def\fR{\mathfrak{R}}
+
+% перенос в формулах с дублированием знака
+\newcommand*{\hm}[1]{#1\nobreak\discretionary{}%
+ {\hbox{$\mathsurround=0pt #1$}}{}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Algorithms typesetting -- taken from ``mmro.sty'' file
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% russian keywords
+\newcommand{\algKeyword}[1]{{\bf #1}}
+\renewcommand{\algorithmicrequire}{\rule{0pt}{2.5ex}\algKeyword{Вход:}}
+\renewcommand{\algorithmicensure}{\algKeyword{Выход:}}
+\renewcommand{\algorithmicend}{\algKeyword{Конец}}
+\renewcommand{\algorithmicif}{\algKeyword{Если}}
+\renewcommand{\algorithmicthen}{\algKeyword{то}}
+\renewcommand{\algorithmicelse}{\algKeyword{иначе}}
+\renewcommand{\algorithmicelsif}{\algorithmicelse\ \algorithmicif}
+\renewcommand{\algorithmicendif}{\algorithmicend\ \algorithmicif}
+\renewcommand{\algorithmicfor}{\algKeyword{Для}}
+\renewcommand{\algorithmicforall}{\algKeyword{Для всех}}
+\renewcommand{\algorithmicdo}{}
+\renewcommand{\algorithmicendfor}{\algorithmicend\ \algorithmicfor}
+\renewcommand{\algorithmicwhile}{\algKeyword{Пока}}
+\renewcommand{\algorithmicendwhile}{\algorithmicend\ \algorithmicwhile}
+\renewcommand{\algorithmicloop}{\algKeyword{Цикл}}
+\renewcommand{\algorithmicendloop}{\algorithmicend\ \algorithmicloop}
+\renewcommand{\algorithmicrepeat}{\algKeyword{Повторять}}
+\renewcommand{\algorithmicuntil}{\algKeyword{Пока}}
+%\renewcommand{\algorithmiccomment}[1]{{\footnotesize // #1}}
+\renewcommand{\algorithmiccomment}[1]{{\quad\sl // #1}}
+\renewcommand{\algorithmicreturn}[1]{\algKeyword{Вернуть}}
+\renewcommand{\algorithmicprint}[1]{\algKeyword{Вывести}}
+
+% additional commands
+\newcommand{\Procedure}[1]{{\tt #1}}
+\newcommand{\Proc}[1]{\text{\tt #1}}
+\def\BEGIN{\\[1ex]\hrule\vskip 1ex}
+\def\PARAMS{\renewcommand{\algorithmicrequire}{\algKeyword{Параметры:}}\REQUIRE}
+\def\END{\vskip 1ex\hrule\vskip 1ex}
+%\def\RETURN{\algKeyword{вернуть} }
+\def\EXIT{\algKeyword{Выход}}
+\def\IFTHEN#1{\STATE\algorithmicif\ #1 {\algorithmicthen}}
+\def\PROCEDURE#1{\medskip\STATE\algKeyword{ПРОЦЕДУРА} \Procedure{#1}}
+
+\renewcommand{\listalgorithmname}{Список алгоритмов}
+\floatname{algorithm}{Алгоритм}
+\floatplacement{algorithm}{htp}
+
+% to place the dot after the algorithm name
+\renewcommand\floatc@ruled[2]{\vskip2pt\textbf{#1.} #2\par}
+
+% referencing to the algorithm lines
+\newenvironment{Algorithm}[1][H]%
+{\begin{algorithm}[#1]\begin{algorithmic}[1]%
+  \renewcommand{\ALC@it}{%
+    \refstepcounter{ALC@line}%
+    \addtocounter{ALC@rem}{1}%
+    \ifthenelse{\equal{\arabic{ALC@rem}}{1}}{\setcounter{ALC@rem}{0}}{}%
+    \item}}%
+{\end{algorithmic}\end{algorithm}}
+
+% putting dot after the algorithm number in caption
+%\renewcommand{\thealgorithm}{\arabic{algorithm}.}
+\captionsetup[algorithm]{labelsep={period}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Diagram drawing -- taken from ``mmro.sty'' file
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newenvironment{network}%
+    {\catcode`"=12\begin{xy}<1ex,0ex>:}%
+    {\end{xy}\catcode`"=13}
+\def\nnNode"#1"(#2)#3{\POS(#2)*#3="#1"}
+\def\nnLink"#1,#2"#3{\POS"#1"\ar #3 "#2"}
+\def\nnSig{%
+    \underline{{}^\sigma\:\mathstrut}\vrule%
+    \overline{\phantom{()}}}
+\def\nnTheta{%
+    \underline{{}^\theta\:\mathstrut}\vrule%
+    \overline{\phantom{()}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Authors list
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\renewenvironment{thenomenclature}{%
+  \let\olditem\item%
+  \renewcommand{\item}[2][0]{##1 ##2 \par\vskip 3mm}%
+  \begin{list}{}{\leftmargin=0pt}\olditem[]\par%
+}{%
+  \end{list}%
+  \let\item\olditem%
+}
+
+\newenvironment{authors}[0]{%
+  \let\olditem\item
+  \ifthenelse{\isundefined{\sbcrIssueCompilation}}%
+    {\renewcommand*{\item}{\secdef{\itmc}{\itmcs}}}%
+    {\renewcommand*{\item}{\secdef{\itm}{\itms}}}
+  \newcommand{\itm}[4][]{%
+    \ifthenelse{\equal{##4}{}}{%
+      \nomenclature{%
+      	\vskip -5mm%
+        {\footnotesize {\textbf{##2}} --- ##3.}%
+      }{}
+    }{%
+      \nomenclature{%
+      	\vskip -5mm%
+        {\footnotesize {\textbf{##2}} --- ##3. E-mail: \textbf{##4}}%
+      }{}
+    }
+  }
+  \newcommand{\itms}[4][]{%
+    \ifthenelse{\equal{##4}{}}{%
+      \nomenclature{%
+      	\vskip -5mm%
+        {\footnotesize {\textbf{##2}} --- ##3.}%
+      }{}
+    }{%
+      \nomenclature{%
+      	\vskip -5mm%
+        {\footnotesize {\textbf{##2}} --- ##3.\protect\\* E-mail: \textbf{##4}}%
+      }{}
+    }
+  }
+  \newcommand{\itmc}[4][]{%
+    \vskip 2mm%
+    \noindent%
+    \ifthenelse{\equal{##4}{}}{%
+      {\small {\textbf{##2}} --- ##3.}%
+    }{%
+      {\small {\textbf{##2}} --- ##3. E-mail: \textbf{##4}}%
+    }
+  }
+  \newcommand{\itmcs}[4][]{%
+    \vskip 2mm%
+    \noindent%
+    \ifthenelse{\equal{##4}{}}{%
+      {\small {\textbf{##2}} --- ##3.}%
+    }{%
+      {\small {\textbf{##2}} --- ##3.\protect\\* E-mail: \textbf{##4}}%
+    }
+  }
+}
+{%
+  \let\item\olditem
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Abstract in English
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ifthenelse{\isundefined{\enabstrtitle}}{%
+  \newlistof{enabstr}{enabstr}{}
+}
+
+\newcommand{\enabstract}[1]{%
+  \addtocontents{enabstr}{%
+    \selectlanguage{english}%
+    {\it \@enauthor} {\bf\MakeUppercase{\@entitle.}} #1\par\vskip 2mm%
+    \selectlanguage{russian}%
+  }%
+  \ifthenelse{\isundefined{\sbcrIssueCompilation}}%
+    {%
+      \selectlanguage{english}%
+      \vskip 2mm%
+      \noindent%
+      {\it \@enauthor} {\bf\MakeUppercase{\@entitle.}} #1\par\vskip 2mm%
+      \selectlanguage{russian}%
+    }{}%
+}
+
+\newcommand{\ruabstract}[1]{%
+  \addtocontents{enabstr}{%
+    \selectlanguage{russian}%
+    {\it \@enauthor} {\bf\MakeUppercase{\@entitle.}} #1\par\vskip 2mm%
+  }%
+}
+
+\newcommand{\keywords}[1]{%
+    % дополнительный вертикальный отступ от текста аннотации
+    \vspace{2mm} \\
+    \textbf{Ключевые слова:} \textit{#1}
+}
+\newcommand{\enkeywords}[1]{%
+    \\
+    \textbf{Keywords:} \textit{#1}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Miscelanea
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\RequirePackage{caption}
+
+\newcommand{\headline}{\hline\rule{0pt}{2.5ex}}
+\renewcommand\emph[1]{\textit{#1}}
+\newcommand\brop[1]{#1\discretionary{}{\hbox{$#1$}}{}}
+
+\lstset{%
+    numbers=left,
+    %frame=lines,
+    breaklines=true,
+    captionpos=b,
+    columns=fixed,
+    flexiblecolumns=false,
+    keepspaces=true,
+    basicstyle={\small\ttfamily},
+    keywordstyle={\small\ttfamily\bfseries},
+    xleftmargin=1cm,
+    xrightmargin=1cm,
+    float,
+    escapeinside={(*@}{@*)},
+    aboveskip=2ex,
+    belowskip=1ex,
+    showstringspaces=false,
+    float=tbhp,
+    tabsize=4,
+}
+\renewcommand{\lstlistingname}{Листинг}
+\captionsetup[table]{width={\textwidth-5cm}}
+\captionsetup[figure]{width={\textwidth-5cm}}
+\captionsetup[table]{%
+    position=above,
+    labelfont={small},
+    textfont={small,bf},
+    %singlelinecheck=false,
+    justification=centering,
+    labelsep=newline,
+    labelformat=sbcrTableLabel,
+    %name={\hfill\so{Таблица }},
+}
+\DeclareCaptionLabelFormat{sbcrTableLabel}{\hfill\so{Таблица }#2}
+\captionsetup[figure]{%
+    position=below,
+    labelfont={small},
+    textfont={small},
+    %justification=centering,
+    format=hang,
+    labelsep=period,
+}
+\captionsetup[lstlisting]{%
+    labelsep=period,
+    labelfont={small},
+    textfont={small},
+}
+
+\newenvironment{enumerate*}
+{%
+    \begingroup
+    \renewcommand{\@listi}{%
+        \topsep=\smallskipamount%
+        \parsep=0pt%
+        \parskip=0pt%
+        \itemsep=0pt%
+        \itemindent=0ex%
+        \labelsep=1.5ex%
+        \leftmargin=7ex%
+        \rightmargin=0pt}%
+    \begin{enumerate}%
+    \renewcommand\labelenumi{\theenumi)}%
+}{%
+    \end{enumerate}%
+    \endgroup
+}
+
+% subfigures
+\renewcommand{\thesubfigure}{\asbuk{subfigure}}
+\captionsetup[subfigure]{labelformat={simple},labelfont={it,rm,md}}
