@@ -1,9 +1,17 @@
 
 main(/)
+	*** @+F1(200)
+	
+	*** OQ1 @'0xE92593C7D74C93B4 0x1ffffffffffffffffffffff'>F1
+	*** 5=l
+	
+	*** *printf(F1l/) /'\n'>C
 	
 	
 	*** *test2(/)
 	
+	
+
 	*main2(/)
 	
 	
@@ -152,6 +160,10 @@ main2(/)
 	
 	***#1
 	OQ1 @'0xE92593C7D74C93B4 0x1ffffffffffffffffffffff'>F1
+	
+	
+	
+	
 	*big_int_input(L3, F1, 0/L3, i)
 	*big_int_input(L2, F1, i/L2, i)
 	Oi
@@ -211,9 +223,9 @@ main2(/)
 	1=Q5=Q6=Q4=L4.0 Oj
 	L1⇒L6 1⇒L5.0⇒i=s i<1⇒i L2j&1↪3 L1⇒L5
 	§3 ↑(s>=32)4 Q6+Q6+1=l *optimize(L6, l/L6) L6*L6;L3⇒L6
-	  /'L6= '>C *print_big_hex(L6/)
+	   /'L6= '>C *print_big_hex(L6/)
 	i&L2j↪6 Q5+Q6+1=l *optimize(L5, l/L5) L5*L6;L3⇒L5
-	  /'L5= '>C *print_big_hex(L5/)
+	   /'L5= '>C *print_big_hex(L5/)
 	P6 Ds i<1⇒i →3
 	P4 Dj ?(j>=Q2)5 Os 1=i →3
 	§5 *** /'L1= '>C *print_big_hex(L1/) 
