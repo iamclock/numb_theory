@@ -133,6 +133,21 @@ pervec(F1/F1)
 
 
 
+barret_alg(x, m, b, z/r)
+	?(4>b)5 Ok=r m=t
+	
+	P1 ?(t=0)2 t/b=t Dk ?=1
+	P2
+	k-1=t
+	*dihotom2(b, t/t)
+	x/t*z=q k+1=p
+	*dihotom2(b, p/t)
+	q/p=q x;t=e q*m;t=w
+	?(e>=w)3 e-w=r ?=4
+	P3 t+e-w=r
+	P4 ?(r<m)6 r-m=r ?=4
+	P5 /'ERROR: Третий аргумент должен быть больше 3'>C /'\n'>C
+	P6 **
 
 
 div_mul_test(L1, L2/L3)
