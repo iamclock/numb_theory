@@ -43,6 +43,7 @@ karat(u, v, b/z)
 	P5
 	*** /'n = '>C *printf(n/) /'\n'>C
 	n/2=i
+	?(i=0)6
 	*dihotom2(b, i/j)
 	u;j=t
 	v;j=k
@@ -67,13 +68,13 @@ karat(u, v, b/z)
 	m-x-y=m
 	/'m = '>C *printf(m/) /'\n'>C
 	
-	
+	P6
 	n;2=w
-	?(w=0)6 Dn
+	?(w=0)7 Dn
 	/'t = '>C *printf(t/) /'\n'>C
 	/'k = '>C *printf(k/) /'\n'>C
-	P6
-	n/2=i
+	P7
+	***n/2=i
 	
 	*dihotom2(b, n/z) z*x=z
 	/'z = '>C *printf(z/) /'\n'>C
