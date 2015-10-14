@@ -162,7 +162,8 @@ trial_division_method(n/L2)
 *** l - указывает на последнее обращённое число
 *** функция используется в trial_division_method для маленьких чисел
 recalc_efficients(L1/L1)
-	Q1⇒t t-1⇒l t;2⇒t Oi L1l⇒l 4⇒d
+	*** Q1⇒t t-1⇒l t;2⇒t L1l⇒l 4⇒d Oi
+	Q1⇒t-1⇒l t;2⇒t L1l⇒l 4⇒d Oi
 	↑(t≠0)2
 	§1 2⇒d
 	§2 l+d⇒L1i⇒l ∆i d;4+2⇒d ↑(i<Q1)2 *** Oi

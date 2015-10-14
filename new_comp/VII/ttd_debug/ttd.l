@@ -1,6 +1,3 @@
-
-
-
 main(/)
 	@+L2(10)
 	
@@ -10,7 +7,7 @@ main(/)
 	
 	
 	
-	752323=k
+	81=k
 	*trial_division_method(k/L2)
 	
 	Oi
@@ -58,7 +55,7 @@ trial_division_method(n/L2)
 *** l - указывает на последнее обращённое число
 *** функция используется в trial_division_method на маленьком числе
 recalc_efficients(L1/L1)
-	Q1=t t-1=l t;2=t Oi L1l=l 4=d
+	Q1=t-1=l t;2=t L1l=l 4=d Oi
 	?(t#0)2
 	P1 2=d
 	P2 l+d=L1i=l Di d;4+2=d ?(i<Q1)2 Oi
