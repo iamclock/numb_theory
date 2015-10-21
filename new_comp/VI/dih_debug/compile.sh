@@ -15,7 +15,8 @@ if [ $# -eq 0 ]
 else
 	file_name=$1
 fi
-~/2015/numb_theory/for_compile/translator.py $file_name".l"
-~/2015/numb_theory/for_compile/ltc $file_name"_.l"
+var=`basename $file_name .l`
+~/2015/numb_theory/for_compile/translator.py $file_name
+~/2015/numb_theory/for_compile/ltc $var"_.l"
 #~/2015/numb_theory/new_comp/VI/dih_debug/ltc $file_name"_.l"
-rm $file_name"_.l" $file_name"_.s"
+#rm $var"_.l" $var"_.s"

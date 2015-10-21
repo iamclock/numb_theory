@@ -8,10 +8,11 @@ main(/)
 	*** *printf(F1l/) /'\n'>C
 	
 	
-	*** *test2(/)
+	*** *test(/)
 	
 	
 
+	***
 	*main2(/)
 	
 	
@@ -83,8 +84,8 @@ test(/)
 	
 	Q2+Q3+1=l *optimize(L3, l/L3) L3*L2=L4
 	/'q*z = '>C *print_big_hex(L4/)
-	L4;L5=L4
-	/'q*z%m = '>C *print_big_hex(L4/)
+	L4/L5=L4
+	/'q*z/m = '>C *print_big_hex(L4/)
 	
 	
 **
@@ -215,16 +216,30 @@ main2(/)
 *** Дихотомический алг-тм возведения в степень
 *** L1 - число возводимое в степень, L2 - степень этого числа, L3 - модуль
 *** L6 - q, L5 - z 
+*** убрать optimize, сделать, чтобы не было больше 2ух модулей
+*** операции над большими числами не изменяют мощность комплексов из-за этого происходит переполнение массива
 	dihotom_big_int(L1, L2, L3/L5)
-	@+L6(100)
+	2*Q3=w
+	@+L6(w)
 	@+L4(100)
 	*** /'Function Dihotom:\n'>C
 	
 	1=Q5=Q6=Q4=L4.0 Oj
 	L1⇒L6 1⇒L5.0⇒i=s i<1⇒i L2j&1↪3 L1⇒L5
-	§3 ↑(s>=32)4 Q6+Q6+1=l *optimize(L6, l/L6) L6*L6;L3⇒L6
+	§3 ↑(s>=32)4 Q6+Q6+1=l *** *optimize(L6, l/L6)
+		 L6*L6;L3⇒L6
 	   /'L6= '>C *print_big_hex(L6/)
-	i&L2j↪6 Q5+Q6+1=l *optimize(L5, l/L5) L5*L6;L3⇒L5
+	i&L2j↪6 Q5+Q6+1=l
+		 *printf(l/) /'\n'>C
+		 *printf(L3.0/) *printf(L3.1/) *printf(L3.2/) /'\n'>C
+		 *optimize(L5, l/L5)
+		 /'HERE\n'>C
+		 /'L5= '>C *print_big_hex(L5/)
+		 /'L6= '>C *print_big_hex(L6/)
+		 /'Q3 = '>C *printf(Q3/) /'\n'>C
+		 
+		 /'L3= '>C *print_big_hex(L3/)
+		 L6*L5;L3⇒L5
 	   /'L5= '>C *print_big_hex(L5/)
 	P6 Ds i<1⇒i →3
 	P4 Dj ?(j>=Q2)5 Os 1=i →3
