@@ -16,7 +16,7 @@ else
 	file_name=$1
 fi
 var=`basename $file_name .l`
-~/2015/numb_theory/for_compile/translator.py $file_name
-~/2015/numb_theory/for_compile/ltc $var"_.l"
+~/2016/numb_theory/for_compile/translator.py $file_name
+~/2016/numb_theory/for_compile/ltc $var"_.l"
 rm $var"_.s" $var"_.l"
 

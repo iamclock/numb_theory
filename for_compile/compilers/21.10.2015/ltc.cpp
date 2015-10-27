@@ -775,20 +775,6 @@ vector<string> SubProgram(string name, vector<string> functions, map<string, str
 			stext = stext + "  jmp .P" + tmp1[3] + "\n";
 			continue;
 		}
-		/*
-		tmp1 = GetStr("^[[:space:]]*↪([0-9]+)", code); 
-		if(tmp1[0] != "$$$") { // Переход по нулю
-			code = tmp1[2];
-			stext = stext + "  and eax,eax\n  jz .P" + tmp1[3] + "\n";
-			continue;
-		}
-		tmp1 = GetStr("^[[:space:]]*↦([0-9]+)", code); 
-		if(tmp1[0] != "$$$") { // Переход по единице
-			code = tmp1[2];
-			stext = stext + "  and eax,eax\n  jnz .P" + tmp1[3] + "\n";
-			continue;
-		}
-		*/
 		tmp1 = GetStr("^[[:space:]]*↪([0-9]+)", code); 
 		if(tmp1[0] != "$$$") { // Переход по нулю
 			code = tmp1[2];

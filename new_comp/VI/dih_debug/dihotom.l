@@ -220,7 +220,7 @@ main2(/)
 *** операции над большими числами не изменяют мощность комплексов из-за этого происходит переполнение массива
 	dihotom_big_int(L1, L2, L3/L5)
 	2*Q3=w
-	@+L6(w)
+	@+L6(100)
 	@+L4(100)
 	*** /'Function Dihotom:\n'>C
 	
@@ -230,15 +230,15 @@ main2(/)
 		 L6*L6;L3⇒L6
 	   /'L6= '>C *print_big_hex(L6/)
 	i&L2j↪6 Q5+Q6+1=l
-		 *printf(l/) /'\n'>C
-		 *printf(L3.0/) *printf(L3.1/) *printf(L3.2/) /'\n'>C
-		 *optimize(L5, l/L5)
-		 /'HERE\n'>C
-		 /'L5= '>C *print_big_hex(L5/)
-		 /'L6= '>C *print_big_hex(L6/)
-		 /'Q3 = '>C *printf(Q3/) /'\n'>C
+		 *** *printf(l/) /'\n'>C
+		 *** *printf(L3.0/) *printf(L3.1/) *printf(L3.2/) /'\n'>C
+		 *** *optimize(L5, l/L5)
+		 *** /'HERE\n'>C
+		 *** /'L5= '>C *print_big_hex(L5/)
+		 *** /'L6= '>C *print_big_hex(L6/)
+		 *** /'Q3 = '>C *printf(Q3/) /'\n'>C
 		 
-		 /'L3= '>C *print_big_hex(L3/)
+		 *** /'L3= '>C *print_big_hex(L3/)
 		 L6*L5;L3⇒L5
 	   /'L5= '>C *print_big_hex(L5/)
 	P6 Ds i<1⇒i →3
