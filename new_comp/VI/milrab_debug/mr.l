@@ -2,22 +2,27 @@ main(/)
 	
 	@+L1(100)
 	@+L2(100)
-	@+F3(100)
+	*** @+F3(100)
 	
-	OQ3 @'0xFF443 0xFF443'>F3
+	*** OQ3 @'0xFF443 0xFF443'>F3
 	
-	OQ1=Q2=i
-	*big_int_input(L1, F3, i/L1, i)
-	*big_int_input(L2, F3, i/L2, i)
-	
-	*** 96557
-	*** 524287
-	*** 6679881
-	*** 2147483647
-	*** 1073676287
+	*** OQ1=Q2=i
+	*** *big_int_input(L1, F3, i/L1, i)
+	*** *big_int_input(L2, F3, i/L2, i)
 	
 	
-	*miral(6679881, 3/)
+	
+	*** 6679881 - не простое число
+	*** 96558 - не простое число
+	*** 524287 - простое число
+	*** 2147483647 - простое число
+	*** 1073676287 - простое число
+	6679881=n
+	OQ1
+	*trial_division_method(n/L1)
+	/'Q1 = '>C *printf(Q1/) /'\n'>C
+	
+	*miral(n, 32/)
 	
 **
 
@@ -28,19 +33,29 @@ main(/)
 
 
 miral(n, r/)
+	@+L1(20)
+	@+L2(20)
+	*** @+L3(20)
+	OQ1=Q2 ***=Q3
 	n-1=m Oq=s Dq
 	P1 ?(q>m)2 q<1=q Ds m;q=t ?(t#0)2 ?=1
-	P2 q>1=q Ys ***/'q = '>C *printf(q/) /'\n'>C
-	m/q=t
-	*** /'s = '>C *printf(s/) /'\n'>C
-	*** /'t = '>C *printf(t/) /'\n'>C
-	P3 m-1=a X;a=a ?(a<2)3
-	*** /'a = '>C *printf(a/) /'\n'>C
-	*** не работает pow2, найти ошибку
-	*** pow2(a,t,m)
-	
-	
-	
+	P2 q>1=q Ys /'q = '>C *printf(q/) /'\n'>C
+		 m/q=t
+		 /'s = '>C *printf(s/) /'\n'>C
+		 /'t = '>C *printf(t/) /'\n'>C
+		Oi=j
+	P3 ?(i>=r)6 m-1=a X;a=a ?(a<2)3
+		 /'a = '>C *printf(a/) /'\n'>C
+		 *pow(a, t, m/x) Di
+		 ?(x=1)3 ?(x=m)3
+	P4 ?(j>=s)3
+		 x=L1.0 n=L2.0 1=Q1=Q2
+		 /'x = '>C *printf(x/) /'\n'>C
+		 /'m = '>C *printf(m/) /'\n'>C
+		 L1*L1;L2=L1 L1.0=x ?(x=1)5 ?(x=m)3 Dj ?=4
+	P5 /'Составное\n'>C ?=7
+	P6 /'Вероятно простое\n'>C
+	P7
 **
 
 
