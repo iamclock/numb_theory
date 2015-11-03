@@ -77,6 +77,7 @@ printf(k/)
 
 Hprintf(a/)
 	@+F1(100)
+	@'0x'>F1
 	Oi 15⇒y Of
 	§1 ↑(i≥8)4
 			i+1*4⇒s
@@ -85,7 +86,8 @@ Hprintf(a/)
 			↑(x=0)2 1⇒f
 	§2 ↑(x<10)3 ∆i x-10+'A'@>F1 →1
 	§3 ∆i ↑(f=0)1 x+'0'@>F1 →1
-	§4 /F1>C
+	§4 ↑(Q1=2)5 /F1>C
+	§5
 **
 
 
@@ -122,9 +124,10 @@ pow(x, y/z)
 **
 
 pow2(x, y, m/z)
-	x⇒q 1⇒z⇒i y&1↪3 x⇒z
-	§3 i<1⇒i /'i = '>C *printf(i/) /'\n'>C ↑(i>y)5 q*q;m⇒q /'q = '>C *printf(q/) /'\n'>C
-		 i&y↪3 z*q;m⇒z /'z = '>C *printf(z/) /'\n'>C
+	Oj ∆j x⇒q 1⇒z⇒i y&1↪3 x⇒z
+	§3 i<1⇒i /'j = '>C *printf(j/) /'\n'>C ∆j
+		 ↑(i>y)5 q*q;m⇒q /'q = '>C *Hprintf(q/) /'\n'>C
+		 i&y↪3 z*q;m⇒z /'z = '>C *Hprintf(z/) /'\n'>C
 		 →3
 	§5
 **
@@ -292,15 +295,15 @@ HprintfBN(L1/)
 
 *** Дихотомический алг-тм возведения в небольшую степень большого числа
 *** L1 - число возводимое в степень, y - степень этого числа, L2 - модуль
-powBN1(L1, y, L2/L2)
-	@+L4(100)
+powBN1(L1, y, L2/L4)
+	*** @+L4(100)
 	@+L5(100)
 	@+L3(100)
 	
 	1⇒Q4⇒Q5⇒Q3 1⇒L3.0
-	L1⇒L5 1⇒L4.0⇒i /'d L5= '>C *HprintfBN(L5/) y&1↪3 L1⇒L4 /'d L4= '>C *HprintfBN(L4/)
-	§3 i<1⇒i ↑(i>y)5 Q5+Q5+1⇒Q3 L3*L5*L5;L2⇒L5 /'Q5= '>C *printf(Q5/) /'\n'>C i&y↪3 Q4+Q5+1⇒Q3 L3*L4*L5;L2⇒L4 /'d L4= '>C *HprintfBN(L4/) →3
-	§5 L4⇒L2
+	L1⇒L5 Q2+Q2⇒l *optimize(L5, l/L5) *optimize(L4, l/L4) 1⇒L4.0⇒i /'L5= '>C *HprintfBN(L5/) /'\n'>C y&1↪3 *optimize(L4, l/L4) L1⇒L4 /'L4= '>C *HprintfBN(L4/) /'\n'>C
+	§3 i<1⇒i ↑(i>y)5 L5*L5;L2⇒L5 /'Q5= '>C *printf(Q5/) /'\n'>C i&y↪3 L4*L5;L2⇒L4 /'L4= '>C *HprintfBN(L4/) /'\n'>C →3
+	§5 L4 *** ⇒L2
 **
 
 
