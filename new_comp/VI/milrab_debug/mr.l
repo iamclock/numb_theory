@@ -4,7 +4,7 @@ main(/)
 	
 	*testcz(/)
 	*** *testmr(/)
-	
+	*testmrBN(/)
 	
 	
 	
@@ -20,13 +20,13 @@ testcz(/)
 	@+F3(100)
 	
 	OQ3=Q1=i
-	@'0x'>F3
-	@'0x'>F3
-	@'0x'>F3
-	@'0x'>F3
-	@'0x'>F3
+	*** @'0x'>F3
+	*** @'0x'>F3
+	*** @'0x'>F3
+	*** @'0x'>F3
+	*** @'0x'>F3
 	
-	*inputBN(L1, F3, i/L1, i)
+	*** *inputBN(L1, F3, i/L1, i)
 	/'Q1 = '>C *printf(Q1/) /'\n'>C
 	*countZeroesBN(L1/s)
 	/'s = '>C *printf(s/) /'\n'>C
@@ -41,21 +41,20 @@ testmrBN(/)
 	@+L2(100)
 	@+F3(100)
 	
-	
-	OQ3 @'0xFF443 0xFF443'>F3
+	*** '0x1ffffffffffffffffffffff' - простое число
+	OQ3 @'0x1ffffffffffffffffffffff'>F3
 	
 	OQ1=Q2=i
 	*inputBN(L1, F3, i/L1, i)
+	*** *inputBN(L2, F3, i/L2, i)
 	
 	32=L2.0 1=Q2
 	
 	*miralBN(L1, L2/b)
 	
 	
-	
-	
-	
 **
+
 
 
 testmr(/)
@@ -88,6 +87,7 @@ testmr(/)
 
 *** miller-rabin-algorithm()
 *** L2 - количество раундов, есть ли смысл делать большим числом?
+*** может ли степень s быть больше 32 бит?
 *** L1 - n простое нечётное число
 *** 
 *** 
@@ -98,21 +98,23 @@ miralBN(L1, L2/b)
 	@+L4(20) *** q
 	@+L5(20) *** t
 	@+L6(20) *** i, промежуточный комплекс
-	@+L7(20) *** j
+	@+L7(20) *** a
+	@+L8(20) *** 
+	@+L9(20) *** 
+	@+L10(20) *** x
+	*** @+L11(20) *** j
 	
-	1=L3.0 2=L6.0=L4.0 1=Q7=Q4 Ob
+	
+	1=L3.0 2=L6.0=L4.0 1=Q6=Q4 Ob
 	Q1=Q3 L1-L3=L3 *** L3 теперь m = n-1 (L1-1)
 	*countZeroesBN(L3/s) 
 	*powBN2(L4, L6/L4) L3/L4=L5
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	OL6.0=j=L7.0 1=Q7=Q8=L9.0=Q9 2=L8.0
+	P1 BN_greq(L6, L2/b) ?(b=1)4 L7+L8=L7
+		 *powBN(L7, L5, L1/L10) L6+L9=L6
+		 BN_eq(L10, L9/b) ?(b=1) 1=j
+		 BN_eq(L10, L3/b) ?(b=1)
+		 
 	
 	
 **
@@ -163,7 +165,7 @@ miral(n, r/b)
 		 *** /'i = '>C *printf(i/) /'\n'>C
 		 *** /'a = '>C *printf(a/) /'\n'>C
 		 *pow(a, t, n/x) Di
-		 ?(x=1)1 Dj ?(x=m)1
+		 ?(x=1)1 1=j ?(x=m)1
 	P2 ?(j>=s)3
 		 *** x=L1.0 n=L2.0 1=Q1=Q2
 		 *** /'x = '>C *printf(x/) /'\n'>C
