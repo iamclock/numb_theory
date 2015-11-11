@@ -12,14 +12,94 @@ main(/)
 	
 	*** *testcz(/)
 	*** *testmr(/)
-	*testmrBN(/)
-	
-	
+	*** *testmrBN(/)
+	*** *testpow(/)
+	*testMul(/)
 	
 	
 	
 **
 
+
+testMul(/)
+	@+L1(100)
+	@+L2(100)
+	@+L4(100)
+	@+F3(100)
+	OQ3 @'0x10000000000000000'>F3
+	*inputBN(L1, F3, 0/L1, i)
+	OQ3 @'0x8000000000000000'>F3
+	*inputBN(L2, F3, 0/L2, i)
+	OQ3 @'0x1ffffffffffffffffffffff'>F3
+	*inputBN(L4, F3, 0/L4, i)
+	/'L1 = '>C *HprintfBN(L1/) /'\n'>C
+	/'L2 = '>C *HprintfBN(L2/) /'\n'>C
+	/'L4 = '>C *HprintfBN(L4/) /'\n'>C
+	*** 50=Q1 L1*L2=L1;L4=L1
+	L2;L4=L1
+	
+	/'L1 = '>C *HprintfBN(L1/) /'\n'>C
+	
+**
+
+
+testpow(/)
+	@+L1(100)
+	@+L2(100)
+	@+L3(100)
+	@+L4(100)
+	@+F5(100)
+	
+	*** OQ5 @'0x7ffffffffffffffffffffffffff'>F5
+	OQ5 @'0x1ffffffffffffffffffffff'>F5
+	*** OQ5 @''>F5
+	*inputBN(L2, F5, 0/L2, i)
+	
+	OQ5 @'0x2'>F5
+	*inputBN(L1, F5, 0/L1, i)
+	*** /'Q1 = '>C *printf(Q1/) /'\n'>C
+	
+	*** *powBN_t(L1, L2, L2/L3)
+	*dihotom_big_int(L1, L2, L2/L3)
+	
+	
+	/'L3 = '>C *HprintfBN(L3/) /'\n'>C
+	
+	
+**
+
+powBN_t(L1, L2, L3/L4)
+	@+L5(100)
+	
+	1⇒Q4⇒Q5 Oj
+	L1⇒L5 Q3+Q3⇒l *optimize(L5, 50/L5) *optimize(L4, 50/L4) 1⇒L4.0⇒i⇒s i<1⇒i L2j&1↪1 L1⇒L4 *optimize(L4, 50/L4)
+	§1 ↑(s≥32)3 L5*L5;L3⇒L5
+	   *** /'L5= '>C *HprintfBN(L5/) /'\n'>C
+	   *** /'Q5 = '>C *printf(Q5/) /'\n'>C
+		 i&L2j↪2 L5*L4;L3⇒L4
+	   *** /'L4= '>C *HprintfBN(L4/) /'\n'>C
+	§2 ∆s i<1⇒i →1
+	§3 ∆j ↑(j≥Q2)4 Os 1⇒i →1
+	§4 *cutZerosBN(L4/L4)
+**
+
+dihotom_big_int(L1, L2, L3/L5)
+	@+L6(100)
+	@+L4(100)
+	
+	1=Q5=Q6=Q4=L4.0 Oj
+	L1⇒L6 Q3+Q3=l *optimize(L6, l/L6) *optimize(L5, l/L5) 1⇒L5.0⇒i=s i<1⇒i L2j&1↪3 L1⇒L5 *optimize(L5, l/L5)
+	§3 ↑(s>=32)4
+		 /'[before] L6= '>C *HprintfBN(L6/) /'\n'>C
+		 L6*L6;L3⇒L6
+	   /'L6= '>C *HprintfBN(L6/) /'\n'>C
+	   /'L5= '>C *HprintfBN(L5/) /'\n'>C
+	i&L2j↪6 L6*L5;L3⇒L5
+	   /'L5= '>C *HprintfBN(L5/) /'\n'>C
+	P6 Ds i<1⇒i →3
+	P4 Dj ?(j>=Q2)5 Os 1=i →3
+	§5 *cutZerosBN(L5/L5) *** *big_int_cut_zeros(L5/L5)
+**
 
 
 testcz(/)
@@ -125,15 +205,22 @@ miralBN(L1, L2/b)
 	*powBN2(L4, L6/L4) L3/L4=L4
 	OL6.0=j=L7.0 1=Q7=Q8
 	P1 2=L8.0 *BN_greq(L6, L2/c) ?(c=1)4 L7+L8=L7
-		 *** /'L6 = '>C *HprintfBN(L6/) /'\n'>C
+		 /'L6 = '>C *HprintfBN(L6/) /'\n'>C
+		 /'L7 = '>C *HprintfBN(L7/) /'\n'>C
+		 /'L4 = '>C *HprintfBN(L4/) /'\n'>C
+		 /'L1 = '>C *HprintfBN(L1/) /'\n'>C
 		 *powBN(L7, L4, L1/L10) 1=L8.0 L6+L8=L6
-		 *** /'L10 = '>C *HprintfBN(L10/) /'\n'>C
-		 *** /'L8 = '>C *HprintfBN(L8/) /'\n'>C
+		 /'L7^L4 mod L1 = '>C *HprintfBN(L10/) /'\n'>C
+		 **** /'L8 = '>C *HprintfBN(L8/) /'\n'>C
 		 *** /'L3 = '>C *HprintfBN(L3/) /'\n'>C
 		 *BN_eq(L10, L8/c) ?(c=1)1 1=j
 		 *BN_eq(L10, L3/c) ?(c=1)1
 	P2 ?(j>=s)3
+		 /'L10 = '>C *HprintfBN(L10/) /'\n'>C
+		 /'L8 = '>C *HprintfBN(L8/) /'\n'>C
+		 /'L1 = '>C *HprintfBN(L1/) /'\n'>C
 		 2=L8.0 *powBN(L10, L8, L1/L10) 1=L8.0
+		 /'L10^L8 mod L1 = '>C *HprintfBN(L10/) /'\n'>C
 		 *BN_eq(L10, L8/c) ?(c=1)3 Dj *BN_eq(L10, L3/c) ?(c=1)4 ?=2
 	P3 ?=5 *** /'Составное\n'>C ?=5
 	P4 Db *** /'Вероятно простое\n'>C

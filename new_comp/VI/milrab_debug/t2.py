@@ -14,20 +14,20 @@ def dihotom(x, y, m):
 	y >>= 1
 	j = 1
 	while y:
-		print("j= "+str(j))
+		#print("j= "+str(j))
 		q = q*q % m
-		print("q= "+str(hex(q))[:2]+str(hex(q))[2:].upper())
+		print("L6= "+str(hex(q))[:2]+str(hex(q))[2:].upper())
 		if y&1:
 			z = z*q % m
-			print("z= "+str(hex(z))[:2]+str(hex(z))[2:].upper())
+			print("L5= "+str(hex(z))[:2]+str(hex(z))[2:].upper())
 		y = y >> 1
 		j += 1
 		#print("L6= "+str(hex(q))[:2]+str(hex(q))[2:].upper())
 	return z
 
 
-x = 1183550335
-y = 2147483647 #536870911
+x = 2
+y = 0x7ffffffffffffffffffffffffff#2147483647 #536870911
 
 
 _z = dihotom(x,y,y)
