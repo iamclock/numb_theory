@@ -14,10 +14,29 @@ main(/)
 	*** *testmr(/)
 	*** *testmrBN(/)
 	*** *testpow(/)
-	*testMul(/)
+	*** *testMul(/)
+	*** вывод списка простых чисел от 3 до 32 бит
+	*randPrimesList(3/L1)
+	Oi Q1-1=w
+	P1 /'L1.'>C *printf(i/) /' = '>C *printf(L1i/) /'\n'>C ?(i>w)2 Di ?=1
+	P2
 	
+	*** *miral(3, 45/b)
+	*** *printf(b/) /'\n'>C
 	
-	
+**
+
+
+randPrimesList(k/L1)
+	Oi ?(k>32)3
+	P1
+		 32-k=t X
+		 X<t=q q>t=t
+		 /'t = '>C *printf(t/) /'\n'>C
+		 *miral(t, 5/b)
+		 t=L1i ?(b=0)2 Di i=Q1 /'Q1 = '>C *printf(Q1/) /'\n'>C
+	P2 ?(Q1=10)3 ?=1
+	P3
 **
 
 
