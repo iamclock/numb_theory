@@ -16,13 +16,13 @@ main(/)
 	*** *testpow(/)
 	*** *testMul(/)
 	*** вывод списка простых чисел от 3 до 32 бит
-	*** *randPrimesList(3/L1)
-	*** Oi Q1-1=w
-	*** P1 /'L1.'>C *printf(i/) /' = '>C *printf(L1i/) /'\n'>C ?(i>w)2 Di ?=1
-	*** P2
+	*randPrimesList(16/L1)
+	Oi
+	P1 /'L1.'>C *printf(i/) /' = '>C *printf(L1i/) /'\n'>C Di ?(i<Q1)1
+	P2
 	
-	*miral(4, 5/b)
-	*printf(b/) /'\n'>C
+	*** *miral(17, 5/b)
+	*** *printf(b/) /'\n'>C
 	
 **
 
@@ -30,12 +30,12 @@ main(/)
 randPrimesList(k/L1)
 	Oi ?(k>32)3
 	P1
-		 32-k=t X
+		 32-k=t X<25
 		 X<t=q q>t=t
-		 /'t = '>C *printf(t/) /'\n'>C
+		 *** /'t = '>C *printf(t/) /'\n'>C
 		 *miral(t, 5/b)
-		 t=L1i ?(b=0)2 Di i=Q1 /'Q1 = '>C *printf(Q1/) /'\n'>C
-	P2 ?(Q1=10)3 ?=1
+		 t=L1i ?(b=0)2 Di i=Q1 *** /'Q1 = '>C *printf(Q1/) /'\n'>C
+	P2 ?(Q1=20)3 ?=1
 	P3
 **
 
@@ -262,17 +262,17 @@ miral(n, r/b)
 	*** /'q = '>C *printf(q/) /'\n'>C
 	*** /'s = '>C *printf(s/) /'\n'>C
 	*** /'t = '>C *printf(t/) /'\n'>C
-	Oi=j 1=a
-	P1 ?(i>=r)4 m-1=c a+1=a;c=c
-		 ?(c=0)4 *** убрать сравнение надо для прохождения числа 3
+	Oi=j=a Da
+	P1 ?(i>=r)4 m-1=c Da a;c=c
+		 *** ?(c=0)4 *** убрать сравнение. Здесь для прохождения числа 3
 		 *** m-1=a X;a=a ?(a<2)1 *** поиск псевдослучайного значения от 2 до n-2
-		 *pow(a, t, n/x) a+1=a *** a+1 нужно для выполнения условия a = 2, 3, 5, 7,...
+		 *pow(a, t, n/x) Da *** Da нужно для выполнения условия a = 2, 3, 5, 7,...
 		 *** /'i = '>C *printf(i/) /'\n'>C
 		 *** /'a = '>C *printf(a/) /'\n'>C
 		 *** /'t = '>C *printf(t/) /'\n'>C
 		 *** /'x = '>C *printf(x/) /'\n'>C
 		 Di
-		 ?(x=1)1 1=j ?(x=m)1 *** /'t = '>C *printf(t/) /'\n'>C
+		 ?(x=1)1 ?(x=m)1 1=j *** /'t = '>C *printf(t/) /'\n'>C
 	P2 ?(j>=s)3
 		 *** /'s = '>C *printf(s/) /'\n'>C
 		 *** /'j = '>C *printf(j/) /'\n'>C
