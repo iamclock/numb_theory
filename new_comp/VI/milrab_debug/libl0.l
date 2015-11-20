@@ -139,8 +139,12 @@ pow1(x, y/L1)
 **
 
 pow2(x, y, m/z)
-	Oj ∆j x⇒q 1⇒z⇒i y&1↪3 x⇒z
-	§3 i<1⇒i /'j = '>C *printf(j/) /'\n'>C ∆j
+	Oj ∆j x;m⇒q 1⇒z⇒i y&1↪3 q⇒z
+	§3 i<1⇒i
+		 /'j = '>C *printf(j/) /'\n'>C
+		 /'i = '>C *printf(i/) /'\n'>C
+		 /'y = '>C *printf(j/) /'\n'>C
+		 ∆j
 		 ↑(i>y)5 q*q;m⇒q /'q = '>C *Hprintf(q/) /'\n'>C
 		 i&y↪3 z*q;m⇒z /'z = '>C *Hprintf(z/) /'\n'>C
 		 →3
@@ -320,7 +324,7 @@ powBN(L1, L2, L3/L4)
 	@+L5(100)
 	
 	1⇒Q4⇒Q5 Oj
-	L1⇒L5 Q3+Q3⇒l *optimize(L5, l/L5) *optimize(L4, l/L4) 1⇒L4.0⇒i⇒s i<1⇒i L2j&1↪1 L1⇒L4 *optimize(L4, l/L4)
+	L1;L3⇒L5 Q3+Q3⇒l *optimize(L5, l/L5) *optimize(L4, l/L4) 1⇒L4.0⇒i⇒s i<1⇒i L2j&1↪1 L5⇒L4 *optimize(L4, l/L4)
 	§1 ↑(s≥32)3 L5*L5;L3⇒L5
 	   *** /'L5= '>C *HprintfBN(L5/)
 		 i&L2j↪2 L5*L4;L3⇒L4
@@ -357,7 +361,7 @@ powBN1(L1, y, L2/L4)
 	@+L3(100)
 	
 	1⇒Q4⇒Q5
-	L1⇒L3 Q2+Q2⇒l *optimize(L3, l/L3) *optimize(L4, l/L4) 1⇒L4.0⇒i
+	L1;L2⇒L3 Q2+Q2⇒l *optimize(L3, l/L3) *optimize(L4, l/L4) 1⇒L4.0⇒i
 	y&1↪3 L1⇒L4 *optimize(L4, l/L4)
 	§3 i<1⇒i ↑(i>y)5 L3*L3;L2⇒L3
 		 *** /'Q5= '>C *printf(Q5/) /'\n'>C
