@@ -17,20 +17,21 @@ main(/)
 	*** *testMul(/)
 	*** вывод списка простых чисел от 3 до 32 бит
 	
+	10=l
 	*** раскомменитровать
-	*** *randPrimesList(16/L1)
+	*** *randPrimesList(3, l/L1)
 	*** Oi
-	*** P1 /'L1.'>C *printf(i/) /' = '>C *printf(L1i/) /'\n'>C Di ?(i<Q1)1
+	*** P1 /'L1.'>C *printf(i/) /' = '>C *printf(L1i/) /'\n'>C Di ?(i<l)1
 	*** P2
 	*** до сюда
 	
-	*miral(13, 5/b)
+	*miral(1, 5/b)
 	*printf(b/) /'\n'>C
 	
 **
 
 
-randPrimesList(k/L1)
+randPrimesList(k, l/L1)
 	Oi ?(k>32)3
 	P1
 		 32-k=t X<25
@@ -38,7 +39,7 @@ randPrimesList(k/L1)
 		 *** /'t = '>C *printf(t/) /'\n'>C
 		 *miral(t, 5/b)
 		 t=L1i ?(b=0)2 Di i=Q1 *** /'Q1 = '>C *printf(Q1/) /'\n'>C
-	P2 ?(Q1=20)3 ?=1
+	P2 ?(i=l)3 ?=1
 	P3
 **
 
@@ -259,6 +260,7 @@ miral(n, r/b)
 	*** @+L2(20)
 	*** @+L3(20)
 	*** OQ1=Q2 ***=Q3
+	?(n=1)3
 	n-1=m Oq=s=b Dq
 	*countZeroes(m/s) *** на этой строке считается s - степень двойки (2^s)*t+1
 	q<s=q m/q=t
