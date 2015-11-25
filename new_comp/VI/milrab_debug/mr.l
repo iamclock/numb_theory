@@ -12,7 +12,7 @@ main(/)
 	
 	*** *testcz(/)
 	*** *testmr(/)
-	*** *testmrBN(/)
+	*testmrBN(/)
 	
 	*** вывод списка простых чисел от 3 до 32 бит
 	10=l
@@ -23,10 +23,9 @@ main(/)
 	*** P2
 	*** до сюда
 	
-	*miral(602314123, 20/b)
-	*printf(b/) /'\n'>C
+	*** *miral(602314123, 20/b)
+	*** *printf(b/) /'\n'>C
 	*** *perepolnenie_test(/)
-	
 	
 **
 
@@ -68,9 +67,9 @@ testmrBN(/)
 	@+F3(100)
 	
 	*** '0x1ffffffffffffffffffffff' - простое число
-	*** OQ3 @'0x1ffffffffffffffffffffff'>F3
+	OQ3 @'0x1ffffffffffffffffffffff'>F3
 	*** OQ3 @'0x1ffffff12312312'>F3
-	OQ3 @'0x7ffffffffffffffffffffffffff'>F3
+	*** OQ3 @'0x7ffffffffffffffffffffffffff'>F3
 	
 	OQ1=Q2=i
 	*inputBN(L1, F3, i/L1, i)
@@ -78,7 +77,7 @@ testmrBN(/)
 	
 	32=L2.0 1=Q2
 	
-	*miralBN(L1, L2/b)
+	*miralBN(L1, 5/b)
 	
 	?(b=0)1 ?(b=1)2 ?=3
 	P1 /'Составное\n'>C ?=3
@@ -117,52 +116,55 @@ testmr(/)
 
 
 *** miller-rabin-algorithm()
-*** L2 - количество раундов, есть ли смысл делать большим числом?
+*** r - количество раундов, есть ли смысл делать большим числом?
 *** может ли степень s быть больше 32 бит?
 *** L1 - n простое нечётное число
 *** 
 *** 
 *** 
 *** 
-miralBN(L1, L2/b)
+miralBN(L1, r/b)
 	@+L3(20) *** m = n-1 (L1-1)
 	@+L4(20) *** q, потом t
 	*** @+L5(20) *** t
 	@+L6(20) *** i, до начала индексации промежуточный комплекс
 	@+L7(20) *** a
-	@+L8(20) *** 1ца
+	@+L8(20) *** 1ца, 2ка для последовательности 2, 3, 5 ,7,...
 	*** @+L9(20) *** 
 	@+L10(20) *** x
 	*** @+L11(20) *** j на случай, если степень двойки(число s) будет большим числом
 	
 	
 	1=L3.0 2=L6.0=L4.0 1=Q6=Q4=Q3 Ob
-	*BN_eq(L1, L3/c) ?(c=1)3
+	*BN_eq(L1, L3/c) ?(c=1)5
 	Q1=Q3
 	L1-L3=L3 *** L3 теперь m = n-1 (L1-1)
 	*countZeroesBN(L3/s) 
-	*** /'s = '>C *printf(s/) /'\n'>C
+	/'s = '>C *printf(s/) /'\n'>C
 	*powBN2(L4, L6/L4) L3/L4=L4
-	OL6.0=j 1=L7.0 1=Q7=Q8
-	P1 1=L8.0 *BN_greq(L6, L2/c) ?(c=1)4 L7+L8=L7
+	Oj=i 1=L8.0=L6.0 2=L7.0 1=Q7=Q8=Q6
+	P1 ?(i>=r)4 *BN_greq(L7, L3/c) ?(c=1)4
 		 /'L6 = '>C *HprintfBN(L6/) /'\n'>C
 		 /'L7 = '>C *HprintfBN(L7/) /'\n'>C
 		 /'L4 = '>C *HprintfBN(L4/) /'\n'>C
 		 /'L1 = '>C *HprintfBN(L1/) /'\n'>C
-		 *powBN(L7, L4, L1/L10) 1=L8.0 L6+L8=L6
+		 *powBN(L7, L4, L1/L10)
+		 Di L7+L8=L7 1=L8.0
 		 /'L7^L4 mod L1 = '>C *HprintfBN(L10/) /'\n'>C
 		 **** /'L8 = '>C *HprintfBN(L8/) /'\n'>C
 		 *** /'L3 = '>C *HprintfBN(L3/) /'\n'>C
-		 *BN_eq(L10, L8/c) ?(c=1)1 1=j
+		 
+		 *BN_eq(L10, L8/c) 2=L8.0 ?(c=1)1
 		 *BN_eq(L10, L3/c) ?(c=1)1
-	P2 ?(j>=s)3
+		 1=j
+	P2 ?(j>=s)5
 		 /'L10 = '>C *HprintfBN(L10/) /'\n'>C
 		 /'L8 = '>C *HprintfBN(L8/) /'\n'>C
 		 /'L1 = '>C *HprintfBN(L1/) /'\n'>C
-		 2=L8.0 *powBN(L10, L8, L1/L10) 1=L8.0
+		 L10*L10;L1=L10 1=L8.0
+		 *** 2=L8.0 *powBN(L10, L8, L1/L10) 1=L8.0
 		 /'L10^L8 mod L1 = '>C *HprintfBN(L10/) /'\n'>C
-		 *BN_eq(L10, L8/c) ?(c=1)3 Dj *BN_eq(L10, L3/c) ?(c=1)4 ?=2
-	P3 ?=5 *** /'Составное\n'>C ?=5
+		 *BN_eq(L10, L8/c) 2=L8.0 ?(c=1)5 *BN_eq(L10, L3/c) ?(c=1)1 Dj ?=2
 	P4 Db *** /'Вероятно простое\n'>C
 	P5
 **
