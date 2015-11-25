@@ -13,10 +13,11 @@ main(/)
 	*** *testcz(/)
 	*** *testmr(/)
 	*** *testmrBN(/)
-	*** *testpow(/)
+	*** 
+	*testpow(/)
 	*** *testMul(/)
-	*** вывод списка простых чисел от 3 до 32 бит
 	
+	*** вывод списка простых чисел от 3 до 32 бит
 	10=l
 	*** раскомменитровать
 	*** *randPrimesList(3, l/L1)
@@ -25,8 +26,8 @@ main(/)
 	*** P2
 	*** до сюда
 	
-	*miral(1, 5/b)
-	*printf(b/) /'\n'>C
+	*** *miral(1, 5/b)
+	*** *printf(b/) /'\n'>C
 	
 **
 
@@ -84,9 +85,10 @@ testpow(/)
 	
 	*** *powBN_t(L1, L2, L2/L3)
 	*dihotom_big_int(L1, L2, L2/L3)
-	
-	
+	*** *powBN(L1, L2, L2/L3)
 	/'L3 = '>C *HprintfBN(L3/) /'\n'>C
+	
+	
 	
 	
 **
@@ -106,23 +108,24 @@ powBN_t(L1, L2, L3/L4)
 	§4 *cutZerosBN(L4/L4)
 **
 
-dihotom_big_int(L1, L2, L3/L5)
-	@+L6(100)
-	@+L4(100)
+
+dihotom_big_int(L1, L2, L3/L4)
+	@+L5(100)
 	
-	1=Q5=Q6=Q4=L4.0 Oj
-	L1⇒L6 Q3+Q3=l *optimize(L6, l/L6) *optimize(L5, l/L5) 1⇒L5.0⇒i=s i<1⇒i L2j&1↪3 L1⇒L5 *optimize(L5, l/L5)
-	§3 ↑(s>=32)4
-		 /'[before] L6= '>C *HprintfBN(L6/) /'\n'>C
-		 L6*L6;L3⇒L6
-	   /'L6= '>C *HprintfBN(L6/) /'\n'>C
-	   /'L5= '>C *HprintfBN(L5/) /'\n'>C
-	i&L2j↪6 L6*L5;L3⇒L5
-	   /'L5= '>C *HprintfBN(L5/) /'\n'>C
-	P6 Ds i<1⇒i →3
-	P4 Dj ?(j>=Q2)5 Os 1=i →3
-	§5 *cutZerosBN(L5/L5) *** *big_int_cut_zeros(L5/L5)
+	1⇒Q4⇒Q5 Oj
+	L1;L3⇒L5 Q3+Q3⇒l *optimize(L5, l/L5) *optimize(L4, l/L4) 1⇒L4.0⇒i⇒s i<1⇒i L2j&1↪1 L5⇒L4 *optimize(L4, l/L4)
+	§1 ↑(s≥32)3
+		*** /'[before] L6= '>C *HprintfBN(L6/) /'\n'>C
+		L5*L5;L3⇒L5
+	   /'L6= '>C *HprintfBN(L5/) /'\n'>C
+	   *** /'L5= '>C *HprintfBN(L4/) /'\n'>C
+		i&L2j↪2 L5*L4;L3⇒L4
+	   /'L5= '>C *HprintfBN(L4/) /'\n'>C
+	§2 ∆s i<1⇒i →1
+	§3 ∆j ↑(j≥Q2)4 Os 1⇒i →1
+	§4 *cutZerosBN(L4/L4)
 **
+
 
 
 testcz(/)

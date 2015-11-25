@@ -27,7 +27,7 @@ def dihotom(x, y, m):
 
 
 x = 2
-y = 0x7ffffffffffffffffffffffffff#2147483647 #536870911
+y = 0x1ffffffffffffffffffffff#0x7ffffffffffffffffffffffffff#2147483647 #536870911
 
 
 _z = dihotom(x,y,y)
