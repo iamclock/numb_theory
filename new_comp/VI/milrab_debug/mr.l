@@ -13,17 +13,16 @@ main(/)
 	*** *testcz(/)
 	*** *testmr(/)
 	*** *testmrBN(/)
-	*** 
-	*testpow(/)
+	*** *testpow(/)
 	*** *testMul(/)
 	
 	*** вывод списка простых чисел от 3 до 32 бит
 	10=l
 	*** раскомменитровать
-	*** *randPrimesList(3, l/L1)
-	*** Oi
-	*** P1 /'L1.'>C *printf(i/) /' = '>C *printf(L1i/) /'\n'>C Di ?(i<l)1
-	*** P2
+	*randPrimesList(8, l/L1)
+	Oi
+	P1 /'L1.'>C *printf(i/) /' = '>C *printf(L1i/) /'\n'>C Di ?(i<l)1
+	P2
 	*** до сюда
 	
 	*** *miral(1, 5/b)
@@ -31,40 +30,19 @@ main(/)
 	
 **
 
-
+*** формирует список простых чисел в которых k бит
 randPrimesList(k, l/L1)
 	Oi ?(k>32)3
 	P1
-		 32-k=t X<25
-		 X<t=q q>t=t
-		 *** /'t = '>C *printf(t/) /'\n'>C
-		 *miral(t, 5/b)
-		 t=L1i ?(b=0)2 Di i=Q1 *** /'Q1 = '>C *printf(Q1/) /'\n'>C
+		 32-k=t k-1=c
+		 X>t∨1∨Ic=t
+		 /'t = '>C *printf(t/) /'\n'>C
+		 *miral(t, 5/b) /'b = '>C *printf(b/) /'\n'>C
+		 ?(b=0)2 t=L1i Di i=Q1 *** /'Q1 = '>C *printf(Q1/) /'\n'>C
 	P2 ?(i=l)3 ?=1
 	P3
 **
 
-
-testMul(/)
-	@+L1(100)
-	@+L2(100)
-	@+L4(100)
-	@+F3(100)
-	OQ3 @'0x10000000000000000'>F3
-	*inputBN(L1, F3, 0/L1, i)
-	OQ3 @'0x8000000000000000'>F3
-	*inputBN(L2, F3, 0/L2, i)
-	OQ3 @'0x1ffffffffffffffffffffff'>F3
-	*inputBN(L4, F3, 0/L4, i)
-	/'L1 = '>C *HprintfBN(L1/) /'\n'>C
-	/'L2 = '>C *HprintfBN(L2/) /'\n'>C
-	/'L4 = '>C *HprintfBN(L4/) /'\n'>C
-	*** 50=Q1 L1*L2=L1;L4=L1
-	L2;L4=L1
-	
-	/'L1 = '>C *HprintfBN(L1/) /'\n'>C
-	
-**
 
 
 testpow(/)
@@ -87,11 +65,8 @@ testpow(/)
 	*dihotom_big_int(L1, L2, L2/L3)
 	*** *powBN(L1, L2, L2/L3)
 	/'L3 = '>C *HprintfBN(L3/) /'\n'>C
-	
-	
-	
-	
 **
+
 
 powBN_t(L1, L2, L3/L4)
 	@+L5(100)
@@ -117,10 +92,10 @@ dihotom_big_int(L1, L2, L3/L4)
 	§1 ↑(s≥32)3
 		*** /'[before] L6= '>C *HprintfBN(L6/) /'\n'>C
 		L5*L5;L3⇒L5
-	   /'L6= '>C *HprintfBN(L5/) /'\n'>C
+	   *** /'L6= '>C *HprintfBN(L5/) /'\n'>C
 	   *** /'L5= '>C *HprintfBN(L4/) /'\n'>C
 		i&L2j↪2 L5*L4;L3⇒L4
-	   /'L5= '>C *HprintfBN(L4/) /'\n'>C
+	   *** /'L5= '>C *HprintfBN(L4/) /'\n'>C
 	§2 ∆s i<1⇒i →1
 	§3 ∆j ↑(j≥Q2)4 Os 1⇒i →1
 	§4 *cutZerosBN(L4/L4)
@@ -218,19 +193,21 @@ miralBN(L1, L2/b)
 	*** @+L5(20) *** t
 	@+L6(20) *** i, до начала индексации промежуточный комплекс
 	@+L7(20) *** a
-	@+L8(20) *** 2ка и 1ца
+	@+L8(20) *** 1ца
 	*** @+L9(20) *** 
 	@+L10(20) *** x
 	*** @+L11(20) *** j на случай, если степень двойки(число s) будет большим числом
 	
 	
-	1=L3.0 2=L6.0=L4.0 1=Q6=Q4 Ob
-	Q1=Q3 L1-L3=L3 *** L3 теперь m = n-1 (L1-1)
+	1=L3.0 2=L6.0=L4.0 1=Q6=Q4=Q3 Ob
+	*BN_eq(L1, L3/c) ?(c=1)3
+	Q1=Q3
+	L1-L3=L3 *** L3 теперь m = n-1 (L1-1)
 	*countZeroesBN(L3/s) 
 	*** /'s = '>C *printf(s/) /'\n'>C
 	*powBN2(L4, L6/L4) L3/L4=L4
 	OL6.0=j 1=L7.0 1=Q7=Q8
-	P1 2=L8.0 *BN_greq(L6, L2/c) ?(c=1)4 L7+L8=L7
+	P1 1=L8.0 *BN_greq(L6, L2/c) ?(c=1)4 L7+L8=L7
 		 /'L6 = '>C *HprintfBN(L6/) /'\n'>C
 		 /'L7 = '>C *HprintfBN(L7/) /'\n'>C
 		 /'L4 = '>C *HprintfBN(L4/) /'\n'>C
@@ -263,15 +240,15 @@ miral(n, r/b)
 	*** @+L2(20)
 	*** @+L3(20)
 	*** OQ1=Q2 ***=Q3
-	?(n=1)3
 	n-1=m Oq=s=b Dq
+	?(n=1)5
 	*countZeroes(m/s) *** на этой строке считается s - степень двойки (2^s)*t+1
 	q<s=q m/q=t
 	*** /'q = '>C *printf(q/) /'\n'>C
 	*** /'s = '>C *printf(s/) /'\n'>C
 	*** /'t = '>C *printf(t/) /'\n'>C
 	Oi=j=a Da
-	P1 ?(i>=r)4 Da ?(a=m)4
+	P1 ?(i>=r)4 Da ?(a>=m)4 	*** 25.11.2015 a растёт не правильно: 2, 4, 6...
 		 *** ?(c=0)4 *** убрать сравнение. Здесь для прохождения числа 3
 		 *** m-1=a X;a=a ?(a<2)1 *** поиск псевдослучайного значения от 2 до n-2
 		 *pow(a, t, n/x) Da *** Da нужно для выполнения условия a = 2, 3, 5, 7,...
@@ -281,16 +258,16 @@ miral(n, r/b)
 		 *** /'x = '>C *printf(x/) /'\n'>C
 		 Di
 		 ?(x=1)1 ?(x=m)1 1=j *** /'t = '>C *printf(t/) /'\n'>C
-	P2 ?(j>=s)3
+	P2 ?(j>=s)5
 		 *** /'s = '>C *printf(s/) /'\n'>C
 		 *** /'j = '>C *printf(j/) /'\n'>C
 		 *** x=L1.0 n=L2.0 1=Q1=Q2
 		 *** /'x = '>C *printf(x/) /'\n'>C
 		 *** /'m = '>C *printf(m/) /'\n'>C
-		 *pow(x, 2, n/x)
+		 *** *pow(x, 2, n/x)
+		 x*x;n=x
 		 *** L1*L1;L2=L1 L1.0=x
-		 ?(x=1)3 ?(x=m)4 Dj ?=2
-	P3 ?=5 *** /'Составное\n'>C ?=5
+		 ?(x=1)5 ?(x=m)1 Dj ?=2
 	P4 Db *** /'Вероятно простое\n'>C
 	P5
 **
