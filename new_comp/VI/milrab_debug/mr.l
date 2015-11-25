@@ -13,20 +13,20 @@ main(/)
 	*** *testcz(/)
 	*** *testmr(/)
 	*** *testmrBN(/)
-	*** *testpow(/)
-	*** *testMul(/)
 	
 	*** вывод списка простых чисел от 3 до 32 бит
 	10=l
 	*** раскомменитровать
-	*randPrimesList(8, l/L1)
-	Oi
-	P1 /'L1.'>C *printf(i/) /' = '>C *printf(L1i/) /'\n'>C Di ?(i<l)1
-	P2
+	*** *randPrimesList(8, l/L1)
+	*** Oi
+	*** P1 /'L1.'>C *printf(i/) /' = '>C *printf(L1i/) /'\n'>C Di ?(i<l)1
+	*** P2
 	*** до сюда
 	
-	*** *miral(1, 5/b)
-	*** *printf(b/) /'\n'>C
+	*miral(602314123, 20/b)
+	*printf(b/) /'\n'>C
+	*** *perepolnenie_test(/)
+	
 	
 **
 
@@ -44,85 +44,22 @@ randPrimesList(k, l/L1)
 **
 
 
-
-testpow(/)
-	@+L1(100)
-	@+L2(100)
-	@+L3(100)
-	@+L4(100)
-	@+F5(100)
-	
-	*** OQ5 @'0x7ffffffffffffffffffffffffff'>F5
-	OQ5 @'0x1ffffffffffffffffffffff'>F5
-	*** OQ5 @''>F5
-	*inputBN(L2, F5, 0/L2, i)
-	
-	OQ5 @'0x2'>F5
-	*inputBN(L1, F5, 0/L1, i)
-	*** /'Q1 = '>C *printf(Q1/) /'\n'>C
-	
-	*** *powBN_t(L1, L2, L2/L3)
-	*dihotom_big_int(L1, L2, L2/L3)
-	*** *powBN(L1, L2, L2/L3)
-	/'L3 = '>C *HprintfBN(L3/) /'\n'>C
-**
-
-
-powBN_t(L1, L2, L3/L4)
-	@+L5(100)
-	
-	1⇒Q4⇒Q5 Oj
-	L1⇒L5 Q3+Q3⇒l *optimize(L5, 50/L5) *optimize(L4, 50/L4) 1⇒L4.0⇒i⇒s i<1⇒i L2j&1↪1 L1⇒L4 *optimize(L4, 50/L4)
-	§1 ↑(s≥32)3 L5*L5;L3⇒L5
-	   *** /'L5= '>C *HprintfBN(L5/) /'\n'>C
-	   *** /'Q5 = '>C *printf(Q5/) /'\n'>C
-		 i&L2j↪2 L5*L4;L3⇒L4
-	   *** /'L4= '>C *HprintfBN(L4/) /'\n'>C
-	§2 ∆s i<1⇒i →1
-	§3 ∆j ↑(j≥Q2)4 Os 1⇒i →1
-	§4 *cutZerosBN(L4/L4)
-**
-
-
-dihotom_big_int(L1, L2, L3/L4)
-	@+L5(100)
-	
-	1⇒Q4⇒Q5 Oj
-	L1;L3⇒L5 Q3+Q3⇒l *optimize(L5, l/L5) *optimize(L4, l/L4) 1⇒L4.0⇒i⇒s i<1⇒i L2j&1↪1 L5⇒L4 *optimize(L4, l/L4)
-	§1 ↑(s≥32)3
-		*** /'[before] L6= '>C *HprintfBN(L6/) /'\n'>C
-		L5*L5;L3⇒L5
-	   *** /'L6= '>C *HprintfBN(L5/) /'\n'>C
-	   *** /'L5= '>C *HprintfBN(L4/) /'\n'>C
-		i&L2j↪2 L5*L4;L3⇒L4
-	   *** /'L5= '>C *HprintfBN(L4/) /'\n'>C
-	§2 ∆s i<1⇒i →1
-	§3 ∆j ↑(j≥Q2)4 Os 1⇒i →1
-	§4 *cutZerosBN(L4/L4)
-**
-
-
-
-testcz(/)
-	@+L1(100)
-	@+L2(100)
-	@+F3(100)
-	
-	OQ3=Q1=i
-	*** @'0x'>F3
-	*** @'0x'>F3
-	*** @'0x'>F3
-	*** @'0x'>F3
-	*** @'0x'>F3
-	
-	*** *inputBN(L1, F3, i/L1, i)
-	/'Q1 = '>C *printf(Q1/) /'\n'>C
-	*countZeroesBN(L1/s)
-	/'s = '>C *printf(s/) /'\n'>C
+*** 25.11.2015 произведение логических комплексов возвращает не новый размер, а изначальное Q
+perepolnenie_test(/)
+	@+L1(20)
+	@+L2(20)
+	@+L3(20)
+	602314=L3.0=l 1=Q3
+	10=Q1 602314123=L1.0 ***10=Q2 *optimize(L2, 50/L2)
+	L1*L1;L3=L2
+	/'Q2 = '>C *printf(Q2/) /'\n'>C
+	/'L2 = '>C *HprintfBN(L2/) /'\n'>C
+	602314123=x
+	x*x;l=s
+	/'x*x = '>C *Hprintf(s/) /'\n'>C
 	
 	
 **
-
 
 
 testmrBN(/)
@@ -234,6 +171,8 @@ miralBN(L1, L2/b)
 
 *** Тест Миллера-Рабина
 *** возвращает значение b равное 1, если вероятно простое, 0, если составное
+*** выбран вариант роста a на двойку после 3ёх: 2, 3, 5, 7,....
+*** также можно добавить вариант со случайным значением a он закомментирован ниже
 *** n - проверяемое число, r - количество раундов
 miral(n, r/b)
 	*** @+L1(20)
@@ -245,30 +184,21 @@ miral(n, r/b)
 	*countZeroes(m/s) *** на этой строке считается s - степень двойки (2^s)*t+1
 	q<s=q m/q=t
 	*** /'q = '>C *printf(q/) /'\n'>C
-	*** /'s = '>C *printf(s/) /'\n'>C
-	*** /'t = '>C *printf(t/) /'\n'>C
-	Oi=j=a Da
-	P1 ?(i>=r)4 Da ?(a>=m)4 	*** 25.11.2015 a растёт не правильно: 2, 4, 6...
-		 *** ?(c=0)4 *** убрать сравнение. Здесь для прохождения числа 3
-		 *** m-1=a X;a=a ?(a<2)1 *** поиск псевдослучайного значения от 2 до n-2
-		 *pow(a, t, n/x) Da *** Da нужно для выполнения условия a = 2, 3, 5, 7,...
-		 *** /'i = '>C *printf(i/) /'\n'>C
-		 *** /'a = '>C *printf(a/) /'\n'>C
-		 *** /'t = '>C *printf(t/) /'\n'>C
-		 *** /'x = '>C *printf(x/) /'\n'>C
-		 Di
-		 ?(x=1)1 ?(x=m)1 1=j *** /'t = '>C *printf(t/) /'\n'>C
+	Oi=j=c Dc 2=a
+	P1 ?(i>=r)4 ?(a>=m)4
+		*** m-1=a X;a=a ?(a<2)1 *** поиск псевдослучайного значения от 2 до n-2
+		*pow(a, t, n/x)
+		*** /'a = '>C *printf(a/) /'\n'>C
+		Di a+c=a 2=c
+		?(x=1)1 ?(x=m)1 1=j
 	P2 ?(j>=s)5
-		 *** /'s = '>C *printf(s/) /'\n'>C
-		 *** /'j = '>C *printf(j/) /'\n'>C
 		 *** x=L1.0 n=L2.0 1=Q1=Q2
 		 *** /'x = '>C *printf(x/) /'\n'>C
-		 *** /'m = '>C *printf(m/) /'\n'>C
-		 *** *pow(x, 2, n/x)
-		 x*x;n=x
+		 *pow(x, 2, n/x)
+		 *** x*x;n=x *** возможно переполнение unsigned intа
 		 *** L1*L1;L2=L1 L1.0=x
 		 ?(x=1)5 ?(x=m)1 Dj ?=2
-	P4 Db *** /'Вероятно простое\n'>C
+	P4 Db *** /'Вероятно простое\n'>C *** иначе составное
 	P5
 **
 
