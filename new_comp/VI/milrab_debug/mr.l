@@ -12,7 +12,8 @@ main(/)
 	
 	*** *testcz(/)
 	*** *testmr(/)
-	*testmrBN(/)
+	*** *testmrBN(/)
+	
 	
 	*** вывод списка простых чисел от 3 до 32 бит
 	10=l
@@ -42,6 +43,7 @@ randPrimesList(k, l/L1)
 	P3
 **
 
+
 test_shiftBN(/)
 	@+L1(10)
 	2=L1.0 2=Q1
@@ -55,14 +57,15 @@ perepolnenie_test(/)
 	@+L1(20)
 	@+L2(20)
 	@+L3(20)
-	602314=L3.0=l 1=Q3
+	602314124=L3.0=l 1=Q3
 	10=Q1 602314123=L1.0 ***10=Q2 *optimize(L2, 50/L2)
 	L1*L1;L3=L2
 	/'Q2 = '>C *printf(Q2/) /'\n'>C
 	/'L2 = '>C *HprintfBN(L2/) /'\n'>C
 	602314123=x
-	x*x;l=s
-	/'x*x = '>C *Hprintf(s/) /'\n'>C
+	*** 80000000h=x
+	x*x:l=q Z=s *Hprintf(q/) /'\n'>C
+	/'x*x mod 602314 = '>C *Hprintf(s/) /'\n'>C
 	
 	
 **
@@ -109,7 +112,7 @@ miralBN(L1, r/b)
 	@+L7(20) *** a
 	@+L8(20) *** 1ца, 2ка для последовательности 2, 3, 5 ,7,...
 	*** @+L9(20) *** 
-	@+L10(20) *** x
+	@+L10(100) *** x
 	*** @+L11(20) *** j на случай, если степень двойки(число s) будет большим числом
 	
 	1=L3.0=L4.0 1=Q6=Q4=Q3 Ob
@@ -128,9 +131,10 @@ miralBN(L1, r/b)
 		 /'L7 = '>C *HprintfBN(L7/) /'\n'>C
 		 /'L4 = '>C *HprintfBN(L4/) /'\n'>C
 		 /'L1 = '>C *HprintfBN(L1/) /'\n'>C
-		 *powBN(L7, L4, L1/L10)
+		 *powBN_t(L7, L4, L1/L10) *** powBN_t для отладки из-за исключения с плавающей точкой
+		 /'L10 = '>C *HprintfBN(L10/) /'\n'>C
 		 Di L7+L8=L7 1=L8.0
-		 /'L7^L4 mod L1 = '>C *HprintfBN(L10/) /'\n'>C
+		 *** /'L7^L4 mod L1 = '>C *HprintfBN(L10/) /'\n'>C
 		 **** /'L8 = '>C *HprintfBN(L8/) /'\n'>C
 		 *** /'L3 = '>C *HprintfBN(L3/) /'\n'>C
 		 
@@ -148,6 +152,23 @@ miralBN(L1, r/b)
 	P4 Db *** /'Вероятно простое\n'>C
 	P5
 **
+
+powBN_t(L1, L2, L3/L4)
+	@+L5(100)
+	
+	1⇒Q4⇒Q5 Oj
+	L1;L3⇒L5 Q3+Q3⇒l *optimize(L5, l/L5) *optimize(L4, l/L4) 1⇒L4.0⇒i⇒s i<1⇒i L2j&1↪1 L5⇒L4 *optimize(L4, l/L4)
+	/'L3= '>C *HprintfBN(L3/) /'\n'>C
+	§1 ↑(s≥32)3 *** /'Q5 = '>C *printf(Q5/) /'\n'>C
+		 L5*L5=L5 *** /'L5= '>C *HprintfBN(L5/) /'\n'>C L5;L3⇒L5
+	   *** /'L5= '>C *HprintfBN(L5/) /'\n'>C
+		 i&L2j↪2 L5*L4;L3⇒L4
+	   *** /'L4= '>C *HprintfBN(L4/) /'\n'>C
+	§2 ∆s i<1⇒i →1
+	§3 ∆j ↑(j≥Q2)4 Os 1⇒i →1
+	§4 *cutZerosBN(L4/L4)
+**
+
 
 
 testmr(/)
