@@ -429,6 +429,8 @@ __divbn:
 	
 
 	mov ebx, [v_al_1]
+	cmp edx, ebx
+	jz .ffff
 	div ebx 			; qApp - eax
 					; r - edx
 	push eax
@@ -450,6 +452,11 @@ __divbn:
 	jmp short .qapp
 .qappmin:				; необходимо уменьшать qApp
 	sub [esp], dword 1
+	jmp short .qapp
+.ffff:
+	xor eax, eax
+	dec eax
+	push eax
 .qapp:					; Вычисляем tmp = MulBASE2(v, q)
 					; [esp] = q, т. е. в вершине стека расположено q
 	mov edx, [esp + 4]
@@ -667,6 +674,8 @@ __divbn2:
 	
 
 	mov ebx, [v_al_1]
+	cmp edx, ebx
+	jz .ffff
 	div ebx 			; qApp - eax
 					; r - edx
 	push eax
@@ -688,6 +697,12 @@ __divbn2:
 	jmp short .qapp
 .qappmin:				; необходимо уменьшать qApp
 	sub [esp], dword 1
+	jmp short .qapp
+.ffff:
+	xor eax, eax
+	dec eax
+	push eax
+
 .qapp:					; Вычисляем tmp = MulBASE2(v, q)
 					; [esp] = q, т. е. в вершине стека расположено q
 	mov edx, [esp + 4]
@@ -915,6 +930,8 @@ __modbn:
 	
 
 	mov ebx, [v_al_1]
+	cmp edx, ebx
+	jz .ffff
 	div ebx 			; qApp - eax
 					; r - edx
 	push eax
@@ -936,6 +953,11 @@ __modbn:
 	jmp short .qapp
 .qappmin:				; необходимо уменьшать qApp
 	sub [esp], dword 1
+	jmp short .qapp
+.ffff:
+	xor eax, eax
+	dec eax
+	push eax
 .qapp:					; Вычисляем tmp = MulBASE2(v, q)
 					; [esp] = q, т. е. в вершине стека расположено q
 	mov edx, [esp + 4]

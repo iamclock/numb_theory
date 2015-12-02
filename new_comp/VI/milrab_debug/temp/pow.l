@@ -1,7 +1,7 @@
 main(/)
 	
-	*bnpowT(/)
-	*** *lnpowT(/)
+	*** *bnpowT(/)
+	*lnpowT(/)
 **
 
 bnpowT(/)
@@ -33,8 +33,8 @@ bnpowT(/)
 	
 	*powBN(L2, L3, L3/L5)
 	/'Experiment #'>C *printf(i/) /'\n'>C
-	*** *HprintfBN(L2/)
-	*** *HprintfBN(L5/)
+	*HprintfBN(L2/) /'\n'>C
+	*HprintfBN(L5/) /'\n'>C
 	
 	
 	*** /'Q2= '>C *printf(Q2/) /'\n'>C
@@ -64,10 +64,13 @@ lnpowT(/)
 	*** *trial_division_method(p/L1)
 	
 	P1 X;p=a Di
-		 *pow(a, p, p/b)
+		 *pow2(a, p, p/b)
 		 /'#'>C *printf(i/) /'\n'>C
+		 *** *printf(a/) /'\n'>C
+		 *** *printf(b/) /'\n'>C
 		 ?(i=50000)4 ?(a=b)1
 	P3
+		/'Ошибка:\n'>C
 		*** /'a = '>C *printf(a/) /'\n'>C
 		 /'a = '>C *Hprintf(a/) /'\n'>C
 		*** /'p = '>C *printf(p/) /'\n'>C

@@ -17,66 +17,23 @@ main(/)
 	
 	*** вывод списка простых чисел от 3 до 32 бит
 	10=l
-	*** раскомменитровать
-	*** *randPrimesList(8, l/L1)
-	*** Oi
-	*** P1 /'L1.'>C *printf(i/) /' = '>C *printf(L1i/) /'\n'>C Di ?(i<l)1
-	*** P2
-	*** до сюда
+	*** (*) раскомменитровать
+	*randPrimesList(32, l/L1)
+	Oi ?(Q1<1)2
+	P1 /'L1.'>C *printf(i/) /' = '>C *printf(L1i/) /'\n'>C Di ?(i<l)1
+	P2
+	*** (*) до сюда
 	
 	*** *miral(602314123, 20/b)
 	*** *printf(b/) /'\n'>C
-	*** *perepolnenie_test(/)
-	*** *test_shiftBN(/)
 **
-
-*** формирует список простых чисел в которых k бит
-randPrimesList(k, l/L1)
-	Oi ?(k>32)3
-	P1
-		 32-k=t k-1=c
-		 X>t∨1∨Ic=t
-		 /'t = '>C *printf(t/) /'\n'>C
-		 *miral(t, 5/b) /'b = '>C *printf(b/) /'\n'>C
-		 ?(b=0)2 t=L1i Di i=Q1 *** /'Q1 = '>C *printf(Q1/) /'\n'>C
-	P2 ?(i=l)3 ?=1
-	P3
-**
-
-
-test_shiftBN(/)
-	@+L1(10)
-	2=L1.0 2=Q1
-	L1<50=L1 *** 
-	/'L1 = '>C *HprintfBN(L1/) /'\n'>C
-**
-
-
-*** 25.11.2015 произведение логических комплексов возвращает не новый размер, а изначальное Q
-perepolnenie_test(/)
-	@+L1(20)
-	@+L2(20)
-	@+L3(20)
-	602314124=L3.0=l 1=Q3
-	10=Q1 602314123=L1.0 ***10=Q2 *optimize(L2, 50/L2)
-	L1*L1;L3=L2
-	/'Q2 = '>C *printf(Q2/) /'\n'>C
-	/'L2 = '>C *HprintfBN(L2/) /'\n'>C
-	602314123=x
-	*** 80000000h=x
-	x*x:l=q Z=s *Hprintf(q/) /'\n'>C
-	/'x*x mod 602314 = '>C *Hprintf(s/) /'\n'>C
-	
-	
-**
-
 
 testmrBN(/)
 	@+L1(100)
 	@+L2(100)
 	@+F3(100)
 	
-	*** '0x1ffffffffffffffffffffff' - простое число
+	***  '0x1ffffffffffffffffffffff' - простое число
 	OQ3 @'0x1ffffffffffffffffffffff'>F3
 	*** OQ3 @'0x1ffffff12312312'>F3
 	*** OQ3 @'0x7ffffffffffffffffffffffffff'>F3
@@ -131,7 +88,7 @@ miralBN(L1, r/b)
 		 /'L7 = '>C *HprintfBN(L7/) /'\n'>C
 		 /'L4 = '>C *HprintfBN(L4/) /'\n'>C
 		 /'L1 = '>C *HprintfBN(L1/) /'\n'>C
-		 *powBN_t(L7, L4, L1/L10) *** powBN_t для отладки из-за исключения с плавающей точкой
+		 *powBN(L7, L4, L1/L10)
 		 /'L10 = '>C *HprintfBN(L10/) /'\n'>C
 		 Di L7+L8=L7 1=L8.0
 		 *** /'L7^L4 mod L1 = '>C *HprintfBN(L10/) /'\n'>C
@@ -153,24 +110,6 @@ miralBN(L1, r/b)
 	P5
 **
 
-powBN_t(L1, L2, L3/L4)
-	@+L5(100)
-	
-	1⇒Q4⇒Q5 Oj
-	L1;L3⇒L5 Q3+Q3⇒l *optimize(L5, l/L5) *optimize(L4, l/L4) 1⇒L4.0⇒i⇒s i<1⇒i L2j&1↪1 L5⇒L4 *optimize(L4, l/L4)
-	/'L3= '>C *HprintfBN(L3/) /'\n'>C
-	§1 ↑(s≥32)3 *** /'Q5 = '>C *printf(Q5/) /'\n'>C
-		 L5*L5=L5 *** /'L5= '>C *HprintfBN(L5/) /'\n'>C L5;L3⇒L5
-	   *** /'L5= '>C *HprintfBN(L5/) /'\n'>C
-		 i&L2j↪2 L5*L4;L3⇒L4
-	   *** /'L4= '>C *HprintfBN(L4/) /'\n'>C
-	§2 ∆s i<1⇒i →1
-	§3 ∆j ↑(j≥Q2)4 Os 1⇒i →1
-	§4 *cutZerosBN(L4/L4)
-**
-
-
-
 testmr(/)
 	
 	@+L1(100)
@@ -178,7 +117,7 @@ testmr(/)
 	*** @+F3(100)
 	
 	On
-	6679881=n *** - не простое число
+	*** 6679881=n *** - не простое число
 	*** 96558=n *** - не простое число
 	*** 524287=n *** - простое число
 	*** 2147483647=n *** - простое число
@@ -225,8 +164,8 @@ miral(n, r/b)
 	P2 ?(j>=s)5
 		 *** x=L1.0 n=L2.0 1=Q1=Q2
 		 *** /'x = '>C *printf(x/) /'\n'>C
-		 *pow(x, 2, n/x)
-		 *** x*x;n=x *** возможно переполнение unsigned intа
+		 *** *pow(x, 2, n/x)
+		 x*x:n Z=x
 		 *** L1*L1;L2=L1 L1.0=x
 		 ?(x=1)5 ?(x=m)1 Dj ?=2
 	P4 Db *** /'Вероятно простое\n'>C *** иначе составное
