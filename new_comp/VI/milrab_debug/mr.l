@@ -36,10 +36,13 @@ main(/)
 randPrimeBN(k, l/L1)
 	Oi⇒Q1 ↑(k<2)3
 	§1
+		k:32=Q1 ?(Z=0)2 DQ1
+	§2
+		randBN(L1/)
 		 32-k⇒t k-1⇒c
 		 X>t∨1∨Ic⇒t
-		 /'t = '>C *printf(t/) /'\n'>C
-		 *miral(t, 5/b) /'b = '>C *printf(b/) /'\n'>C
+		 *** /'t = '>C *printf(t/) /'\n'>C
+		 *miral(t, 5/b) *** /'b = '>C *printf(b/) /'\n'>C
 		 ↑(b=0)2 t⇒L1i ∆i i⇒Q1 *** /'Q1 = '>C *printf(Q1/) /'\n'>C
 	§2 ↑(i=l)3 →1
 	§3
