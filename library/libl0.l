@@ -259,7 +259,8 @@ randPrimesList(k, l/L1)
 		 X>t∨1∨Ic⇒t
 		 *** /'t = '>C *printf(t/) /'\n'>C
 		 *miral(t, 5/b) *** /'b = '>C *printf(b/) /'\n'>C
-		 ↑(b=0)2 t⇒L1i ∆i i⇒Q1 *** /'Q1 = '>C *printf(Q1/) /'\n'>C
+		 b↪2 *** ↑(b=0)2
+		 t⇒L1i ∆i i⇒Q1 *** /'Q1 = '>C *printf(Q1/) /'\n'>C
 	§2 ↑(i=l)3 →1
 	§3
 **

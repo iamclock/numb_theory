@@ -12,13 +12,13 @@ main(/)
 	
 	*** *testcz(/)
 	*** *testmr(/)
-	*testmrBN(/)
-	
+	*** *testmrBN(/)
+	*randPrimeBN(50, 20/L1)
 	
 	*** вывод списка простых чисел от 3 до 32 бит
 	10=l
 	*** (*) раскомменитровать
-	*** *randPrimesList(32, l/L1)
+	*** *randPrimesList(3, l/L1)
 	*** Oi ?(Q1<1)2
 	*** P1 /'L1.'>C *printf(i/) /' = '>C *printf(L1i/) /'\n'>C Di ?(i<l)1
 	*** P2
@@ -31,20 +31,23 @@ main(/)
 
 *** генерация простого числа
 *** k - количество бит
-*** l - максимальная длина числа (количество элементов)
+*** l - максимально возможная длина числа (количество элементов)
 *** L1 - число
 randPrimeBN(k, l/L1)
-	Oi⇒Q1 ↑(k<2)3
+	Oi⇒Q1=s ↑(k<2)3
 	§1
-		k:32=Q1 ?(Z=0)2 DQ1
+		k:32=t ?(t>l)3 ?(Z=0)2 Z=s Dt ?(t>l)3 t=Q1 *** DQ1
 	§2
-		randBN(L1/)
-		 32-k⇒t k-1⇒c
-		 X>t∨1∨Ic⇒t
-		 *** /'t = '>C *printf(t/) /'\n'>C
-		 *miral(t, 5/b) *** /'b = '>C *printf(b/) /'\n'>C
-		 ↑(b=0)2 t⇒L1i ∆i i⇒Q1 *** /'Q1 = '>C *printf(Q1/) /'\n'>C
-	§2 ↑(i=l)3 →1
+		
+		*randBN(L1/)
+		/'t = '>C *printf(t/) /'\n'>C
+		/'s = '>C *printf(t/) /'\n'>C
+		 s-1⇒c Q1-1=t
+		 L1.0∨1=L1.0 L1t∨Ic=L1t
+		 /'t = '>C *printf(t/) /'\n'>C
+		 /'Prime Number = '>C *HprintfBN(L1/) /'\n'>C
+		 *miralBN(L1, 5/b) /'b = '>C *printf(b/) /'\n'>C
+		  b?-2 *** ↑(b=0)2
 	§3
 **
 
@@ -54,10 +57,13 @@ testmrBN(/)
 	@+L2(100)
 	@+F3(100)
 	
+	*** 0x966AA219284F4DAF - простое
+	*** 
 	***  '0x1ffffffffffffffffffffff' - простое число
 	*** OQ3 @'0x1ffffffffffffffffffffff'>F3
 	*** OQ3 @'0x1ffffff12312312'>F3
-	OQ3 @'0x7ffffffffffffffffffffffffff'>F3
+	*** OQ3 @'0x7ffffffffffffffffffffffffff'>F3
+	OQ3 @'0x966AA219284F4DAF'>F3
 	
 	OQ1=Q2=i
 	*inputBN(L1, F3, i/L1, i)
@@ -100,17 +106,17 @@ miralBN(L1, r/b)
 	/'L3 = '>C *HprintfBN(L3/) /'\n'>C
 	*countZeroesBN(L3/s)
 	L4<s=L4
-	/'s = '>C *printf(s/) /'\n'>C
-	/'L4 = '>C *HprintfBN(L4/) /'\n'>C
+	*** /'s = '>C *printf(s/) /'\n'>C
+	*** /'L4 = '>C *HprintfBN(L4/) /'\n'>C
 	L3/L4=L4
 	Oj=i 1=L8.0=L6.0 2=L7.0 1=Q7=Q8=Q6
 	P1 ?(i>=r)4 *BN_greq(L7, L3/c) ?(c=1)4
-		 /'L6 = '>C *HprintfBN(L6/) /'\n'>C
-		 /'L7 = '>C *HprintfBN(L7/) /'\n'>C
-		 /'L4 = '>C *HprintfBN(L4/) /'\n'>C
-		 /'L1 = '>C *HprintfBN(L1/) /'\n'>C
+		 *** /'L6 = '>C *HprintfBN(L6/) /'\n'>C
+		 *** /'L7 = '>C *HprintfBN(L7/) /'\n'>C
+		 *** /'L4 = '>C *HprintfBN(L4/) /'\n'>C
+		 *** /'L1 = '>C *HprintfBN(L1/) /'\n'>C
 		 *powBN(L7, L4, L1/L10)
-		 /'L10 = '>C *HprintfBN(L10/) /'\n'>C
+		 *** /'L10 = '>C *HprintfBN(L10/) /'\n'>C
 		 Di L7+L8=L7 1=L8.0
 		 *** /'L7^L4 mod L1 = '>C *HprintfBN(L10/) /'\n'>C
 		 **** /'L8 = '>C *HprintfBN(L8/) /'\n'>C
@@ -120,12 +126,12 @@ miralBN(L1, r/b)
 		 *BN_eq(L10, L3/c) ?(c=1)1
 		 1=j
 	P2 ?(j>=s)5
-		 /'L10 = '>C *HprintfBN(L10/) /'\n'>C
-		 /'L8 = '>C *HprintfBN(L8/) /'\n'>C
-		 /'L1 = '>C *HprintfBN(L1/) /'\n'>C
+		 *** /'L10 = '>C *HprintfBN(L10/) /'\n'>C
+		 *** /'L8 = '>C *HprintfBN(L8/) /'\n'>C
+		 *** /'L1 = '>C *HprintfBN(L1/) /'\n'>C
 		 L10*L10;L1=L10 1=L8.0
 		 *** 2=L8.0 *powBN(L10, L8, L1/L10) 1=L8.0
-		 /'L10^L8 mod L1 = '>C *HprintfBN(L10/) /'\n'>C
+		 *** /'L10^L8 mod L1 = '>C *HprintfBN(L10/) /'\n'>C
 		 *BN_eq(L10, L8/c) 2=L8.0 ?(c=1)5 *BN_eq(L10, L3/c) ?(c=1)1 Dj ?=2
 	P4 Db *** /'Вероятно простое\n'>C
 	P5
