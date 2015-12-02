@@ -12,21 +12,39 @@ main(/)
 	
 	*** *testcz(/)
 	*** *testmr(/)
-	*** *testmrBN(/)
+	*testmrBN(/)
 	
 	
 	*** вывод списка простых чисел от 3 до 32 бит
 	10=l
 	*** (*) раскомменитровать
-	*randPrimesList(32, l/L1)
-	Oi ?(Q1<1)2
-	P1 /'L1.'>C *printf(i/) /' = '>C *printf(L1i/) /'\n'>C Di ?(i<l)1
-	P2
+	*** *randPrimesList(32, l/L1)
+	*** Oi ?(Q1<1)2
+	*** P1 /'L1.'>C *printf(i/) /' = '>C *printf(L1i/) /'\n'>C Di ?(i<l)1
+	*** P2
 	*** (*) до сюда
 	
 	*** *miral(602314123, 20/b)
 	*** *printf(b/) /'\n'>C
 **
+
+
+*** генерация простого числа
+*** k - количество бит
+*** l - максимальная длина числа (количество элементов)
+*** L1 - число
+randPrimeBN(k, l/L1)
+	Oi⇒Q1 ↑(k<2)3
+	§1
+		 32-k⇒t k-1⇒c
+		 X>t∨1∨Ic⇒t
+		 /'t = '>C *printf(t/) /'\n'>C
+		 *miral(t, 5/b) /'b = '>C *printf(b/) /'\n'>C
+		 ↑(b=0)2 t⇒L1i ∆i i⇒Q1 *** /'Q1 = '>C *printf(Q1/) /'\n'>C
+	§2 ↑(i=l)3 →1
+	§3
+**
+
 
 testmrBN(/)
 	@+L1(100)
@@ -34,9 +52,9 @@ testmrBN(/)
 	@+F3(100)
 	
 	***  '0x1ffffffffffffffffffffff' - простое число
-	OQ3 @'0x1ffffffffffffffffffffff'>F3
+	*** OQ3 @'0x1ffffffffffffffffffffff'>F3
 	*** OQ3 @'0x1ffffff12312312'>F3
-	*** OQ3 @'0x7ffffffffffffffffffffffffff'>F3
+	OQ3 @'0x7ffffffffffffffffffffffffff'>F3
 	
 	OQ1=Q2=i
 	*inputBN(L1, F3, i/L1, i)
