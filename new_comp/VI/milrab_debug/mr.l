@@ -38,22 +38,20 @@ ttt(/)
 	/'s = '>C *printf(t/) /'\n'>C
 **
 
-
 *** генерация простого числа
 *** k - количество бит
 *** l - максимально возможная длина числа (количество элементов)
 *** L1 - число
 randPrimeBN(k, l/L1)
-	Oi⇒Q1=s ↑(k<2)3
-	§1
-		k/32=t k;32=s ?(t>l)3 ?(s=0)2 Dt ?(t>l)3 t=Q1 *** DQ1
+	Oi⇒Q1=s=t ↑(k<2)3
+	§1 k:32=t Z=s
+		 ?(t>l)3 ?(s=0)2 Dt ?(t>l)3 t=Q1 *** DQ1
 	§2
-		/'k = '>C *printf(k/) /'\n'>C
 		*randBN(L1/)
 		/'t = '>C *printf(t/) /'\n'>C
-		/'s = '>C *printf(t/) /'\n'>C
+		/'s = '>C *printf(s/) /'\n'>C
 		 s-1⇒c Q1-1=t
-		 L1.0∨1=L1.0 L1t∨Ic=L1t
+		 L1.0∨1=L1.0 L1t∨Ic=L1t 32-s=c ffffffffh>c=c L1t&c=L1t
 		 /'t = '>C *printf(t/) /'\n'>C
 		 /'Prime Number = '>C *HprintfBN(L1/) /'\n'>C
 		 *miralBN(L1, 5/b) /'b = '>C *printf(b/) /'\n'>C
@@ -109,9 +107,9 @@ miralBN(L1, r/b)
 	@+L10(100) *** x
 	*** @+L11(20) *** j на случай, если степень двойки(число s) будет большим числом
 	
-	1=L3.0=L4.0 1=Q6=Q4=Q3 Ob
+	1=L4.0=Q6=Q4=Q3 Ob
 	*BN_eq(L1, L3/c) ?(c=1)5
-	Q1=Q3
+	Q1=Q3 OL3 1=L3.0
 	L1-L3=L3 *** L3 теперь m = n-1 (L1-1)
 	/'L3 = '>C *HprintfBN(L3/) /'\n'>C
 	*countZeroesBN(L3/s)
