@@ -14,6 +14,7 @@ main(/)
 	*** *testmr(/)
 	*** *testmrBN(/)
 	*randPrimeBN(50, 20/L1)
+	/'Prime Number is '>C *HprintfBN(L1/) /'\n'>C
 	
 	*** *ttt(/)
 	
@@ -30,13 +31,6 @@ main(/)
 	*** *printf(b/) /'\n'>C
 **
 
-*** не срабатывает =\
-ttt(/)
-	
-	50:32=t Z=s
-	/'t = '>C *printf(t/) /'\n'>C
-	/'s = '>C *printf(t/) /'\n'>C
-**
 
 *** генерация простого числа
 *** k - количество бит
@@ -48,13 +42,13 @@ randPrimeBN(k, l/L1)
 		 ?(t>l)3 ?(s=0)2 Dt ?(t>l)3 t=Q1 *** DQ1
 	§2
 		*randBN(L1/)
-		/'t = '>C *printf(t/) /'\n'>C
-		/'s = '>C *printf(s/) /'\n'>C
+		*** /'t = '>C *printf(t/) /'\n'>C
+		*** /'s = '>C *printf(s/) /'\n'>C
 		 s-1⇒c Q1-1=t
 		 L1.0∨1=L1.0 L1t∨Ic=L1t 32-s=c ffffffffh>c=c L1t&c=L1t
-		 /'t = '>C *printf(t/) /'\n'>C
-		 /'Prime Number = '>C *HprintfBN(L1/) /'\n'>C
-		 *miralBN(L1, 5/b) /'b = '>C *printf(b/) /'\n'>C
+		 *** /'t = '>C *printf(t/) /'\n'>C
+		 /'Current Number: '>C *HprintfBN(L1/) /'\n'>C
+		 *miralBN(L1, 5/b) *** /'b = '>C *printf(b/) /'\n'>C
 		  b?-2 *** ↑(b=0)2
 	§3
 **
