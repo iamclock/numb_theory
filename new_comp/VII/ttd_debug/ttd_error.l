@@ -152,7 +152,7 @@ recalcefficients(L1/L1)
 	Q1=t-1=l t;2=t L1l=l 4=d Oi
 	?(t#0)2
 	P1 2=d
-	P2 l+d=L1i=l Di d;4+2=d /'P2 i = '>C *printf(i/) ?(i<Q1)2 Oi
+	P2 l+d=L1i=l Di d;4+2=d ?(i<Q1)2 Oi /'P2 i = '>C *printf(i/)
 	P3 *printf(L1i/) /' '>C Di /'i = '>C *printf(i/) ?(i<Q1)3 /'\n'>C
 **
 
