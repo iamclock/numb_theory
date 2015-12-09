@@ -9,12 +9,19 @@ main(/)
 *** python3 hex(int(0x966AA219284F4DAF/0x3))
 	*** *test(/)
 	*test_tdmBN(/)
-	
-	
 **
 
 
-
+test_Z(/)
+	
+	
+	ffffffffh=t
+	OZ *printf(Z/) /' '>C *printf(t/) /' '>C
+	t+2=t
+	*printf(Z/) /' '>C *printf(t/) /'\n'>C 
+	
+	
+**
 
 
 
@@ -45,12 +52,14 @@ test_tdmBN(/)
 	*** OQ3 @'0x1ffffffffffffffffffffff'>F3
 	*** OQ3 @'0x1ffffff12312312'>F3
 	*** OQ3 @'0x7ffffffffffffffffffffffffff'>F3
-	OQ3 @'0x966AA219284F4DAF'>F3
+	OQ3 @'0x40810204081'>F3
+	*** OQ3 @'0x966AA219284F4DAF'>F3
 	
 	OQ1=Q2=i
 	*inputBN(L1, F3, i/L1, i)
 	
 	*tdmBN(L1/L2) Oi
+	/'Q2 = '>C *printf(Q2/) /'\n'>C
 	P2 *printf(L2i/) Di /' '>C ?(i<Q2)2
 	/'\n'>C
 	
@@ -68,11 +77,11 @@ test_tdmBN(/)
 tdmBN(L1/L3)
 	?(Q1>1)8 L1.0=n *trial_division_method(n/L3) ?=9
 	P8
-	@+L2(4)
+	@+L2(100)
 	@+L4(100)
 	@+L5(100)
 	@+L6(1)
-	3=L2.0 5=L2.1 7=L2.2 11=L2.3 4=Q2 1=Q4=Q5=Q6
+	3=L2.0 5=L2.1 7=L2.2 11=L2.3 100=Q2 *recalcefficients(L2, 3/L2) 1=Q4=Q5=Q6 OQ3
 	3=L6.0
 	*BN_less(L1, L6/b) ?(b=1)6
 	*** n;2=k ?(k=0)4 *** k?-4 одно и тоже с ?(k=0)4, но не работает
@@ -82,7 +91,7 @@ tdmBN(L1/L3)
 	?(b=1)7
 	*** проверка может не пройти, если в комплексе лежит 1, но мощность комплекса больше 1
 	
-	P2 L2i=L6.0
+	P2 ?(L2i<3)10 L2i=L6.0
 	*** /'L2i = '>C *Hprintf(L2i/) /'\n'>C
 	*** /'L6 = '>C *HprintfBN(L6/) /'\n'>C
 	*** /'Q1 = '>C *Hprintf(Q1/) /'\n'>C
@@ -98,18 +107,22 @@ tdmBN(L1/L3)
 	*** ?(L5>0)4 *** не фурычит
 	*** надо будет пересчитать мощность L4 и L5
 	*** Возможна ошибка, если мощность комплекса больше 1, но число равно 0
-	P3 L2i=L3j Dj L4=L1 ?=1
+	P3 L2i=L3j
+		 /'L2i = '>C *Hprintf(L2i/) /'\n'>C
+		 /'L5 = '>C *HprintfBN(L5/) /'\n'>C
+		 Dj L4=L1 ?=1
 	P4 L2i=L6.0 *** /'L6 = '>C *printf(L6.0/) /'\n'>C
 	*** /'L4 = '>C *HprintfBN(L4/) /'\n'>C
 	*BN_greq(L6, L4/b) *** /'P4 b = '>C *printf(b/) /'\n'>C
 	?(b=1)5
-		Di ?(i<Q1)2 Oi *recalcefficients(L2/L2)
+		Di ?(i<Q1)2 Oi Q2-1=l *recalcefficients(L2, L2l/L2)
 		*** *printf(L2.0/) /'\n'>C *printf(L2.1/) /'\n'>C *printf(L2.2/) /'\n'>C *printf(L2.3/) /'\n'>C
 		?=1 *** возможно придётся i присваивать 1
 	P5
 		 L1.0=L3j Dj ?=7
 	P6 /'Число должно быть больше 2'>C
 	P7 j=Q3
+	P10 /'unsigned int числа закончились\n'>C
 	P9
 **
 
@@ -148,12 +161,11 @@ trialdivisionmethod(n/L2)
 *** l - указывает на последнее обращённое число
 *** функция используется в trial_division_method на маленьком числе
 *** и большом числе, с условием, что большое число не предполагается делить на другое большое число
-recalcefficients(L1/L1)
-	Q1=t-1=l t;2=t L1l=l 4=d Oi
-	?(t#0)2
-	P1 2=d
-	P2 l+d=L1i=l Di d;4+2=d ?(i<Q1)2 Oi
-	P3 *printf(L1i/) /' '>C Di ?(i<Q1)3 /'\n'>C
+*** мощность комплекса всегда должна быть чётной
+recalcefficients(L1, k/L1)
+	k=L1.0=l 2=d Oi+1=i
+	P1 l+d=L1i=l Di d;4+2=d ?(i<Q1)1 Oi
+	P2 *** *printf(L1i/) /' '>C Di ?(i<Q1)2 /'\n'>C
 **
 
 
