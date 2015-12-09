@@ -72,7 +72,7 @@ tdmBN(L1/L3)
 	@+L4(100)
 	@+L5(100)
 	@+L6(1)
-	3=L2.0 5=L2.1 7=L2.2 11=L2.3 4=Q1 1=Q4=Q5=Q6
+	3=L2.0 5=L2.1 7=L2.2 11=L2.3 4=Q2 1=Q4=Q5=Q6
 	3=L6.0
 	*BN_less(L1, L6/b) ?(b=1)6
 	*** n;2=k ?(k=0)4 *** k?-4 одно и тоже с ?(k=0)4, но не работает
@@ -152,8 +152,8 @@ recalcefficients(L1/L1)
 	Q1=t-1=l t;2=t L1l=l 4=d Oi
 	?(t#0)2
 	P1 2=d
-	P2 l+d=L1i=l Di d;4+2=d /'P2 i = '>C *printf(i/) ?(i<Q1)2 Oi
-	P3 *printf(L1i/) /' '>C Di /'i = '>C *printf(i/) ?(i<Q1)3 /'\n'>C
+	P2 l+d=L1i=l Di d;4+2=d ?(i<Q1)2 Oi
+	P3 *printf(L1i/) /' '>C Di ?(i<Q1)3 /'\n'>C
 **
 
 
