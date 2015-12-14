@@ -8,7 +8,22 @@ main(/)
 *** ошибка в делении или нет? в питоне и калькуляторе разные значения
 *** python3 hex(int(0x966AA219284F4DAF/0x3))
 	*** *test(/)
-	*test_tdmBN(/)
+	*** *test_tdmBN(/)
+	*tdm_t(/)
+**
+
+tdm_t(/)
+	
+	@+L1(100)
+	
+	1636277888=n
+	*trialdivisionmethod(n/L1)
+	*** *trial_division_method(n/L1)
+	P2 *printf(L2i/) Di /' '>C ?(i<Q2)2
+	/'\n'>C
+	
+	
+	
 **
 
 
@@ -54,13 +69,18 @@ test_tdmBN(/)
 	*** OQ3 @'0x1ffffffffffffffffffffff'>F3
 	*** OQ3 @'0x1ffffff12312312'>F3
 	*** OQ3 @'0x7ffffffffffffffffffffffffff'>F3
-	OQ3 @'0x40810204081'>F3
+	*** OQ3 @'0x40810204081'>F3
+	OQ3 @'0x40810204080'>F3
 	*** OQ3 @'0x966AA219284F4DAF'>F3
 	
 	OQ1=Q2=i
 	*inputBN(L1, F3, i/L1, i)
-	
+	/'До tdmBN\n'>C
+	/'Q1 = '>C *Hprintf(Q1/) /'\n'>C
+	/'L1 = '>C *HprintfBN(L1/) /'\n'>C
+	/'Внутри tdmBN\n'>C
 	*tdmBN(L1/L2, L4) Oi
+	/'После tdmBN\n'>C
 	/'Q2 = '>C *printf(Q2/) /'\n'>C
 	P2 *printf(L2i/) Di /' '>C ?(i<Q2)2
 	/'\n'>C
@@ -82,17 +102,17 @@ tdmBN(L1/L3, L4)
 	?(Q1>1)8 L1.0=n *trial_division_method(n/L3) ?=9
 	P8
 	@+L2(100)
-	*** @+L4(100)
 	@+L5(100)
 	@+L6(1)
+	@+L7(100) ***(Q1)
 	3=L2.0 5=L2.1 7=L2.2 11=L2.3 100=Q2 *recalcefficients(L2, 3/L2) 1=Q4=Q5=Q6 OQ3
-	3=L6.0
+	3=L6.0 Q1=Q7 L1=L7
 	*BN_less(L1, L6/b) ?(b=1)6
 	*** n;2=k ?(k=0)4 *** k?-4 одно и тоже с ?(k=0)4, но не работает
 	Oi=j *** возможно придётся i присваивать 1
 	P1 1=L6.0 *BN_eq(L4, L6/b)
 	*** /'P1 b = '>C *printf(b/) /'\n'>C
-	?(b=1)7
+	?(b=1)9
 	*** проверка может не пройти, если в комплексе лежит 1, но мощность комплекса больше 1
 	
 	P2 ?(L2i<3)10 L2i=L6.0
@@ -109,11 +129,10 @@ tdmBN(L1/L3, L4)
 	*** /'P2 b = '>C *printf(b/) /'\n'>C
 	?(b#0)4
 	*** ?(L5>0)4 *** не фурычит
-	*** надо будет пересчитать мощность L4 и L5
 	*** Возможна ошибка, если мощность комплекса больше 1, но число равно 0
 	P3 L2i=L3j
-		 /'L2i = '>C *Hprintf(L2i/) /'\n'>C
-		 /'L5 = '>C *HprintfBN(L5/) /'\n'>C
+		 *** /'L2i = '>C *Hprintf(L2i/) /'\n'>C
+		 *** /'L5 = '>C *HprintfBN(L5/) /'\n'>C
 		 Dj L4=L1 ?=1
 	P4 L2i=L6.0 *** /'L6 = '>C *printf(L6.0/) /'\n'>C
 	*** /'L4 = '>C *HprintfBN(L4/) /'\n'>C
@@ -123,14 +142,15 @@ tdmBN(L1/L3, L4)
 		*** *printf(L2.0/) /'\n'>C *printf(L2.1/) /'\n'>C *printf(L2.2/) /'\n'>C *printf(L2.3/) /'\n'>C
 		?=1 *** возможно придётся i присваивать 1
 	P5
-		 Q1=Q4 L1=L4
+		 Q1=Q4 L1=L4 *compressBN(L4/L4)
 		 /'Q1 = '>C *Hprintf(Q4/) /'\n'>C
 		 /'L1 = '>C *HprintfBN(L4/) /'\n'>C
-		 ?=7
+		 ?=9
 	P6 /'Число должно быть больше 2'>C
-	P7 j=Q3 ?=9
 	P10 /'unsigned int числа закончились\n'>C
-	P9
+	P9  j=Q3 Q7=Q1 L7=L1
+		 *** /'L1 = '>C *HprintfBN(L1/) /'\n'>C
+		 *** /'L7 = '>C *HprintfBN(L7/) /'\n'>C
 **
 
 
@@ -149,16 +169,18 @@ compressBN(L1/L1)
 trialdivisionmethod(n/L2)
 	
 	@+L1(4)
-	3=L1.0 5=L1.1 7=L1.2 11=L1.3 4=Q1
+	4=Q1 *recalcefficients(L1, 3/L1)
 	
 	?(n<2)6
 	*** n;2=k ?(k=0)4 *** k?-4 одно и тоже с ?(k=0)4, но не работает
 	Oi=j *** возможно придётся i присваивать 1
-	P1 ?(n=1)7
-	P2 OZ n:L1i=q Z=r ?(r#0)4 *** n;L1i=r n/L1i=q ?(r#0)4
-	P3 L1i=L2j Dj q=n ?=1
-	P4 ?(L1i>=q)5
-		 Di ?(i<Q1)2 Oi *recalcefficients(L1/L1) ?=1 *** возможно придётся i присваивать 1
+	P1 ?(n=1)7 /'n = '>C *printf(n/) /'\n'>C
+	P2 OZ n:L1i=q Z=r /'P2\n'>C ?(r#0)4 *** n;L1i=r n/L1i=q ?(r#0)4
+	P3 L1i=L2j Dj q=n /'P3\n'>C ?=1
+	P4 /'P4 '>C /'L1i = '>C *printf(L1i/) /'\n'>C ?(L1i>=q)5
+		 Di /'P4.2\n'>C ?(i<Q1)2 /'P4.3\n'>C Oi *recalcefficients(L1, L1.3/L1)
+		 /'L1.3 = '>C *printf(L1.3/) /'\n'>C
+		 ?=1 *** возможно придётся i присваивать 1
 	P5 n=L2j Dj ?=7
 	P6 /'Число должно быть больше 1'>C
 	P7 j=Q2

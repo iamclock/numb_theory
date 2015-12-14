@@ -95,12 +95,13 @@ def old_lyapas_sintax_replace(file_from, file_to):
 			prev2 = x
 			x = file_from.read(1)
 			if x == ' ' or x == '\n' or x == '\t':
-				if prev == 'D':
-					prev = triangle_up
-				elif prev == 'Y':
-					prev = triangle_down
-				else:
-					prev = paragraph
+				if prev2 > '`' and prev2 < '{':
+					if prev == 'D':
+						prev = triangle_up
+					elif prev == 'Y':
+						prev = triangle_down
+			if prev2 > '0' and prev2 < ':':
+				prev = paragraph
 			file_to.write(prev)
 			file_to.write(prev2)
 		elif x == '|':
