@@ -28,7 +28,7 @@ test_Z(/)
 test(/)
 	@+L1(10)
 	@+L2(100)
-	
+	@+L3(100)
 	
 	
 	257=k=L1.0 1=Q1
@@ -36,9 +36,10 @@ test(/)
 	Oi
 	P1 *printf(L2i/) Di /' '>C ?(i<Q2)1
 	/'\n'>C
-	*tdmBN(L1/L2) Oi
+	*tdmBN(L1/L2, L3) Oi
 	P2 *printf(L2i/) Di /' '>C ?(i<Q2)2
 	/'\n'>C
+	/'L5 = '>C *HprintfBN(L5/) /'\n'>C
 	P3 
 	
 **
@@ -48,6 +49,7 @@ test_tdmBN(/)
 	@+L1(10)
 	@+L2(100)
 	@+F3(100)
+	@+L4(100)
 	
 	*** OQ3 @'0x1ffffffffffffffffffffff'>F3
 	*** OQ3 @'0x1ffffff12312312'>F3
@@ -58,10 +60,12 @@ test_tdmBN(/)
 	OQ1=Q2=i
 	*inputBN(L1, F3, i/L1, i)
 	
-	*tdmBN(L1/L2) Oi
+	*tdmBN(L1/L2, L4) Oi
 	/'Q2 = '>C *printf(Q2/) /'\n'>C
 	P2 *printf(L2i/) Di /' '>C ?(i<Q2)2
 	/'\n'>C
+	/'L4 = '>C *HprintfBN(L4/) /'\n'>C
+	/'L1 = '>C *HprintfBN(L1/) /'\n'>C
 	
 **
 
@@ -74,11 +78,11 @@ test_tdmBN(/)
 *** Комплекс L4 - представление делителя из массива L2 большим числом
 *** здесь j это t, а i это k
 *** все сравнения BN_*(*/?) делаются без учёта мощностей комплексов(больших чисел), потому что результаты арифметических операций над ними не возвращают новую мощность результата 08.12.2015
-tdmBN(L1/L3)
+tdmBN(L1/L3, L4)
 	?(Q1>1)8 L1.0=n *trial_division_method(n/L3) ?=9
 	P8
 	@+L2(100)
-	@+L4(100)
+	*** @+L4(100)
 	@+L5(100)
 	@+L6(1)
 	3=L2.0 5=L2.1 7=L2.2 11=L2.3 100=Q2 *recalcefficients(L2, 3/L2) 1=Q4=Q5=Q6 OQ3
@@ -119,9 +123,12 @@ tdmBN(L1/L3)
 		*** *printf(L2.0/) /'\n'>C *printf(L2.1/) /'\n'>C *printf(L2.2/) /'\n'>C *printf(L2.3/) /'\n'>C
 		?=1 *** возможно придётся i присваивать 1
 	P5
-		 L1.0=L3j Dj ?=7
+		 Q1=Q4 L1=L4
+		 /'Q1 = '>C *Hprintf(Q4/) /'\n'>C
+		 /'L1 = '>C *HprintfBN(L4/) /'\n'>C
+		 ?=7
 	P6 /'Число должно быть больше 2'>C
-	P7 j=Q3
+	P7 j=Q3 ?=9
 	P10 /'unsigned int числа закончились\n'>C
 	P9
 **
