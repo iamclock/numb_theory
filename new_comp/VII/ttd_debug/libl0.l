@@ -155,7 +155,6 @@ pervec(F1/F1)
 
 
 
-*** на входе всегда нечётное число
 *** комплекс L1 - массив d - делителей числа
 *** Комплекс L2 - массив сомножителей p
 *** здесь j это t, а i это k
@@ -164,12 +163,19 @@ pervec(F1/F1)
 *** tdAlg(n/L2)
 trial_division_method(n/L2)
 	
-	@+L1(4)
-	4⇒Q1 *recalc_efficients(L1, 3/L1)
 	
-	↑(n<2)6
+	@+L1(100)
+	n⇒b
+	Oj *countZeroes(n/s) *** /'s = '>C *printf(s/) /'\n'>C
+	
+	§9 ↑(s=j)8
+		2⇒L2j ∆j →9
+	§8
+	100⇒Q1 *recalc_efficients(L1, 3/L1)
+	
+	↑(n<2)6 n>s⇒n
 	*** n;2⇒k ↑(k=0)4 *** k↪4 одно и тоже с ↑(k=0)4, но не работает
-	Oi⇒j *** возможно придётся i присваивать 1
+	Oi *** возможно придётся i присваивать 1
 	§1 ↑(n=1)7
 	§2 OZ n:L1i⇒q Z⇒r ↑(r≠0)4 *** n;L1i⇒r n/L1i⇒q ↑(r≠0)4
 		*** /'n = '>C *printf(n/) /'\n'>C
@@ -181,8 +187,40 @@ trial_division_method(n/L2)
 		 ∆i ↑(i<Q1)2 Oi Q1-1⇒l *recalc_efficients(L1, L1l/L1) →1 *** возможно придётся i присваивать 1
 	§5 n⇒L2j ∆j →7
 	§6 /'ОШИБКА: Число должно быть больше 1\n'>C
-	§7 j⇒Q2
+	§7 b⇒n j⇒Q2
 **
+
+
+*** комплекс L1 - массив d - делителей числа
+*** Комплекс L2 - массив сомножителей p
+*** здесь j это t, а i это k
+*** L3 - степени сомножителей
+trial_division_method_v2(n/L2, L3)
+	
+	@+L1(100)
+	n⇒b
+	Oj⇒f *countZeroes(n/s) *** /'s = '>C *printf(s/) /'\n'>C
+	↑(s=0)8 2⇒L2j s⇒L3j ∆j OL3j
+	§8
+	100⇒Q1 *recalc_efficients(L1, 3/L1)
+	↑(n<2)6 n>s⇒n *** /'n = '>C *printf(n/) /'\n'>C
+	Oi *** возможно придётся i присваивать 1
+	§1 ↑(n=1)7
+	§2 OZ n:L1i⇒q Z⇒r ↑(r≠0)4 *** n;L1i⇒r n/L1i⇒q ↑(r≠0)4
+		/'n = '>C *printf(n/) /'\n'>C
+		/'r = '>C *printf(r/) /'\n'>C
+		/'q = '>C *printf(q/) /'\n'>C
+		/'L1i = '>C *printf(L1i/) /'\n'>C
+		1⇒f ∆L3j L1i⇒L2j q⇒n →1
+	§4 ↑(L1i≥q)5
+		∆i j+f⇒j Of⇒L3j ↑(i<Q1)2 Oi Q1-1⇒l *recalc_efficients(L1, L1l/L1) →1 *** возможно придётся i присваивать 1
+	§5 j+f⇒j n⇒L2j ∆L3j →7
+	§6 /'ОШИБКА: Число должно быть больше 1\n'>C →9
+	§7 b⇒n j+1⇒Q2⇒Q3
+	§9
+**
+
+
 
 *** l - указывает на последнее обращённое число
 *** функция используется в trial_division_method на маленьком числе

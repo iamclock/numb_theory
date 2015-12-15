@@ -14,8 +14,8 @@ main(/)
 *** http://planetcalc.com/3754/
 
 
-	*** *test(/)
-	*test_tdmBN(/)
+	*test(/)
+	*** *test_tdmBN(/)
 	*** *tdm_t(/)
 	*** *test_chisla(/)
 **
@@ -56,16 +56,22 @@ test(/)
 	@+L2(100)
 	@+L3(100)
 	
-	
-	257=k=L1.0 1=Q1
-	*trialdivisionmethod(k/L2)
+	*** 26=l
+	*** 432=l
+	*** 65343=l
+	*** 65535=l
+	*** 65536=l
+	l=k=L1.0 1=Q1
+	*trial_division_method_v2(k/L2, L3)
 	Oi
-	P1 *printf(L2i/) Di /' '>C ?(i<Q2)1
+	P1 *printf(L2i/) /'^'>C *printf(L3i/)
+		Di /' '>C ?(i<Q2)1
+	*** *printf(k/)
 	/'\n'>C
-	*tdmBN(L1/L2, L3) Oi
-	P2 *printf(L2i/) Di /' '>C ?(i<Q2)2
-	/'\n'>C
-	/'L5 = '>C *HprintfBN(L5/) /'\n'>C
+	*** *tdmBN(L1/L2, L3) Oi
+	*** P2 *printf(L2i/) Di /' '>C ?(i<Q2)2
+	*** /'\n'>C
+	*** /'L5 = '>C *HprintfBN(L5/) /'\n'>C
 	P3 
 	
 **
@@ -76,6 +82,7 @@ test_tdmBN(/)
 	@+L2(100)
 	@+F3(100)
 	@+L4(100)
+	@+L5(100)
 	
 	*** OQ3 @'0x1ffffffffffffffffffffff'>F3
 	*** OQ3 @'0x1ffffff12312312'>F3
@@ -90,10 +97,10 @@ test_tdmBN(/)
 	/'Q1 = '>C *Hprintf(Q1/) /'\n'>C
 	/'L1 = '>C *HprintfBN(L1/) /'\n'>C
 	/'Внутри tdmBN\n'>C
-	*tdmBN(L1/L2, L4) Oi
+	*tdmBN(L1/L2, L4, L5) Oi
 	/'После tdmBN\n'>C
 	/'Q2 = '>C *printf(Q2/) /'\n'>C
-	P2 *printf(L2i/) Di /' '>C ?(i<Q2)2
+	P2 *printf(L2i/) /'^'>C *printf(L5i/) /' '>C Di ?(i<Q2)2
 	/'\n'>C
 	/'L4 = '>C *HprintfBN(L4/) /'\n'>C
 	/'L1 = '>C *HprintfBN(L1/) /'\n'>C
@@ -108,48 +115,45 @@ test_tdmBN(/)
 *** Комплекс L3 - массив сомножителей p
 *** Комплекс L4 - представление делителя из массива L2 большим числом
 *** L9 - степени сомножителей
-*** здесь j это t, а i это k
 *** все сравнения BN_*(*/?) делаются без учёта мощностей комплексов(больших чисел), потому что результаты арифметических операций над ними не возвращают новую мощность результата 08.12.2015
 *** s -  степень числа
-tdmBN(L1/L3, L4)
-	?(Q1>1)8 L1.0=n *trial_division_method(n/L3) ?=9
+tdmBN(L1/L3, L4, L9)
+	@+L7(100) ***(Q1)
+	@+L2(100)
+	@+L5(100)
+	*countZeroesBN(L1/s) /'s = '>C *printf(s/) /'\n'>C
+	?(s=0)11 2=L3j s=L9j Dj OL9j
+	P11 Q1=Q7 L1=L7 L1>s=L1 *compressBN(L1/L1)
+		 ?(Q1>1)8 L1.0=n *trial_division_method_v2(n/L2, L5) Oi
+	P12
+		 ?(i>=Q2)9 L2i=L3j L5i=L9j Di ∆j=Q3=Q9 ?=12
 	P8
-		 @+L2(100)
-		 @+L5(100)
 		 @+L6(1)
-		 @+L7(100) ***(Q1)
 		 *** @+L8(100)
-		 @+L9(100)
+		 *** @+L9(100)
 		 /'L1 = '>C *HprintfBN(L1/) /'\n'>C
-		 100=Q2 *recalcefficients(L2, 3/L2) 1=Q4=Q5=Q6 OQ3=j=k
-		 3=L6.0 Q1=Q7 L1=L7
-		 *countZeroesBN(L1/s) /'s = '>C *printf(s/) /'\n'>C
-		 L1>s=L1 *compressBN(L1/L1)
-		 ?(s=0)11 2=L3j Dj s=L9k Dk Os
-	P11 *BN_less(L1, L6/b) ?(b=1)6
+		 100=Q2 *recalcefficients(L2, 3/L2) 1=Q4=Q5=Q6 OQ3
+		 3=L6.0
+		 
+		 *BN_less(L1, L6/b) ?(b=1)6
 		 *** n;2=k ?(k=0)4 *** k?-4 одно и тоже с ?(k=0)4, но не работает
 		 Oi *** возможно придётся i присваивать 1
-	P1 1=L6.0 *BN_eq(L4, L6/b)
-		 *** /'P1 b = '>C *printf(b/) /'\n'>C
-		 ?(b=1)9
+	P1 1=L6.0 *BN_eq(L4, L6/b) ?(b=1)9
 		 *** проверка может не пройти, если в комплексе лежит 1, но мощность комплекса больше 1
-	P2 ?(L2i<3)10 L2i=L6.0
+	P2 ∆L9j ?(L2i<3)10 L2i=L6.0
 		 *** /'L2i = '>C *printf(L2i/) /'\n'>C
 		 *** /'L6 = '>C *HprintfBN(L6/) /'\n'>C
 		 *** /'Q1 = '>C *Hprintf(Q1/) /'\n'>C
 		 *** /'L1 = '>C *HprintfBN(L1/) /'\n'>C
-		 L1;L6=L5 *compressBN(L5/L5) L1/L6=L4 *compressBN(L4/L4) OL6
+		 L1;L6=L5 *compressBN(L5/L5) L1/L6=L4 *compressBN(L4/L4) OL6 L2i=L3j
 		 *** /'Q5 = '>C *printf(Q5/) /'\n'>C
 		 *** /'L5 = '>C *HprintfBN(L5/) /'\n'>C
 		 *** /'L5.0 = '>C *printf(L5.0/) /'\n'>C
 		 *** /'Q4 = '>C *printf(Q4/) /'\n'>C
 		 *** /'L4 = '>C *HprintfBN(L4/) /'\n'>C
-		 *BN_neq(L5, L6/b)
-		 *** /'P2 b = '>C *printf(b/) /'\n'>C
-		 ?(b#0)4
+		 *BN_neq(L5, L6/b) ?(b#0)4
 		 *** ?(L5>0)4 *** не фурычит
 		 *** Возможна ошибка, если мощность комплекса больше 1, но число равно 0
-	P3 L2i=L3j
 		 *** Q1=Q8 L1=L8
 		 *** /'L2i = '>C *Hprintf(L2i/) /'\n'>C
 		 *** /'L5 = '>C *HprintfBN(L5/) /'\n'>C
@@ -158,7 +162,7 @@ tdmBN(L1/L3, L4)
 		 *** /'L6 = '>C *HprintfBN(L6/) /'\n'>C
 		 *BN_greq(L6, L4/b)
 		 ?(b=1)5
-		Di ?(i<Q2)2 Oi Q2-1=l *recalcefficients(L2, L2l/L2)
+		Di OL9j ?(i<Q2)2 Oi Q2-1=l *recalcefficients(L2, L2l/L2)
 		*** *printf(L2.0/) /'\n'>C *printf(L2.1/) /'\n'>C *printf(L2.2/) /'\n'>C *printf(L2.3/) /'\n'>C
 		?=1 *** возможно придётся i присваивать 1
 	P5
@@ -168,7 +172,7 @@ tdmBN(L1/L3, L4)
 		 ?=9
 	P6 /'Число должно быть больше 2'>C
 	P10 /'unsigned int числа закончились\n'>C
-	P9 j=Q3 Q7=Q1 L7=L1
+	P9 j=Q3=Q9 Q7=Q1 L7=L1
 		 *** /'Q1 = '>C *printf(Q1/) /'\n'>C
 		 *** /'Q7 = '>C *printf(Q7/) /'\n'>C
 		 *** /'L1 = '>C *HprintfBN(L1/) /'\n'>C
@@ -189,7 +193,6 @@ compressBN(L1/L1)
 *** на входе всегда нечётное число
 *** комплекс L1 - массив d - делителей числа
 *** Комплекс L2 - массив сомножителей p
-*** здесь j это t, а i это k
 trialdivisionmethod(n/L2)
 	
 	@+L1(4)
@@ -220,7 +223,6 @@ recalcefficients(L1, k/L1)
 	P1 l+d=L1i=l Di d;4+2=d ?(i<Q1)1 Oi
 	P2 *** *printf(L1i/) /' '>C Di ?(i<Q1)2 /'\n'>C
 **
-
 
 
 *** проверка, что 2 больших числа равны
