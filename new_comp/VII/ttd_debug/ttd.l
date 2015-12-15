@@ -4,27 +4,30 @@ main(/)
 	
 	
 *** TO DO
-*** добавить проверку делителей на границу unsigned int
 *** ошибка в делении или нет? в питоне и калькуляторе разные значения
 *** python3 hex(int(0x966AA219284F4DAF/0x3))
 	*** *test(/)
-	*** *test_tdmBN(/)
-	*tdm_t(/)
+	*test_tdmBN(/)
+	*** *tdm_t(/)
+	*** *test_chisla(/)
 **
 
-tdm_t(/)
+
+test_chisla(/)
+	@+L1(5)
+	@+L2(5)
+	2=Q1
+	1=Q2
 	
-	@+L1(100)
-	
-	1636277888=n
-	*trialdivisionmethod(n/L1)
-	*** *trial_division_method(n/L1)
-	P2 *printf(L2i/) Di /' '>C ?(i<Q2)2
-	/'\n'>C
-	
-	
+	6h=L1.1
+	1879E808h=L1.0
+	337=L2.0
+	L1;L2=L2
+	/'L2 = '>C *HprintfBN(L2/) /'\n'>C
+	/'L2.0 = '>C *Hprintf(L2.0/) /'\n'>C
 	
 **
+
 
 
 test_Z(/)
@@ -105,6 +108,7 @@ tdmBN(L1/L3, L4)
 	@+L5(100)
 	@+L6(1)
 	@+L7(100) ***(Q1)
+	*** @+L8(100)
 	3=L2.0 5=L2.1 7=L2.2 11=L2.3 100=Q2 *recalcefficients(L2, 3/L2) 1=Q4=Q5=Q6 OQ3
 	3=L6.0 Q1=Q7 L1=L7
 	*BN_less(L1, L6/b) ?(b=1)6
@@ -116,13 +120,14 @@ tdmBN(L1/L3, L4)
 	*** проверка может не пройти, если в комплексе лежит 1, но мощность комплекса больше 1
 	
 	P2 ?(L2i<3)10 L2i=L6.0
-	*** /'L2i = '>C *Hprintf(L2i/) /'\n'>C
+		 *** /'L2i = '>C *printf(L2i/) /'\n'>C
 	*** /'L6 = '>C *HprintfBN(L6/) /'\n'>C
 	*** /'Q1 = '>C *Hprintf(Q1/) /'\n'>C
 	*** /'L1 = '>C *HprintfBN(L1/) /'\n'>C
 	L1;L6=L5 *compressBN(L5/L5) L1/L6=L4 *compressBN(L4/L4) OL6
-	*** /'Q5 = '>C *printf(Q5/) /'\n'>C
-	*** /'L5 = '>C *HprintfBN(L5/) /'\n'>C
+		 *** /'Q5 = '>C *printf(Q5/) /'\n'>C
+		 *** /'L5 = '>C *HprintfBN(L5/) /'\n'>C
+	*** /'L5.0 = '>C *printf(L5.0/) /'\n'>C
 	*** /'Q4 = '>C *printf(Q4/) /'\n'>C
 	*** /'L4 = '>C *HprintfBN(L4/) /'\n'>C
 	*BN_neq(L5, L6/b)
@@ -131,24 +136,27 @@ tdmBN(L1/L3, L4)
 	*** ?(L5>0)4 *** не фурычит
 	*** Возможна ошибка, если мощность комплекса больше 1, но число равно 0
 	P3 L2i=L3j
+		 *** Q1=Q8 L1=L8
 		 *** /'L2i = '>C *Hprintf(L2i/) /'\n'>C
 		 *** /'L5 = '>C *HprintfBN(L5/) /'\n'>C
 		 Dj L4=L1 ?=1
-	P4 L2i=L6.0 *** /'L6 = '>C *printf(L6.0/) /'\n'>C
-	*** /'L4 = '>C *HprintfBN(L4/) /'\n'>C
-	*BN_greq(L6, L4/b) *** /'P4 b = '>C *printf(b/) /'\n'>C
-	?(b=1)5
-		Di ?(i<Q1)2 Oi Q2-1=l *recalcefficients(L2, L2l/L2)
+	P4 L2i=L6.0
+		 *** /'L6 = '>C *HprintfBN(L6/) /'\n'>C
+		 *BN_greq(L6, L4/b)
+		 ?(b=1)5
+		Di ?(i<Q2)2 Oi Q2-1=l *recalcefficients(L2, L2l/L2)
 		*** *printf(L2.0/) /'\n'>C *printf(L2.1/) /'\n'>C *printf(L2.2/) /'\n'>C *printf(L2.3/) /'\n'>C
 		?=1 *** возможно придётся i присваивать 1
 	P5
 		 Q1=Q4 L1=L4 *compressBN(L4/L4)
-		 /'Q1 = '>C *Hprintf(Q4/) /'\n'>C
-		 /'L1 = '>C *HprintfBN(L4/) /'\n'>C
+		 *** /'Q1 = '>C *Hprintf(Q4/) /'\n'>C
+		 *** /'L1 = '>C *HprintfBN(L4/) /'\n'>C
 		 ?=9
 	P6 /'Число должно быть больше 2'>C
 	P10 /'unsigned int числа закончились\n'>C
 	P9  j=Q3 Q7=Q1 L7=L1
+		 *** /'Q1 = '>C *printf(Q1/) /'\n'>C
+		 *** /'Q7 = '>C *printf(Q7/) /'\n'>C
 		 *** /'L1 = '>C *HprintfBN(L1/) /'\n'>C
 		 *** /'L7 = '>C *HprintfBN(L7/) /'\n'>C
 **
@@ -158,9 +166,11 @@ tdmBN(L1/L3, L4)
 *** применяется после арифметических операций, где возможно уменьшение мощности числа, но сами арифметические операции его не уменьшают 08.12.2015
 compressBN(L1/L1)
 	Q1-1=i
+	?(Q1=1)2
 	P1 ?(L1i>0)2 Yi ?(i=0)2 ?=1
 	P2 i+1=Q1
 **
+
 
 *** на входе всегда нечётное число
 *** комплекс L1 - массив d - делителей числа
@@ -177,7 +187,7 @@ trialdivisionmethod(n/L2)
 	P1 ?(n=1)7 /'n = '>C *printf(n/) /'\n'>C
 	P2 OZ n:L1i=q Z=r /'P2\n'>C ?(r#0)4 *** n;L1i=r n/L1i=q ?(r#0)4
 	P3 L1i=L2j Dj q=n /'P3\n'>C ?=1
-	P4 /'P4 '>C /'L1i = '>C *printf(L1i/) /'\n'>C ?(L1i>=q)5
+	P4 /'P4 '>C /'L1i = '>C *printf(L1i/) /'\n'>C ?(L1i>=q)5 /'after condition'>C
 		 Di /'P4.2\n'>C ?(i<Q1)2 /'P4.3\n'>C Oi *recalcefficients(L1, L1.3/L1)
 		 /'L1.3 = '>C *printf(L1.3/) /'\n'>C
 		 ?=1 *** возможно придётся i присваивать 1
