@@ -85,11 +85,13 @@ test_tdmBN(/)
 	@+L5(100)
 	
 	*** OQ3 @'0x1ffffffffffffffffffffff'>F3
-	 OQ3 @'0x1ffffff12312312'>F3
+	*** OQ3 @'0x1ffffff12312312'>F3
 	*** OQ3 @'0x7ffffffffffffffffffffffffff'>F3
 	*** OQ3 @'0x40810204081'>F3
 	*** OQ3 @'0x40810204080'>F3
 	*** OQ3 @'0x966AA219284F4DAF'>F3
+	*** OQ3 @'0xffffffff'>F3
+	OQ3 @'0x10000'>F3
 	
 	OQ1=Q2=i
 	*inputBN(L1, F3, i/L1, i)
@@ -97,9 +99,11 @@ test_tdmBN(/)
 	/'Q1 = '>C *Hprintf(Q1/) /'\n'>C
 	/'L1 = '>C *HprintfBN(L1/) /'\n'>C
 	/'Внутри tdmBN\n'>C
-	*tdmBN_ndc(L1/L2, L4) Oi
+	*** *tdmBN_ndc(L1/L2, L4) Oi
+	*tdmBN(L1/L2, L4, L5) Oi
 	/'После tdmBN\n'>C
 	/'Q2 = '>C *printf(Q2/) /'\n'>C
+	*** P2 *printf(L2i/) /' '>C Di ?(i<Q2)2
 	P2 *printf(L2i/) /'^'>C *printf(L5i/) /' '>C Di ?(i<Q2)2
 	/'\n'>C
 	/'L4 = '>C *HprintfBN(L4/) /'\n'>C
@@ -116,7 +120,7 @@ test_tdmBN(/)
 *** Комплекс L4 - представление делителя из массива L2 большим числом
 *** L9 - степени сомножителей
 *** s -  степень числа
-tdmBN(L1/L3, L4, L9)
+tdmBN_(L1/L3, L4, L9)
 	@+L7(100) ***(Q1)
 	@+L2(100)
 	@+L5(100)
@@ -169,9 +173,9 @@ tdmBN(L1/L3, L4, L9)
 tdmBN_ndc(L1/L3, L4)
 	@+L7(100) ***(Q1)
 	@+L2(100)
-	*countZeroesBN(L1/s) /'s = '>C *printf(s/) /'\n'>C
-	Q1=Q7 L1=L7 L1>s=L1 *compressBN(L1/L1)
-	P12 ?(s=0)11 2=L3j Dj Ys ?=12
+	*countZeroesBN(L1/s) s=t
+	Q1=Q7 L1=L7 *compressBN(L1/L1)
+	P12 ?(t=0)11 2=L3j Dj Yt ?=12
 	P11 
 		 ?(Q1>1)8 L1.0=n *trial_division_method(n/L2) Oi
 	P13
@@ -180,39 +184,19 @@ tdmBN_ndc(L1/L3, L4)
 		 @+L5(100)
 		 @+L6(1)
 		 
-		 *** @+L8(100)
-		 *** @+L9(100)
-		 /'L1 = '>C *HprintfBN(L1/) /'\n'>C
-		 100=Q2 *recalcefficients(L2, 3/L2) 1=Q4=Q5=Q6 OQ3=j=k
+		 100=Q2 *recalcefficients(L2, 3/L2) 1=Q4=Q5=Q6 OQ3
 		 3=L6.0
-		 
-		 *BN_less(L1, L6/b) ?(b=1)6
-		 *** n;2=k ?(k=0)4 *** k?-4 одно и тоже с ?(k=0)4, но не работает
+		 *BN_less(L1, L6/b) ?(b=1)6 L1>s=L1 *compressBN(L1/L1)
 		 Oi *** возможно придётся i присваивать 1
 	P1 1=L6.0 *BN_eq(L4, L6/b)
-		 *** /'P1 b = '>C *printf(b/) /'\n'>C
 		 ?(b=1)9
 		 *** проверка может не пройти, если в комплексе лежит 1, но мощность комплекса больше 1
 	P2 ?(L2i<3)10 L2i=L6.0
-		 *** /'L2i = '>C *printf(L2i/) /'\n'>C
-		 *** /'L6 = '>C *HprintfBN(L6/) /'\n'>C
-		 *** /'Q1 = '>C *Hprintf(Q1/) /'\n'>C
-		 *** /'L1 = '>C *HprintfBN(L1/) /'\n'>C
 		 L1;L6=L5 *compressBN(L5/L5) L1/L6=L4 *compressBN(L4/L4) OL6
-		 *** /'Q5 = '>C *printf(Q5/) /'\n'>C
-		 *** /'L5 = '>C *HprintfBN(L5/) /'\n'>C
-		 *** /'L5.0 = '>C *printf(L5.0/) /'\n'>C
-		 *** /'Q4 = '>C *printf(Q4/) /'\n'>C
-		 *** /'L4 = '>C *HprintfBN(L4/) /'\n'>C
 		 *BN_neq(L5, L6/b)
-		 *** /'P2 b = '>C *printf(b/) /'\n'>C
 		 ?(b#0)4
-		 *** ?(L5>0)4 *** не фурычит
 		 *** Возможна ошибка, если мощность комплекса больше 1, но число равно 0
-	P3 L2i=L3j
-		 *** Q1=Q8 L1=L8
-		 *** /'L2i = '>C *Hprintf(L2i/) /'\n'>C
-		 *** /'L5 = '>C *HprintfBN(L5/) /'\n'>C
+		 L2i=L3j
 		 Dj L4=L1 ?=1
 	P4 L2i=L6.0
 		 *** /'L6 = '>C *HprintfBN(L6/) /'\n'>C
@@ -221,7 +205,8 @@ tdmBN_ndc(L1/L3, L4)
 		Di ?(i<Q2)2 Oi Q2-1=l *recalcefficients(L2, L2l/L2)
 		*** *printf(L2.0/) /'\n'>C *printf(L2.1/) /'\n'>C *printf(L2.2/) /'\n'>C *printf(L2.3/) /'\n'>C
 		?=1 *** возможно придётся i присваивать 1
-	P5
+	P5 ?(Q1>1)14 L1.0=L3j Dj OQ4 ?=9
+	P14
 		 Q1=Q4 L1=L4 *compressBN(L4/L4)
 		 *** /'Q1 = '>C *Hprintf(Q4/) /'\n'>C
 		 *** /'L1 = '>C *HprintfBN(L4/) /'\n'>C
