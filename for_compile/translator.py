@@ -91,10 +91,10 @@ def old_lyapas_sintax_replace(file_from, file_to):
 					x = file_from.read(1)
 		elif x == 'D' or x == 'Y' or x == 'P':
 			prev = x
+			prev2 = file_from.read(1) #x = file_from.read(1)
+			#prev2 = x
 			x = file_from.read(1)
-			prev2 = x
-			x = file_from.read(1)
-			if x == ' ' or x == '\n' or x == '\t':
+			if x == ' ' or x == '\n' or x == '\t' or x == "=":
 				if prev2 > '`' and prev2 < '{':
 					if prev == 'D':
 						prev = triangle_up
