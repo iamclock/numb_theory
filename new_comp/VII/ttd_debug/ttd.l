@@ -15,24 +15,19 @@ main(/)
 
 
 	*** *test(/)
-	 *test_tdmBN(/)
+	*** *tt(/)
+	*test_tdmBN(/)
 	*** *tdm_t(/)
 	*** *test_chisla(/)
 **
 
 
-test_chisla(/)
-	@+L1(5)
-	@+L2(5)
-	2=Q1
-	1=Q2
-	
-	6h=L1.1
-	1879E808h=L1.0
-	337=L2.0
-	L1;L2=L2
-	/'L2 = '>C *HprintfBN(L2/) /'\n'>C
-	/'L2.0 = '>C *Hprintf(L2.0/) /'\n'>C
+tt(/)
+	@+L1(100)
+	100=Q1
+	*recalc_efficients(L1, 3/L1) Oi
+	P1 ?(i>=Q1)2 *printf(L1i/) /' '>C Di ?=1
+	P2 /'\n'>C
 	
 **
 
@@ -91,7 +86,8 @@ test_tdmBN(/)
 	*** OQ3 @'0x40810204080'>F3
 	*** OQ3 @'0x966AA219284F4DAF'>F3
 	*** OQ3 @'0xffffffff'>F3
-	OQ3 @'0x10000'>F3
+	*** OQ3 @'0x10000'>F3
+	OQ3 @'0x100000000'>F3
 	
 	OQ1=Q2=i
 	*inputBN(L1, F3, i/L1, i)
@@ -126,13 +122,13 @@ tdmBN_(L1/L3, L4, L9)
 	@+L5(100)
 	*countZeroesBN(L1/s)
 	?(s=0)11 2=L3j s=L9j Dj OL9j
-	P11 Q1=Q7 L1=L7 L1>s=L1 *compressBN(L1/L1)
-		 ?(Q1>1)8 L1.0=n *trial_division_method_v2(n/L2, L5) Oi
+	P11 Q1=Q7 L1=L7 L1>s=L1 *cutZerosBN(L1/L1)
+		 ?(Q1>1)8 L1.0=n *trial_division_method(n/L2, L5) Oi
 	P12
 		 ?(i>=Q2)9 L2i=L3j L5i=L9j Di ∆j=Q3=Q9 ?=12
 	P8
 		 @+L6(1)
-		 100=Q2 *recalcefficients(L2, 3/L2) 1=Q4=Q5=Q6 OQ3=f
+		 100=Q2 *recalc_efficients(L2, 3/L2) 1=Q4=Q5=Q6 OQ3=f
 		 3=L6.0
 		 
 		 *BN_less(L1, L6/b) ?(b=1)6
@@ -140,17 +136,17 @@ tdmBN_(L1/L3, L4, L9)
 	P1 1=L6.0 *BN_eq(L4, L6/b) ?(b=1)9
 		 *** проверка может не пройти, если в комплексе лежит 1, но мощность комплекса больше 1
 	P2 ?(L2i<3)10 L2i=L6.0
-		 L1;L6=L5 *compressBN(L5/L5) L1/L6=L4 *compressBN(L4/L4) OL6
+		 L1;L6=L5 *cutZerosBN(L5/L5) L1/L6=L4 *cutZerosBN(L4/L4) OL6
 		 *BN_neq(L5, L6/b) ?(b#0)4
 		 1=f ∆L9j L2i=L3j Q4=Q1 L4=L1 ?=1
 	P4 L2i=L6.0
 		 *BN_greq(L6, L4/b)
 		 ?(b=1)5
-		Di j+f=j Of=L9j ?(i<Q2)2 Oi Q2-1=l *recalcefficients(L2, L2l/L2)
+		Di j+f=j Of=L9j ?(i<Q2)2 Oi Q2-1=l *recalc_efficients(L2, L2l/L2)
 		?=1 *** возможно придётся i присваивать 1
 	P5 ?(Q1>1)13 j+f=j Of L1.0=L3j ∆L9j ∆j OQ4 ?=9
 	P13
-		 Q1=Q4 L1=L4 *compressBN(L4/L4) ?=9
+		 Q1=Q4 L1=L4 *cutZerosBN(L4/L4) ?=9
 	P6 /'Число должно быть больше 2'>C
 	P10 /'unsigned int числа закончились\n'>C
 	P9 j+f=Q3=Q9 Q7=Q1 L7=L1
@@ -174,7 +170,7 @@ tdmBN_ndc(L1/L3, L4)
 	@+L7(100) ***(Q1)
 	@+L2(100)
 	*countZeroesBN(L1/s) s=t
-	Q1=Q7 L1=L7 *compressBN(L1/L1)
+	Q1=Q7 L1=L7 *cutZerosBN(L1/L1)
 	P12 ?(t=0)11 2=L3j Dj Yt ?=12
 	P11 
 		 ?(Q1>1)8 L1.0=n *trial_division_method(n/L2) Oi
@@ -186,13 +182,13 @@ tdmBN_ndc(L1/L3, L4)
 		 
 		 100=Q2 *recalcefficients(L2, 3/L2) 1=Q4=Q5=Q6 OQ3
 		 3=L6.0
-		 *BN_less(L1, L6/b) ?(b=1)6 L1>s=L1 *compressBN(L1/L1)
+		 *BN_less(L1, L6/b) ?(b=1)6 L1>s=L1 *cutZerosBN(L1/L1)
 		 Oi *** возможно придётся i присваивать 1
 	P1 1=L6.0 *BN_eq(L4, L6/b)
 		 ?(b=1)9
 		 *** проверка может не пройти, если в комплексе лежит 1, но мощность комплекса больше 1
 	P2 ?(L2i<3)10 L2i=L6.0
-		 L1;L6=L5 *compressBN(L5/L5) L1/L6=L4 *compressBN(L4/L4) OL6
+		 L1;L6=L5 *cutZerosBN(L5/L5) L1/L6=L4 *cutZerosBN(L4/L4) OL6
 		 *BN_neq(L5, L6/b)
 		 ?(b#0)4
 		 *** Возможна ошибка, если мощность комплекса больше 1, но число равно 0
@@ -207,7 +203,7 @@ tdmBN_ndc(L1/L3, L4)
 		?=1 *** возможно придётся i присваивать 1
 	P5 ?(Q1>1)14 L1.0=L3j Dj OQ4 ?=9
 	P14
-		 Q1=Q4 L1=L4 *compressBN(L4/L4)
+		 Q1=Q4 L1=L4 *cutZerosBN(L4/L4)
 		 *** /'Q1 = '>C *Hprintf(Q4/) /'\n'>C
 		 *** /'L1 = '>C *HprintfBN(L4/) /'\n'>C
 		 ?=9
@@ -222,17 +218,6 @@ tdmBN_ndc(L1/L3, L4)
 
 
 
-
-
-
-*** функция сжимает большое число - уменьшает его мощность, если впереди есть нулевые элементы
-*** применяется после арифметических операций, где возможно уменьшение мощности числа, но сами арифметические операции его не уменьшают 08.12.2015
-compressBN(L1/L1)
-	Q1-1=i
-	?(Q1=1)2
-	P1 ?(L1i>0)2 Yi ?(i=0)2 ?=1
-	P2 i+1=Q1
-**
 
 
 *** на входе всегда нечётное число
