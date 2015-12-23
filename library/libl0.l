@@ -1,5 +1,39 @@
+*** **************************
+*** Начало чего то
+*** **************************
+print_complex(L1/)
+	Oi
+	§100 *printf(L1i/) ∆i /' '>C ↑(i<Q1)100
+**
 
 
+
+*** обернуть эту функцию в алгоритм поиска функции эйлера
+*** количество взаимнопростых чисел из разложения числа работает в тандеме с trial_division_method
+*** L1 - разложение числа на простые сомножители (функция эйлера)
+*** n - число для которого ищется функция эйлера
+*** c - количество взаимнопростых
+numbOfCoprimes(L1,n/c)
+	1⇒c n⇒q Oi
+	§1 L1i-1⇒b q/L1i⇒q c*b⇒c ∆i ↑(i≥Q1)2 →1 ***/'ef: b = '>C *printf(b/) /'\n'>C
+	§2 q*c⇒c
+**
+
+
+*** ТРЕБУЕТСЯ ДОДЕЛАТЬ: пропускать числа из L1, которые уже были
+*** количество взаимнопростых чисел из разложения числа работает в тандеме с trial_division_method_v2
+*** L1 - разложение числа на простые сомножители (функция эйлера)
+*** c - количество взаимнопростых
+numbOfCoprimes_v2(L1,n/c)
+	1⇒c Oi
+	§1 L1i-1⇒b c*b⇒c ∆i ↑(i≥Q1)2 →1 ***/'ef: b = '>C *printf(b/) /'\n'>C
+	§2
+**
+
+
+*** **************************
+*** Конец чего то
+*** **************************
 
 n(a/b) 
 	a+'A'⇒b ↑(a<10)1 a-10+'A'⇒b
@@ -43,6 +77,36 @@ genm(n,m/L1)
 	§1 X>k⇒L1i ∆i ↑(i<m)5
 	§3 m⇒Q1
 **
+
+*** Наибольший общий делитель
+GCD(a,b/b)
+	§1 OZ a:b⇒q b⇒a Z⇒b ↑(b>1)1
+**
+
+
+invertible_element(a, b/y, c)
+	Of a⇒c b⇒d 0⇒y 1⇒w Os ↑(a≠0)1 1⇒y b⇒c →6
+	§1	/'a	y	q'>C /'\n'>C *printf(c/) /'	'>C *printf(y/) /'\n'>C
+	§2	∆s ↑(d=0)3 c/d⇒q *printf(d/) /'	'>C *printf(w/) /'	'>C *printf(q/) /'\n'>C q*d⇒r c-r⇒r q*w⇒t y+t⇒y d⇒c r⇒d w⇒t y⇒w t⇒y →2
+	§3	↑(c≠1)5 s;2⇒f ↑(f>0)4 →6
+	§4	↑(y=0)6 a-y⇒y →6
+	§5	/'Error: Im sorry, but there is no invertible element GCD != 1\n'>C Oy Oc
+	§6 /'\n'>C
+**
+
+
+
+
+Extended_Euclidean_Algorithm(a, b/x, y, c, f)
+	Of a⇒c b⇒d 0⇒y 1⇒w Os ↑(a≠0)1 1⇒y b⇒c →6
+	§1 /'a	y	q'>C /'\n'>C *printf(c/) /'	'>C *printf(y/) /'\n'>C
+	§2 ∆s ↑(d=0)3 c/d⇒q *printf(d/) /'	'>C  *printf(w/) /'	'>C *printf(q/) /'\n'>C q*d⇒r c-r⇒r q*w⇒t y+t⇒y d⇒c r⇒d w⇒t y⇒w t⇒y →2
+	§3	s;2⇒f ↑(f>0)5
+	§4	b*y-c/a⇒x →6
+	§5	b*y+c/a⇒x →6
+	§6	/'\n'>C
+**
+
 
 
  
@@ -118,8 +182,8 @@ c2n(a/b)
 pow(x, y, m/z)
 	Oj ∆j x⇒q 1⇒z⇒i y&1↪3 x⇒z
 	§3 i<1⇒i *** /'j = '>C *printf(j/) /'\n'>C ∆j
-		 ↑(i>y)5 q*q:m Z⇒q *** /'q = '>C *Hprintf(q/) /'\n'>C
-		 i&y↪3 z*q:m Z⇒z *** /'z = '>C *Hprintf(z/) /'\n'>C
+		 ↑(i>y)5 OZ q*q:m Z⇒q *** /'q = '>C *Hprintf(q/) /'\n'>C
+		 i&y↪3 OZ z*q:m Z⇒z *** /'z = '>C *Hprintf(z/) /'\n'>C
 		 →3
 	§5
 **
@@ -301,6 +365,17 @@ miral(n, r/b)
 	§5
 **
 
+*** формирует простое число из k бит
+randPrime(k/t)
+	↑(k<2)3 ↑(k>32)3
+	§1
+		 32-k⇒t k-1⇒c
+		 X>t∨1∨Ic⇒t
+		 *** /'t = '>C *printf(t/) /'\n'>C
+		 *miral(t, 5/b) *** /'b = '>C *printf(b/) /'\n'>C
+		 b↪1
+	§3
+**
 
 
 *** формирует список простых чисел в которых k бит
