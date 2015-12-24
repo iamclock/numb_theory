@@ -12,7 +12,7 @@ proot_test(/)
 	@+L1(100)
 	5=n Oi
 	P1
-		 *randPrime(5/p) /'prime = '>C *printf(p/) /'\n'>C
+		 *randPrime(10/p) /'prime = '>C *printf(p/) /'\n'>C
 		 *primroot(p/t)
 		 *primroots(p/L1)
 		 /'primitive root = '>C *printf(t/) /'\n'>C
