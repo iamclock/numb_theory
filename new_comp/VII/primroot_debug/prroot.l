@@ -13,9 +13,9 @@ proot_test(/)
 	5=n Oi
 	P1
 		 *randPrime(5/p) /'prime = '>C *printf(p/) /'\n'>C
-		 *** *primroot(p/t)
+		 *primroot(p/t)
 		 *primroots(p/L1)
-		 *** /'primitive root = '>C *printf(t/) /'\n'>C
+		 /'primitive root = '>C *printf(t/) /'\n'>C
 		 *print_complex(L1/) /'\n'>C Di ?(i<5)1
 **
 
