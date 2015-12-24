@@ -12,9 +12,10 @@ proot_test(/)
 	@+L1(100)
 	5=n Oi
 	P1
-		 *randPrime(32/p) /'prime = '>C *printf(p/) /'\n'>C
-		 *primroot(p/t) *primroots(p/L1)
-		 /'primitive root = '>C *printf(t/) /'\n'>C
+		 *randPrime(5/p) /'prime = '>C *printf(p/) /'\n'>C
+		 *** *primroot(p/t)
+		 *primroots(p/L1)
+		 *** /'primitive root = '>C *printf(t/) /'\n'>C
 		 *print_complex(L1/) /'\n'>C Di ?(i<5)1
 **
 
@@ -34,9 +35,7 @@ primroot(m/r)
 	@+L1(100)
 	@+L2(100)
 	*** @+L3(100)
-	*trial_division_method(m/L1,L2)
-	*** *print_complex(L1,L2/)
-	?(L1.0#m)4 m-1=n *trial_division_method(n/L1,L2) 1=r *** *printf(n/) /' '>C *print_trtr(L1,L2/) /'\n'>C
+	m-1=n *trial_division_method(n/L1,L2) 1=r *** *printf(n/) /' '>C *print_trtr(L1,L2/) /'\n'>C
 	P1 r+1=r Oj *** *printf(r/) /'\n'>C
 		P2 n/L1j=d *pow(r,d,m/b)
 			 *** /'j = '>C *printf(j/) /'\n'>C
@@ -51,9 +50,7 @@ primroot(m/r)
 *** r - первообразный корень
 primroots(m/L2)
 	@+L1(100)
-	*trial_division_method(m/L1,L2)
-	*** *print_complex(L1/)
-	OQ2=i ?(L1.0#m)4 m-1=n *trial_division_method(n/L1,L2) 1=r *** *printf(n/) /' '>C *print_trtr(L1,L2/) /'\n'>C
+	OQ2=i m-1=n *trial_division_method(n/L1,L2) 1=r *** *printf(n/) /' '>C *print_trtr(L1,L2/) /'\n'>C
 	*numbOfCoprimes(L1,n/f) f;100=f *** /'f = '>C *printf(f/) /'\n'>C
 	P1 r+1=r Oj *** *printf(r/) /'\n'>C
 		P2 n/L1j=d *pow(r,d,m/b)
