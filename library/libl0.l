@@ -491,17 +491,19 @@ HprintfBN(L1/)
 *** 01.11.2015 операции над большими числами не изменяют мощность комплексов
 powBN(L1, L2, L3/L4)
 	@+L5(100)
+	@+L6(100)
 	
-	1⇒Q4⇒Q5 Oj
-	L1⇒L5 Q3+Q3⇒l *optimize(L5, l/L5) *optimize(L4, l/L4) 1⇒L4.0⇒i⇒s i<1⇒i L2j&1↪1 L1⇒L4 *optimize(L4, l/L4)
+	1⇒Q6⇒Q5 Oj
+	L1⇒L5 Q3+Q3⇒l *optimize(L5, l/L5) *optimize(L6, l/L6) 1⇒L6.0⇒i⇒s i<1⇒i L2j&1↪1 L1⇒L6 *optimize(L6, l/L6)
 	§1 ↑(s≥32)3 L5*L5;L3⇒L5
-	   *** /'L5= '>C *HprintfBN(L5/)
-		 i&L2j↪2 L5*L4;L3⇒L4
-	   *** /'L4= '>C *HprintfBN(L4/)
+	   *** /'L5= '>C *HprintfBN(L5/) /'\n'>C
+		 i&L2j↪2 L5*L6;L3⇒L6
+	   *** /'L6= '>C *HprintfBN(L6/) /'\n'>C
 	§2 ∆s i<1⇒i →1
 	§3 ∆j ↑(j≥Q2)4 Os 1⇒i →1
-	§4 *cutZerosBN(L4/L4)
+	§4 Q6⇒Q4 L6⇒L4 *cutZerosBN(L4/L4)
 **
+
 
 *** /'d L4= '>C *HprintfBN(L4/)
 *** /'Q4= '>C *printf(Q4/) /' '>C
@@ -681,6 +683,101 @@ countZeroesBN(L1/s)
 	§6
 **
 
+
+*** генерация простого числа
+*** k - количество бит
+*** l - максимально возможная длина числа (количество элементов)
+*** L1 - число
+randPrimeBN(k/L1)
+	Q1⇒l
+	Oi⇒Q1⇒s⇒t ↑(k<2)3
+	§1 OZ k:32⇒t Z⇒s
+		 ↑(t>l)3 ↑(s=0)2 ∆t ↑(t>l)3 t⇒Q1 *** DQ1
+	§2
+		*randBN(L1/)
+		*** /'t = '>C *printf(t/) /'\n'>C
+		 s-1⇒c Q1-1⇒t
+		 L1.0∨1⇒L1.0 L1t∨Ic⇒L1t 32-s⇒c ffffffffh>c⇒c L1t&c⇒L1t
+		 *** /'Current Number: '>C *HprintfBN(L1/) /'\n'>C
+		 *miralBN(L1, 5/b)
+		 *** /'b = '>C *printf(b/) /'\n'>C
+		  b↪2 *** ↑(b=0)2
+	§3
+**
+
+*** miller-rabin-algorithm()
+*** r - количество раундов, есть ли смысл делать большим числом?
+*** может ли степень s быть больше 32 бит?
+*** L1 - n простое нечётное число
+*** 
+*** 
+*** 
+*** 
+miralBN(L1, r/b)
+	@+L3(20) *** m ⇒ n-1 (L1-1)
+	@+L4(20) *** q, потом t n ⇒ (q^2)*t+1
+	*** @+L5(20) *** t
+	@+L6(20) *** i, до начала индексации промежуточный комплекс
+	@+L7(20) *** a
+	@+L8(20) *** 1ца, 2ка для последовательности 2, 3, 5 ,7,...
+	*** @+L9(20) *** 
+	@+L10(100) *** x
+	*** @+L11(20) *** j на случай, если степень двойки(число s) будет большим числом
+	
+	1⇒L4.0⇒Q6⇒Q4⇒Q3 Ob
+	*BN_eq(L1, L3/c) ↑(c=1)5
+	Q1⇒Q3 OL3 1⇒L3.0
+	L1-L3⇒L3 *** L3 теперь m ⇒ n-1 (L1-1)
+	*** /'L3 = '>C *HprintfBN(L3/) /'\n'>C
+	*countZeroesBN(L3/s)
+	L4<s⇒L4
+	*** /'s = '>C *printf(s/) /'\n'>C
+	*** /'L4 = '>C *HprintfBN(L4/) /'\n'>C
+	L3/L4⇒L4
+	Oj⇒i 1⇒L8.0⇒L6.0 2⇒L7.0 1⇒Q7⇒Q8⇒Q6
+	§1 ↑(i≥r)4 *BN_greq(L7, L3/c) ↑(c=1)4
+		 *** /'L6 = '>C *HprintfBN(L6/) /'\n'>C
+		 *** /'L7 = '>C *HprintfBN(L7/) /'\n'>C
+		 *** /'L4 = '>C *HprintfBN(L4/) /'\n'>C
+		 *** /'L1 = '>C *HprintfBN(L1/) /'\n'>C
+		 *powBN(L7, L4, L1/L10)
+		 *** /'L10 = '>C *HprintfBN(L10/) /'\n'>C
+		 ∆i L7+L8⇒L7 1⇒L8.0
+		 *** /'L7^L4 mod L1 = '>C *HprintfBN(L10/) /'\n'>C
+		 **** /'L8 = '>C *HprintfBN(L8/) /'\n'>C
+		 *** /'L3 = '>C *HprintfBN(L3/) /'\n'>C
+		 
+		 *BN_eq(L10, L8/c) 2⇒L8.0 ↑(c=1)1
+		 *BN_eq(L10, L3/c) ↑(c=1)1
+		 1⇒j
+	§2 ↑(j≥s)5
+		 *** /'L10 = '>C *HprintfBN(L10/) /'\n'>C
+		 *** /'L8 = '>C *HprintfBN(L8/) /'\n'>C
+		 *** /'L1 = '>C *HprintfBN(L1/) /'\n'>C
+		 L10*L10;L1⇒L10 1⇒L8.0
+		 *** 2⇒L8.0 *powBN(L10, L8, L1/L10) 1⇒L8.0
+		 *** /'L10^L8 mod L1 = '>C *HprintfBN(L10/) /'\n'>C
+		 *BN_eq(L10, L8/c) 2⇒L8.0 ↑(c=1)5 *BN_eq(L10, L3/c) ↑(c=1)1 ∆j →2
+	§4 ∆b *** /'Вероятно простое\n'>C
+	§5
+**
+
+
+*** возможно ли, что степень двойки будет большим числом?
+*** проблема - может прийти комплекс с мощностью больше 1, но равный нулю
+countZeroesBN(L1/s)
+	↑(Q1=0)4 Oi⇒s ↑(Q1>1)1 ↑(L1.0=0)5
+	§1 ↑(i≥Q1)3 ↑(L1i≠0)2 s+32⇒s ∆i →1
+	§2 *countZeroes(L1i/b) *** /'czs = '>C *printf(s/) /'\n'>C
+		 *** /'b = '>C *printf(b/) /'\n'>C
+		 s+b⇒s
+		 *** /'s = '>C *printf(s/) /'\n'>C
+		 *** /'i = '>C *printf(i/) /'\n'>C
+	§3 s/Q1⇒t s;Q1⇒l t+l⇒l ↑(l=32)5 →6
+	§4 /'ОШИБКА: Мощность комплекса равна нулю\n'>C
+	§5 Os /'ОШИБКА: Комплекс полностью из нулей\n'>C
+	§6
+**
 
 
 *** проверка, что 2 больших числа равны
