@@ -400,6 +400,41 @@ countZeroes(x/s)
 
 
 
+*** Поиск первообразного корня
+*** m - модуль
+*** L1 - разложение числа на простые сомножители (функция эйлера)
+*** r - первообразный корень
+primroot(m/r)
+	Or
+	@+L1(100)
+	@+L2(100)
+	*** @+L3(100)
+	m-1=n *trial_division_method(n/L1,L2) 1=r *** *printf(n/) /' '>C *print_trtr(L1,L2/) /'\n'>C
+	P1 r+1=r Oj *** *printf(r/) /'\n'>C
+		P2 n/L1j=d *pow(r,d,m/b)
+			 *** /'j = '>C *printf(j/) /'\n'>C
+			 ?(b=1)1 Dj ?(j>=Q1)4 ?=2
+	P4
+**
+
+
+*** Поиск первообразных корней
+*** m - модуль
+*** L1 - разложение числа на простые сомножители (функция эйлера)
+*** r - первообразный корень
+primroots(m/L2)
+	@+L1(100)
+	OQ2=i m-1=n *trial_division_method(n/L1,L2) 1=r *** *printf(n/) /' '>C *print_trtr(L1,L2/) /'\n'>C
+	*numbOfCoprimes(L1,n/f) f;100=f *** /'f = '>C *printf(f/) /'\n'>C
+	P1 r+1=r Oj *** *printf(r/) /'\n'>C
+		P2 n/L1j=d *pow(r,d,m/b)
+			 *** /'b = '>C *printf(b/) /'\n'>C
+			 ?(b=1)1 Dj ?(j>=Q1)3 ?=2
+			P3 r=L2i Yf Di=Q2 ?(f=0)4 ?=1
+	P4 *** *print_complex(L2/)
+**
+
+
 *****************************************************************
 ***************	Алгоритмы над большими числами	*****************
 *****************************************************************
@@ -524,26 +559,31 @@ optimize(L1, n/L1)
 *** Комплекс L4 - представление делителя из массива L2 большим числом
 *** L9 - степени сомножителей
 *** s -  степень числа
+*** /'Q2 = '>C *printf(Q2/) /'\n'>C
+*** /'L3 = '>C *HprintfBN(L3/) /'\n'>C
 tdmBN(L1/L3, L4, L9)
 	@+L7(100) ***(Q1)
 	@+L2(100)
 	@+L5(100)
-	*countZeroesBN(L1/s) *** /'s = '>C *printf(s/) /'\n'>C
+	Q1⇒Q7 L1⇒L7 Oj⇒f
+	*countZeroesBN(L1/s)
 	↑(s=0)11 2⇒L3j s⇒L9j ∆j OL9j
-	§11 Of Q1⇒Q7 L1⇒L7 L1>s⇒L1 *cutZerosBN(L1/L1)
+	§11 Of  L1>s⇒L1 *cutZerosBN(L1/L1)
 		 ↑(Q1>1)8 L1.0⇒n *trial_division_method(n/L2, L5) Oi
-		 *** /'Q2 = '>C *printf(Q2/) /'\n'>C
 	§12
-		 ↑(i≥Q2)9 L2i⇒L3i L5i⇒L9i ∆i-1⇒j →12
+		 ↑(i≥Q2)9 L2i⇒L3i L5i⇒L9i ∆i-1⇒j+1⇒Q9⇒Q3 →12
 	§8
 		 @+L6(1)
-		 100⇒Q2 *recalc_efficients(L2, 3/L2) 1⇒Q4⇒Q5⇒Q6 OQ3⇒f 3⇒L6.0
-		 *BN_less(L1, L6/b) ↑(b=1)6
+		 100⇒Q2 *recalc_efficients(L2, 3/L2) 1⇒Q4⇒Q5⇒Q6 OQ3 3⇒L6.0
+		 *BN_less(L7, L6/b) ↑(b=1)6
 		 Oi *** возможно придётся i присваивать 1
-	§1 1⇒L6.0 *BN_eq(L4, L6/b) ↑(b=1)9
+	§1 1⇒L6.0 *BN_eq(L1, L6/b)
+		 ↑(b=1)9
 		 *** проверка может не пройти, если в комплексе лежит 1, но мощность комплекса больше 1
 	§2 ↑(L2i<3)10 L2i⇒L6.0
-		 L1;L6⇒L5 *cutZerosBN(L5/L5) L1/L6⇒L4 *cutZerosBN(L4/L4) OL6
+		 L1/L6⇒L4 L1;L6⇒L5 *cutZerosBN(L4/L4) *cutZerosBN(L5/L5) OL6
+	*** ↑(L2i<145900)3 /'L2i = '>C *printf(L2i/) /'\n'>C /'L5 = '>C *HprintfBN(L5/) /'\n'>C
+	*** §3	 
 		 *BN_neq(L5, L6/b) ↑(b≠0)4
 		 1⇒f ∆L9j L2i⇒L3j Q4⇒Q1 L4⇒L1 →1
 	§4 L2i⇒L6.0
@@ -551,7 +591,7 @@ tdmBN(L1/L3, L4, L9)
 		 ↑(b=1)5
 		∆i j+f⇒j Of⇒L9j ↑(i<Q2)2 Oi Q2-1⇒l *recalc_efficients(L2, L2l/L2)
 		→1 *** возможно придётся i присваивать 1
-	§5 ↑(Q1>1)13 j+f⇒j Of L1.0⇒L3j ∆L9j ∆j OQ4 →9
+	§5 ↑(Q1>1)13 j+f⇒j Of L1.0⇒L3j ∆L9j ∆j OL4 OQ4 →9
 	§13
 		 Q1⇒Q4 L1⇒L4 *cutZerosBN(L4/L4) →9
 	§6 /'Число должно быть больше 2'>C
