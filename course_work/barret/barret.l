@@ -55,7 +55,9 @@ bigint_bits_count(L1, b/k)
 barmod(L1, L2/L4)
 	32=b Q2*2*4=k
 	/'k = '>C *printf(k/) /'\n'>C
-	@+L3(k) k/4=Q3 OL3*** z
+	@+L3(k) k/4+1=Q3 OL3*** z
+	S3=t
+	/'S3 = '>C *printf(t/) /'\n'>C
 	Q1*4=k
 	@+L4(k) *** L1_copy, result
 	Q1=Q4 L1=L4
@@ -63,6 +65,10 @@ barmod(L1, L2/L4)
 	@+L6(100) *** r2
 	@+L7(100) *** r'
 	@+L8(100) *** q
+	@+L9(100)
+	
+	
+	
 	
 	*** L3 = [(b^2k)/L2] ~ z = [(b^2k)/m]
 	Q3-1=k b=L3k /'b = '>C *printf(b/) /'\n'>C
