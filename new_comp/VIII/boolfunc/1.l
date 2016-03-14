@@ -2,14 +2,16 @@ main(/)
 	
 	
 	
-	*bool_input_output_weight_test(/)
-	*** *bool_rand_test(/)
+	*** *bool_input_output_weight_test(/)
+	*bool_rand_test(/)
 	
 **
 
 
 *** сделать генератор
 *** сделать алгоритм Мёбиуса
+*** нужно ли добавлять cutZerosBN ?
+*** c;t-3 вместо ?(c>=t)3 ?
 
 
 *** тестирование функций ввода/вывода, подсчёта размера булевой функции
@@ -39,9 +41,11 @@ bool_rand_test(/)
 	@+L1(100)
 	
 	X X;10=t
+	5=t
+	*** /'main t = '>C *printf(t/) /'\n'>C
 	*BFrand(L1, t/L1)
 	/'Q1 = '>C *printf(Q1/) /'\n'>C
-	*BFoutput(L1/)
+	*BFoutput(L1/) /'\n'>C
 	
 **
 
@@ -104,18 +108,26 @@ BFweight(L1/n)
 
 
 *** генерация булевой функции от n переменных
-*** s - шаг, идёт до размера булевой функции (L1.0)
+*** s - шаг, идёт до размера булевой функции
 *** L1 - булева функция
 *** i - текущий элемент из L1
+*** величина сдвига
 BFrand(L1, n/L1)
-	Ox=s=j 1=i
+	Oc=j 1=i n=L1.0
+	1<n=t>5+2=Q1-1=l OL1l
 	*** /'n = '>C *printf(n/) /'\n'>C
-	1<n=L1.0>5+1=Q1
-	*printf(Q1/) /'\n'>C
-	*printf(L1.0/) /'\n'>C
-	*** /'размер булевой функции = '>C *printf(L1.0/) /'\n'>C
-	P1 X>16<16=L1i s+16=s ?(s>=L1.0)3 X>16|L1i=L1i ?(s>=L1.0)3 s+16=s Di i+1=Q1 OL1i ?=1
-	P3 *printf(Q1/) /'\n'>C
-	*** /'L1i = '>C *printf(L1.3/) /'\n'>C
+	*** /'t = '>C *printf(t/) /'\n'>C
+	*** /'Q1 = '>C *printf(Q1/) /'\n'>C
+	*** /'L1.0 = '>C *printf(L1.0/) /'\n'>C
+	16=s ?(L1.0>3)2 t;32=s *** c;t-3 вместо ?(c>=t)3 ?
+	P2 X>s=L1i c+s=c ?(c>=t)3 X>s<s|L1i=L1i c+s=c ?(c>=t)3 Di OL1i ?=2
+	P3 *cutZerosBN(L1/L1) /'s = '>C *printf(s/) /'\n'>C
+	*printf(L1.3/) /'\n'>C
+	*** нужен ли cutZerosBN ?
 **
 
+civilOutput(/)
+	
+	
+	
+**
