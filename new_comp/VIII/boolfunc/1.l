@@ -120,7 +120,7 @@ BFrand(L1, n/L1)
 	*** /'t = '>C *printf(t/) /'\n'>C
 	*** /'Q1 = '>C *printf(Q1/) /'\n'>C
 	*** /'L1.0 = '>C *printf(L1.0/) /'\n'>C
-	16=s ?(L1.0>3)2 t;32=s *** c;t-3 вместо ?(c>=t)3 ?
+	16=s ?(L1.0>4)2 t;32=s *** c;t-3 вместо ?(c>=t)3 ?
 	P2 X>s=L1i c+s=c ?(c>=t)3 X>s<s|L1i=L1i c+s=c ?(c>=t)3 Di OL1i ?=2
 	P3 *cutZerosBN(L1/L1) /'s = '>C *printf(s/) /'\n'>C
 	*printf(L1.3/) /'\n'>C
