@@ -84,12 +84,18 @@ barmod(L1, L2/L4)
 	Q2+1*32=t *** /'t = '>C *printf(t/) /'\n'>C
 	L1>k=L4 Q4+Q3=l *optimize(L4, l/L4) L4*L3=L4 L4<t=L4
 	/'L4 = '>C *HprintfBN(L4/) /'\n'>C
+	
 	Q2+1=t+1=Q5=Q6 1=L5t=L6t
-	/'L5 = '>C *HprintfBN(L5/) /'\n'>C
-	/'L6 = '>C *HprintfBN(L6/) /'\n'>C
+	
+	/'r1 = '>C *HprintfBN(L5/) /'\n'>C
+	/'r2 = '>C *HprintfBN(L6/) /'\n'>C
+	/'Q6 = '>C *printf(Q6/) /'\n'>C
+	
+	
 	L1;L5=L5
-	/'L5 = '>C *HprintfBN(L5/) /'\n'>C
-	=L6
+	/'r1 = '>C *HprintfBN(L5/) /'\n'>C
+	L4*L2;L6=L6
+	/'r2 = '>C *HprintfBN(L6/) /'\n'>C
 	
 	*** /'k = '>C *printf(k/) /'\n'>C
 	*** /'L1 = '>C *HprintfBN(L1/) /'\n'>C
