@@ -2,8 +2,10 @@ main(/)
 	@+L1(100)
 	@+L2(100)
 	@+L3(100)
-	10=Q1 5=Q2 0=Q3
+	8=Q1 5=Q2 0=Q3
 	*randBN(L1/) *randBN(L2/)
+	*** /'Q1 = '>C *printf(Q1/) /'\n'>C
+	*** /'Q2 = '>C *printf(Q2/) /'\n'>C
 	 /'L1 = '>C *HprintfBN(L1/) /'\n'>C
 	 /'L2 = '>C *HprintfBN(L2/) /'\n'>C
 	*barmod(L1, L2/L3)
@@ -52,7 +54,60 @@ bigint_bits_count(L1, b/k)
 *** L2 - m модуль
 *** L3 - z
 *** L4 - копия L1, результат
+*** base = 2^32 = 0x100000000
 barmod(L1, L2/L4)
+	*** 32=b
+	@+L3(100)
+	Q2*2=Q3 OL3
+	/'Q3 = '>C *printf(Q3/) /'\n'>C
+	@+L4(100) *** q
+	@+L5(100) *** r1
+	@+L6(100) *** r2
+	@+L7(100) *** r'
+	@+L8(100)
+	
+	
+	/'Q2 = '>C *printf(Q2/) /'\n'>C
+	/'Q3 = '>C *printf(Q3/) /'\n'>C
+	*** L3 = [(b^2k)/L2] ~ z = [(b^2k)/m]
+	Q3=k+1=Q3 1=L3k L3/L2=L3 *** L3 = z
+	
+	*** Если b = 0x100000000 тогда b^2k = 1^(2*(k+1)*32)?
+	
+	*** /'Q3 = '>C *printf(Q3/) /'\n'>C
+	/'L3 = '>C *HprintfBN(L3/) /'\n'>C
+	
+	*** /'L3 = '>C *HprintfBN(L3/) /'\n'>C
+	
+	/'L1 = '>C *HprintfBN(L1/) /'\n'>C
+	Q2-1*32=k *** /'k = '>C *printf(k/) /'\n'>C
+	Q2+1*32=t *** /'t = '>C *printf(t/) /'\n'>C
+	L1>k=L4 Q4+Q3=l *optimize(L4, l/L4) L4*L3=L4 L4<t=L4
+	/'L4 = '>C *HprintfBN(L4/) /'\n'>C
+	Q2+1=t+1=Q5=Q6 1=L5t=L6t
+	/'L5 = '>C *HprintfBN(L5/) /'\n'>C
+	/'L6 = '>C *HprintfBN(L6/) /'\n'>C
+	L1;L5=L5
+	/'L5 = '>C *HprintfBN(L5/) /'\n'>C
+	=L6
+	
+	*** /'k = '>C *printf(k/) /'\n'>C
+	*** /'L1 = '>C *HprintfBN(L1/) /'\n'>C
+	*** /'L4 = '>C *HprintfBN(L4/) /'\n'>C
+**
+
+
+
+
+
+
+
+*** Алгоритм баррета приведения числа по модулю
+*** L1 - x число
+*** L2 - m модуль
+*** L3 - z
+*** L4 - копия L1, результат
+barmod_dinamic_complex(L1, L2/L4)
 	32=b Q2*2*4=k
 	/'k = '>C *printf(k/) /'\n'>C
 	@+L3(k) k/4+1=Q3 OL3*** z
@@ -84,9 +139,6 @@ barmod(L1, L2/L4)
 	*** /'L1 = '>C *HprintfBN(L1/) /'\n'>C
 	*** /'L4 = '>C *HprintfBN(L4/) /'\n'>C
 **
-
-
-
 
 
 barmod_little(b, x, m/r)
