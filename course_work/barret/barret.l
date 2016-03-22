@@ -4,6 +4,11 @@ main(/)
 	
 **
 
+*** GLITCH не сработало сравнение ?(F1i>'9')# в libl0.l inputBN_2
+*** GLITCH: в Q5 оказалось значение Q1 в barmod
+*** проблема со сравнением в barmod
+
+
 barret_test(/)
 	@+L1(100)
 	@+L2(100)
@@ -11,16 +16,21 @@ barret_test(/)
 	@+F4(100)
 	
 	
-	OQ4 /F4<C
-	*inputBN(L1, F4, 0/L1, i)
-	OQ4 /F4<C
-	*inputBN(L2, F4, 0/L2, i)
+							*** Вариант #1
+	OQ4 /F4<C  *inputBN(L1, F4, 0/L1, k)
+	OQ4 /F4<C  *inputBN(L2, F4, k/L2, k)
+	
+							*** Вариант #2
+	*** OQ4 @'0x14C74B173777BF4446C2C4159FF940DAF0135123FE4641C05A0171C1A31E6776'>F4 *inputBN_2(L1, F4/L1)
+	*** OQ4 @'0x21A72B7C7DC75FAD6F253B52096FBFFBBDAAD878'>F4  *inputBN_2(L2, F4/L2)
+	
+							*** Вариант #3
 	*** 8=Q1 5=Q2 0=Q3
 	*** *randBN(L1/) *randBN(L2/)
 	*** /'Q1 = '>C *printf(Q1/) /'\n'>C
 	*** /'Q2 = '>C *printf(Q2/) /'\n'>C
-	/'L1(x) = '>C *HprintfBN(L1/) /'\n'>C
-	/'L2(m) = '>C *HprintfBN(L2/) /'\n'>C
+	*** /'L1(x) = '>C *HprintfBN(L1/) /'\n'>C
+	*** /'L2(m) = '>C *HprintfBN(L2/) /'\n'>C
 	*barmod(L1, L2/L3)
 	*** /'L3(r) = '>C *HprintfBN(L3/) /'\n'>C
 	*HprintfBN(L3/)

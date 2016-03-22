@@ -24,9 +24,18 @@ def old_lyapas_sintax_replace(file_from, file_to):
 	much_less = "≪"
 	disunction = "∨"
 	xor = "⊕"
+	countStars = 0
 	x = file_from.read(1)
 	while x != '':
-		if x == '?':
+		if x == '\'':
+			file_to.write(x)
+			x = file_from.read(1)
+			while x != '\'':
+				file_to.write(x)
+				x = file_from.read(1)
+			file_to.write(x)
+			x = file_from.read(1)
+		elif x == '?':
 			prev = x
 			x = file_from.read(1)
 			if x == '=':
@@ -80,15 +89,15 @@ def old_lyapas_sintax_replace(file_from, file_to):
 				file_to.write(dub_arrow_right)
 				file_to.write(x)
 				x = file_from.read(1)
-		elif x == '/':
-			file_to.write(x)
-			x = file_from.read(1)
-			if x == '\'':
-				file_to.write(x)
-				x = file_from.read(1)
-				while x != '\'':
-					file_to.write(x)
-					x = file_from.read(1)
+		#elif x == '/':
+			#file_to.write(x)
+			#x = file_from.read(1)
+			#if x == '\'':
+				#file_to.write(x)
+				#x = file_from.read(1)
+				#while x != '\'':
+					#file_to.write(x)
+					#x = file_from.read(1)
 		elif x == 'D' or x == 'Y' or x == 'P':
 			prev = x
 			prev2 = file_from.read(1) #x = file_from.read(1)
@@ -107,6 +116,17 @@ def old_lyapas_sintax_replace(file_from, file_to):
 		elif x == '|':
 			file_to.write(disunction)
 			x = x = file_from.read(1)
+		elif x == '*':
+			countStars += 1
+			file_to.write(x)
+			x = file_from.read(1)
+			if countStars == 3:
+				countStars = 0
+				while x != '\n':
+					file_to.write(x)
+					x = file_from.read(1)
+				file_to.write(x)
+				x = file_from.read(1)
 		else:
 			file_to.write(x)
 			x = file_from.read(1)
