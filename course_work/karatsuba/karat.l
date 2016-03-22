@@ -1,12 +1,26 @@
 main(/)
 	
 	
+	
+	*** *test(/)
 	*kar_test(/)
 	*** *shift_test(/)
 	
 **
 
-
+test(/)
+	@+L1(100)
+	@+L2(100)
+	@+F3(100)
+	
+	OQ3 @'0xB1BE10E6'>F3 *inputBN_2(L1, F3/L1)
+	OQ3 @'0xDE46DAA0'>F3 *inputBN_2(L2, F3/L2)
+	
+	Q1+1=Q1 L1+L2=L1
+	
+	/'Q1 = '>C *printf(Q1/) /'\n'>C
+	/'L1 = '>C *HprintfBN(L1/) /'\n'>C
+**
 
 
 shift_test(/)
@@ -20,6 +34,11 @@ shift_test(/)
 	/'L1 = '>C *HprintfBN(L1/) /'\n'>C
 	
 **
+
+0xB1BE10E6 + 0xDE46DAA0
+x = 0xEB796C1B
+y = 0x9004EB86
+Result = 0x8478D35898375F22
 
 
 
@@ -35,6 +54,8 @@ kar_test(/)
 	/'L2 = '>C *HprintfBN(L2/) /'\n'>C
 	/'L3 = '>C *HprintfBN(L3/) /'\n'>C
 	*karatsuba(L2, L3/L4)
+	*** *karat(L2, L3/L4)
+	Q4+10=Q4
 	/'L4 = '>C *HprintfBN(L4/) /'\n'>C
 	
 **
@@ -63,9 +84,16 @@ Q2=Q6 L2=L6 1=Q7 OL5
 
 karat(L1, L2/L3)
 	@+L4(100)
+	@+L5(100)
+	@+L6(100)
+	@+L7(100)
 	
-	Q2=n/2=w ?(Q2>Q1)1 Q1=n/2=w
+	Oi+1=j
+	Q2=L4i ?(Q2>Q1)1 Q1=L4i
 	
+	
+	P1
+		i=Q4 ?(L4i<1)2 Dj L4i/2=L4j Di ?=1
 	
 	
 	
@@ -97,47 +125,38 @@ karatsuba(L1, L2/L3)
 	
 	P2
 		Q1-w*32=t L1>t=L4 w=Q4 L1=L5 Q1-w=Q5
-		/'L4 = '>C *HprintfBN(L4/) /'\n'>C
-		/'L5 = '>C *HprintfBN(L5/) /'\n'>C
+		*** /'L4 = '>C *HprintfBN(L4/) /'\n'>C
+		*** /'L5 = '>C *HprintfBN(L5/) /'\n'>C
 		Q2-w*32=t L2>t=L6 w=Q6 L2=L7 Q2-w=Q7
-		/'L6 = '>C *HprintfBN(L6/) /'\n'>C
-		/'L7 = '>C *HprintfBN(L7/) /'\n'>C
+		*** /'L6 = '>C *HprintfBN(L6/) /'\n'>C
+		*** /'L7 = '>C *HprintfBN(L7/) /'\n'>C
 	
 	
 	P6
-		*** /'w = '>C *printf(w/) /'\n'>C
-		
-		*** /'Q4 = '>C *printf(Q4/) /'\n'>C
-		*** /'L4 = '>C *HprintfBN(L4/) /'\n'>C
-		*** /'Q5 = '>C *printf(Q5/) /'\n'>C
-		*** /'L5 = '>C *HprintfBN(L5/) /'\n'>C
-		
-		*** /'Q6 = '>C *printf(Q6/) /'\n'>C
-		*** /'L6 = '>C *HprintfBN(L6/) /'\n'>C
-		*** /'Q7 = '>C *printf(Q7/) /'\n'>C
-		*** /'L7 = '>C *HprintfBN(L7/) /'\n'>C
 		
 		*karatsuba(L4, L6/L8) *** A
 		*karatsuba(L5, L7/L9) *** B
+		*** Q4+1=l *optimize(L4, l/L4)
+		*** Q6+1=l *optimize(L6, l/L6)
 		L4+L5=L4 L6+L7=L6
 		*karatsuba(L4, L6/L3) *** C
-		*** /'L3 = '>C *HprintfBN(L3/) /'\n'>C
-		*** /'L8 = '>C *HprintfBN(L8/) /'\n'>C
-		*** /'L9 = '>C *HprintfBN(L9/) /'\n'>C
 	P7
-		*** /'Q3 = '>C *printf(Q3/) /'\n'>C
+		/'L3 = '>C *HprintfBN(L3/) /'\n'>C
 		32*w=t w+Q3=Q3 L3-L8-L9<t=L3
 		/'L3 = '>C *HprintfBN(L3/) /'\n'>C
-		*** /'Q3 = '>C *printf(Q3/) /'\n'>C
-		32*n=t 2*n+Q8=Q8 L8<t=L8
+		32*n=t n+Q8=Q8 L8<t=L8
 		L8+L3+L9=L3
 		*** /'Q8 = '>C *printf(Q8/) /'\n'>C
+		*** /'Q3 = '>C *printf(Q3/) /'\n'>C
 		/'L8 = '>C *HprintfBN(L8/) /'\n'>C
 		/'L3 = '>C *HprintfBN(L3/) /'\n'>C
 	P8
 **
 
 
+0x2bb42378ea662af4b7cc33723d836f11386c5544182353f9296bf4d2ef3fc459d294fa5642128f2b7e6074b499bc1d8f5112d9de3f7d151b4efc42c47adecba
+
+0x2BB42378EA662AF4B7CC336D8D9A1313434C16046CD10CB85924D46402C95C09D294FA5B448B1B0BC13337EA4B31D6FF5112D9DE6D7F81AB4EFC42C47ADECBA
 
 
 
