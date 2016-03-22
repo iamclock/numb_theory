@@ -98,19 +98,23 @@ barmod(L1, L2/L4)
 	Q2+1*32=t *** /'t = '>C *printf(t/) /'\n'>C
 	L1>k=L4 Q4+Q3=l *optimize(L4, l/L4) L4*L3=L4 L4>t=L4 *** L4 = q
 	*** /'L4(q) = '>C *HprintfBN(L4/) /'\n'>C
-	Q2+1=t+1=Q5=Q6 1=L5t=L6t
 	*** /'b^(k+1) = '>C *HprintfBN(L5/) /'\n'>C
-	Q5=Q4 L4*L2;L5=L4 *cutZerosBN(L4/L4) *** L4 = r2
+	L1=L5 Q2+1=Q5 *** L5 = r1
+	L4*L2=L4 Q2+1=Q4 *** L4 = r2
+	*** /'Q4 = '>C *printf(Q4/) /'\n'>C
+	*** /'Q5 = '>C *printf(Q5/) /'\n'>C
+	*** /'L4 = '>C *HprintfBN(L4/) /'\n'>C
+	*** /'L5 = '>C *HprintfBN(L5/) /'\n'>C
 	
 	*** GLITCH: в Q5 оказалось значение Q1
 	
-	L1;L5=L5 *cutZerosBN(L5/L5) *** L5 = r1
+	
 	
 	*** /'L5(r1) = '>C *HprintfBN(L5/) /'\n'>C
 	*** /'L4(r2) = '>C *HprintfBN(L4/) /'\n'>C
 	*** /'L6(r`) = '>C *HprintfBN(L6/) /'\n'>C
 	
-	*** проблема со сравнением
+	
 	*BN_greq(L5, L4/c) ?(c=0)1 L5-L4=L6 ?=2
 	P1
 		L6+L5-L4=L6

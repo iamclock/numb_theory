@@ -14,10 +14,10 @@ for i in range (1, 65):
 	string = string+".ans"
 	file_ans = open(string, "wt")
 	
-	rand_val1 = random.getrandbits(250)
+	rand_val1 = random.getrandbits(5+i*5)
 	rand_val2 = random.getrandbits(200)
 	
-	file_dat.write('0'+'x'+str(hex(rand_val1))[2:].upper() + '\n' + '0'+'x'+str(hex(rand_val2))[2:].upper())
+	file_dat.write('0'+'x'+str(hex(rand_val1))[2:].upper() + '\n' + '0'+'x'+str(hex(rand_val2)+'\n')[2:].upper())
 	file_ans.write('0'+'x'+str(hex(rand_val1 % rand_val2))[2:].upper())
 	
 	#print('0'+'x'+str(hex(rand_val1))[2:].upper())
