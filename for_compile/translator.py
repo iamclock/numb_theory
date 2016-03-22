@@ -117,16 +117,17 @@ def old_lyapas_sintax_replace(file_from, file_to):
 			file_to.write(disunction)
 			x = x = file_from.read(1)
 		elif x == '*':
-			countStars += 1
-			file_to.write(x)
-			x = file_from.read(1)
-			if countStars == 3:
-				countStars = 0
-				while x != '\n':
-					file_to.write(x)
-					x = file_from.read(1)
+			while x == '*':
+				countStars += 1
 				file_to.write(x)
 				x = file_from.read(1)
+				if countStars == 3:
+					while x != '\n':
+						file_to.write(x)
+						x = file_from.read(1)
+					file_to.write(x)
+					x = file_from.read(1)
+			countStars = 0
 		else:
 			file_to.write(x)
 			x = file_from.read(1)
