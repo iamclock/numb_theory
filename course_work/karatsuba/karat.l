@@ -34,10 +34,8 @@ kar_test(/)
 	*randBN(L2/) *randBN(L3/)
 	/'L2 = '>C *HprintfBN(L2/) /'\n'>C
 	/'L3 = '>C *HprintfBN(L3/) /'\n'>C
-	
-	
 	*karatsuba(L2, L3/L4)
-	
+	/'L4 = '>C *HprintfBN(L4/) /'\n'>C
 	
 **
 
@@ -59,7 +57,7 @@ karatsuba(L1, L2/L3)
 	
 	Q2=n/2=w ?(Q2>Q1)1 Q1=n/2=w
 	P1
-		?(w>0)2 L1=L8 L2=L9 ?=3
+		?(w>0)2 Q1+Q2=Q3 OL3 1=L3.0 L3*L1*L2=L3 ?=4
 	
 	P2
 		/'w = '>C *printf(w/) /'\n'>C
@@ -83,10 +81,10 @@ karatsuba(L1, L2/L3)
 	L4+L5=L4 L6+L7=L6
 	*karatsuba(L4, L6/L3)
 	P3
-		/'tt\n'>C L3-L8-L9=L3 
+		L3-L8-L9=L3 
 		32*2*n=t 2*n+Q8=Q8 L8<t=L8
 		Q3+1=Q3 L3<32=L3
-		L8+L3+L9=L3 /'qq\n'>C
+		L8+L3+L9=L3
 	P4
 **
 
