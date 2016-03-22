@@ -30,7 +30,7 @@ kar_test(/)
 	@+L3(100)
 	@+L4(100)
 	
-	8=Q2 5=Q3
+	8=Q2 8=Q3
 	*randBN(L2/) *randBN(L3/)
 	/'L2 = '>C *HprintfBN(L2/) /'\n'>C
 	/'L3 = '>C *HprintfBN(L3/) /'\n'>C
@@ -40,7 +40,37 @@ kar_test(/)
 **
 
 
+Q2=n/2=w ?(Q2>Q1)1 Q1=n/2=w
+P1
+	?(w>1)2 Q1+Q2=Q3 OL3 1=L3.0 L3*L1*L2=L3 ?=8
 
+P2
+	?(Q1<=w)3 Q1-w*32=t L1>t=L4 w=Q4 L1=L5 Q1-w=Q5 ?=4
+P3
+	Q1=Q4 L1=L4 1=Q5 OL5
+P4
+	?(Q2<w)5 Q2-w*32=t L2>t=L6 w=Q6 L2=L7 Q2-w=Q7 ?=6
+P5
+Q2=Q6 L2=L6 1=Q7 OL5
+
+
+
+
+
+
+
+
+
+karat(L1, L2/L3)
+	@+L4(100)
+	
+	Q2=n/2=w ?(Q2>Q1)1 Q1=n/2=w
+	
+	
+	
+	
+	
+**
 
 
 
@@ -51,41 +81,60 @@ karatsuba(L1, L2/L3)
 	@+L5(100) *** 2ая половина L1 a
 	@+L6(100) *** 1ая половина L2 d
 	@+L7(100) *** 2ая половина L2 c
-	@+L8(100) *** результат первых половин
-	@+L9(100) *** результат вторых половин
-	
+	@+L8(100) *** результат первых половин ab
+	@+L9(100) *** результат вторых половин cd
 	
 	Q2=n/2=w ?(Q2>Q1)1 Q1=n/2=w
-	P1
-		?(w>0)2 Q1+Q2=Q3 OL3 1=L3.0 L3*L1*L2=L3 ?=4
+	P1 
+		?(n>1)2 Q1+Q2=Q3 OL3 1=L3.0 L3*L1*L2=L3
+		
+		/'			n = '>C *printf(n/) /'\n'>C
+		/'			x = '>C *HprintfBN(L1/) /'\n'>C
+		/'			y = '>C *HprintfBN(L2/) /'\n'>C
+		/'			Result = '>C *HprintfBN(L3/) /'\n'>C
+		
+		?=8
 	
 	P2
-		/'w = '>C *printf(w/) /'\n'>C
 		Q1-w*32=t L1>t=L4 w=Q4 L1=L5 Q1-w=Q5
-		/'Q4 = '>C *printf(Q4/) /'\n'>C
 		/'L4 = '>C *HprintfBN(L4/) /'\n'>C
-		/'Q5 = '>C *printf(Q5/) /'\n'>C
 		/'L5 = '>C *HprintfBN(L5/) /'\n'>C
 		Q2-w*32=t L2>t=L6 w=Q6 L2=L7 Q2-w=Q7
-		/'Q6 = '>C *printf(Q6/) /'\n'>C
 		/'L6 = '>C *HprintfBN(L6/) /'\n'>C
-		/'Q7 = '>C *printf(Q7/) /'\n'>C
 		/'L7 = '>C *HprintfBN(L7/) /'\n'>C
 	
 	
-	
-	
-	
-	*karatsuba(L4, L6/L8)
-	*karatsuba(L5, L7/L9)
-	L4+L5=L4 L6+L7=L6
-	*karatsuba(L4, L6/L3)
-	P3
-		L3-L8-L9=L3 
-		32*2*n=t 2*n+Q8=Q8 L8<t=L8
-		Q3+1=Q3 L3<32=L3
+	P6
+		*** /'w = '>C *printf(w/) /'\n'>C
+		
+		*** /'Q4 = '>C *printf(Q4/) /'\n'>C
+		*** /'L4 = '>C *HprintfBN(L4/) /'\n'>C
+		*** /'Q5 = '>C *printf(Q5/) /'\n'>C
+		*** /'L5 = '>C *HprintfBN(L5/) /'\n'>C
+		
+		*** /'Q6 = '>C *printf(Q6/) /'\n'>C
+		*** /'L6 = '>C *HprintfBN(L6/) /'\n'>C
+		*** /'Q7 = '>C *printf(Q7/) /'\n'>C
+		*** /'L7 = '>C *HprintfBN(L7/) /'\n'>C
+		
+		*karatsuba(L4, L6/L8) *** A
+		*karatsuba(L5, L7/L9) *** B
+		L4+L5=L4 L6+L7=L6
+		*karatsuba(L4, L6/L3) *** C
+		*** /'L3 = '>C *HprintfBN(L3/) /'\n'>C
+		*** /'L8 = '>C *HprintfBN(L8/) /'\n'>C
+		*** /'L9 = '>C *HprintfBN(L9/) /'\n'>C
+	P7
+		*** /'Q3 = '>C *printf(Q3/) /'\n'>C
+		32*w=t w+Q3=Q3 L3-L8-L9<t=L3
+		/'L3 = '>C *HprintfBN(L3/) /'\n'>C
+		*** /'Q3 = '>C *printf(Q3/) /'\n'>C
+		32*n=t 2*n+Q8=Q8 L8<t=L8
 		L8+L3+L9=L3
-	P4
+		*** /'Q8 = '>C *printf(Q8/) /'\n'>C
+		/'L8 = '>C *HprintfBN(L8/) /'\n'>C
+		/'L3 = '>C *HprintfBN(L3/) /'\n'>C
+	P8
 **
 
 
