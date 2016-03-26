@@ -50,7 +50,7 @@ kar_test(/)
 	@+L3(100)
 	@+L4(100)
 	
-	8=Q2 8=Q3
+	2=Q2 2=Q3
 	*randBN(L2/) *randBN(L3/)
 	/'L2 = '>C *HprintfBN(L2/) /'\n'>C
 	/'L3 = '>C *HprintfBN(L3/) /'\n'>C
@@ -106,6 +106,79 @@ karat(L1, L2/L3)
 *** Алгоритм карацубы перемножения 2ух больших чисел
 *** http://samos-it.com/posts/recursive-karatsuba-multiplication-python.html
 karatsuba(L1, L2/L3)
+	@+L4(100) *** 1ая половина L1 b
+	@+L5(100) *** 2ая половина L1 a
+	@+L6(100) *** 1ая половина L2 d
+	@+L7(100) *** 2ая половина L2 c
+	@+L8(100) *** результат первых половин ab
+	@+L9(100) *** результат вторых половин cd
+	
+	Q2=n/2=w ?(Q2>Q1)1 Q1=n/2=w
+	P1 
+		/'L1 = '>C *HprintfBN(L1/) /'\n'>C
+		/'L2 = '>C *HprintfBN(L2/) /'\n'>C
+		?(n>1)2 Q1+Q2=Q3 OL3 1=L3.0 L3*L1*L2=L3
+		
+		/'			n = '>C *printf(n/) /'\n'>C
+		/'			x = '>C *HprintfBN(L1/) /'\n'>C
+		/'			y = '>C *HprintfBN(L2/) /'\n'>C
+		/'			Result = '>C *HprintfBN(L3/) /'\n'>C
+		
+		?=8
+	
+	P2
+		/'n = '>C *printf(n/) /'\n'>C
+		/'w = '>C *printf(w/) /'\n'>C
+		L1=L5 Q1-w=Q5=Q4-1=t OL4t Q1-w*32=t L1>t=L4 Q5=Q4 *** ?(Q4>0)3 Q4+1=Q4 1=L4.0
+		/'L4 = '>C *HprintfBN(L4/) /'\n'>C
+		/'L5 = '>C *HprintfBN(L5/) /'\n'>C
+	P3
+		L2=L7 Q2-w=Q7=Q6-1=t OL6t Q2-w*32=t L2>t=L6 Q7=Q6 *** ?(Q6>0)6 Q6+1=Q6 1=L6.0
+		/'L6 = '>C *HprintfBN(L6/) /'\n'>C
+		/'L7 = '>C *HprintfBN(L7/) /'\n'>C
+	
+	
+	
+	
+	P6
+		/'Q4 = '>C *printf(Q4/) /'\n'>C
+		/'Q5 = '>C *printf(Q5/) /'\n'>C
+		/'L4 = '>C *HprintfBN(L4/) /'\n'>C
+		/'L5 = '>C *HprintfBN(L5/) /'\n'>C
+		
+		
+		*karatsuba(L4, L6/L8) *** A
+		*karatsuba(L5, L7/L9) *** B
+		Q4=t+1=Q4 OL4t
+		Q6=t+1=Q6 OL6t
+		L4+L5=L4 L6+L7=L6
+		Q4-1=t ?(L4t>0)9 t=Q4
+	P9
+		Q6-1=t ?(L6t>0)10 t=Q6
+	P10
+		*karatsuba(L4, L6/L3) *** C
+	P7
+		/'L3 = '>C *HprintfBN(L3/) /'\n'>C
+		32*w=t w+Q3=Q3 L3-L8-L9<t=L3
+		/'t = '>C *printf(t/) /'\n'>C
+		/'L3 = '>C *HprintfBN(L3/) /'\n'>C
+		32*n=t n+Q8=Q8 L8<t=L8
+		/'t = '>C *printf(t/) /'\n'>C
+		L8+L3+L9=L3
+		*** /'Q8 = '>C *printf(Q8/) /'\n'>C
+		*** /'Q3 = '>C *printf(Q3/) /'\n'>C
+		/'L8 = '>C *HprintfBN(L8/) /'\n'>C
+		/'L3 = '>C *HprintfBN(L3/) /'\n'>C
+	P8
+**
+
+
+
+
+
+*** Алгоритм карацубы перемножения 2ух больших чисел
+*** http://samos-it.com/posts/recursive-karatsuba-multiplication-python.html
+karatsuba_orig(L1, L2/L3)
 	@+L4(100) *** 1ая половина L1 b
 	@+L5(100) *** 2ая половина L1 a
 	@+L6(100) *** 1ая половина L2 d
