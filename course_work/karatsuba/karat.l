@@ -81,9 +81,6 @@ kar_test(/)
 
 
 
-
-
-
 *** Алгоритм карацубы перемножения 2ух больших чисел
 *** http://samos-it.com/posts/recursive-karatsuba-multiplication-python.html
 *** f - признак нулевого комплекса - требуется восстановить значение 0
@@ -99,6 +96,7 @@ karatsuba(L1, L2/L3)
 	/'L2 = '>C *HprintfBN(L2/) /'\n'>C
 	
 	*** Q2 сравнивается со старым значением Q1 (t)
+	*** мощность одного из комплексов увеличивается до максимума n
 	Q2=n/2=w ?(Q2=Q1)1 Q1=t+1=Q1 OL1t ?(Q2>t)1 t=Q1=n/2=w Q2=t+1=Q2 OL2t
 	P1
 		/'Q1 = '>C *printf(Q1/) /'\n'>C
@@ -150,12 +148,18 @@ karatsuba(L1, L2/L3)
 		/'L8 = '>C *HprintfBN(L8/) /'\n'>C
 		/'L9 = '>C *HprintfBN(L9/) /'\n'>C
 		/'L3 = '>C *HprintfBN(L3/) /'\n'>C
-		/'Q3 = '>C *printf(Q3/) /'\n'>C
+		/'1.Q3 = '>C *printf(Q3/) /'\n'>C
 		Q3=t+w=Q3 OL3t
 		32*w=t
-		/'Q3 = '>C *printf(Q3/) /'\n'>C
-		
-		L3-L8-L9<t=L3
+		/'w = '>C *printf(w/) /'\n'>C
+		/'2.Q3 = '>C *printf(Q3/) /'\n'>C
+		L3-L8=L3
+		/'1.L3 = '>C *HprintfBN(L3/) /'\n'>C
+		L3-L9=L3
+		/'2.L3 = '>C *HprintfBN(L3/) /'\n'>C
+		L3<t=L3
+		/'3.L3 = '>C *HprintfBN(L3/) /'\n'>C
+		/'3.Q3 = '>C *printf(Q3/) /'\n'>C
 		*** /'t = '>C *printf(t/) /'\n'>C
 		/'L3 = '>C *HprintfBN(L3/) /'\n'>C
 		32*n=t n+Q8=Q8 L8<t=L8
