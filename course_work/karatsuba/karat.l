@@ -70,7 +70,7 @@ kar_test(/)
 	*randBN(L2/) *randBN(L3/)
 	/'L2 = '>C *HprintfBN(L2/) /'\n'>C
 	/'L3 = '>C *HprintfBN(L3/) /'\n'>C
-	*karatsuba(L2, L3, d/L4)
+	*karatsuba(L2, L3/L4)
 	Q4+10=Q4
 	/'L4 = '>C *HprintfBN(L4/) /'\n'>C
 	
@@ -87,7 +87,7 @@ kar_test(/)
 *** Алгоритм карацубы перемножения 2ух больших чисел
 *** http://samos-it.com/posts/recursive-karatsuba-multiplication-python.html
 *** f - признак нулевого комплекса - требуется восстановить значение 0
-karatsuba(L1, L2, d/L3)
+karatsuba(L1, L2/L3)
 	@+L4(100) *** 1ая половина L1 b
 	@+L5(100) *** 2ая половина L1 a
 	@+L6(100) *** 1ая половина L2 d
@@ -129,10 +129,10 @@ karatsuba(L1, L2, d/L3)
 		*** /'L7 = '>C *HprintfBN(L7/) /'\n'>C
 	P6
 		/'*** A\n'>C 
-		*karatsuba(L4, L6, d/L8) *** A
+		*karatsuba(L4, L6/L8) *** A
 		/'A L8 = '>C *HprintfBN(L8/) /'\n'>C
 		/'*** B\n'>C
-		*karatsuba(L5, L7, d/L9) *** B
+		*karatsuba(L5, L7/L9) *** B
 		/'B L9 = '>C *HprintfBN(L9/) /'\n'>C
 		Q4=t+1=Q4 OL4t
 		Q6=t+1=Q6 OL6t
@@ -142,7 +142,7 @@ karatsuba(L1, L2, d/L3)
 		Q6-1=t ?(L6t>0)10 t=Q6
 	P10
 		/'*** C\n'>C
-		*karatsuba(L4, L6, d/L3) *** C
+		*karatsuba(L4, L6/L3) *** C
 		/'C L3 = '>C *HprintfBN(L3/) /'\n'>C
 	P7
 		*** /'n = '>C *printf(n/) /'\n'>C
