@@ -112,6 +112,7 @@ EuclAlg_bar(L1, L2/L3)
 	
 	P2
 		*barmod(L4, L5/L6)
+		/'qq\n'>C
 		/'Q6 = '>C *printf(Q6/) /'\n'>C
 		/'Q5 = '>C *printf(Q5/) /'\n'>C
 		/'Q4 = '>C *printf(Q4/) /'\n'>C
