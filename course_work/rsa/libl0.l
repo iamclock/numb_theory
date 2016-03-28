@@ -882,7 +882,7 @@ barmod(L1, L2/L4)
 	§1
 		L6+L5-L4⇒L6
 	§2
-		*** /'L6 = '>C *HprintfBN(L6/) /'\n'>C
+		/'L6 = '>C *HprintfBN(L6/) /'\n'>C
 		*cutZerosBN(L6/L6) *BN_greq(L6, L2/c)
 		↑(c=0)3 L6-L2⇒L6 →2
 	§3

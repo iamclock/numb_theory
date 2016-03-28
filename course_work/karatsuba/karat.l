@@ -3,10 +3,37 @@ main(/)
 	
 	*** *test2(/)
 	*** *test(/)
-	*kar_test(/)
+	*** *kar_test(/)
 	*** *shift_test(/)
+	*for_testing(/)
+	
 	
 **
+
+
+
+for_testing(/)
+	@+L1(1000)
+	@+L2(1000)
+	@+F3(1000)
+	@+L4(1000)
+	
+	OQ3 /F3<C *inputBN(L1, F3, 0/L1, k)
+	OQ3 /F3<C *inputBN(L2, F3, k/L2, k)
+	*** /'L1 = '>C *HprintfBN(L1/) /'\n'>C
+	*** /'L2 = '>C *HprintfBN(L2/) /'\n'>C
+	*karatsuba(L1, L2/L4)
+	/'L3 = '>C
+	*HprintfBN(L4/)
+	/'\n'>C
+	
+	
+	
+	
+**
+
+
+
 
 test(/)
 	@+L1(100)
@@ -37,6 +64,9 @@ shift_test(/)
 **
 
 
+
+
+
 test2(/)
 	@+L1(100)
 	@+L2(100)
@@ -51,12 +81,14 @@ test2(/)
 	*** /'L1 = '>C *HprintfBN(L1/) /'\n'>C
 	*** /'L2 = '>C *HprintfBN(L2/) /'\n'>C
 	/'Q1 = '>C *printf(Q1/) /'\n'>C
-	L4-L2-L1=L4 *** Q4-1=Q4
+	L4-L2-L1=L4
+	*** Q4-1=Q4
 	/'Q4 = '>C *printf(Q4/) /'\n'>C
 	/'L4 = '>C *HprintfBN(L4/) /'\n'>C
 	
 	
 **
+
 
 
 
@@ -66,7 +98,7 @@ kar_test(/)
 	@+L3(100)
 	@+L4(100)
 	
-	3=Q2 2=Q3
+	2=Q2 3=Q3
 	*randBN(L2/) *randBN(L3/)
 	/'L2 = '>C *HprintfBN(L2/) /'\n'>C
 	/'L3 = '>C *HprintfBN(L3/) /'\n'>C
@@ -92,24 +124,24 @@ karatsuba(L1, L2/L3)
 	@+L8(100) *** результат первых половин ab
 	@+L9(100) *** результат вторых половин cd
 	
-	/'L1 = '>C *HprintfBN(L1/) /'\n'>C
-	/'L2 = '>C *HprintfBN(L2/) /'\n'>C
+	*** /'L1 = '>C *HprintfBN(L1/) /'\n'>C
+	*** /'L2 = '>C *HprintfBN(L2/) /'\n'>C
 	
 	*** Q2 сравнивается со старым значением Q1 (t)
 	*** мощность одного из комплексов увеличивается до максимума n
 	Q2=n/2=w ?(Q2=Q1)1 Q1=t+1=Q1 OL1t ?(Q2>t)1 t=Q1=n/2=w Q2=t+1=Q2 OL2t
 	P1
-		/'Q1 = '>C *printf(Q1/) /'\n'>C
-		/'Q2 = '>C *printf(Q2/) /'\n'>C
-		/'n = '>C *printf(n/) /'\n'>C
-		/'w = '>C *printf(w/) /'\n'>C
+		*** /'Q1 = '>C *printf(Q1/) /'\n'>C
+		*** /'Q2 = '>C *printf(Q2/) /'\n'>C
+		*** /'n = '>C *printf(n/) /'\n'>C
+		*** /'w = '>C *printf(w/) /'\n'>C
 		?(n>1)2 *** n-1=t L1t=q 1=L1t 1=f ?(q=0)4 q=L1t L2t=q 1=L2t 2=f ?(q=0)4 q=L2t Of
 	P4
 		Q1+Q2=Q3 OL3 1=L3.0 L3*L1*L2=L3
-		/'	n = '>C *printf(n/) /'\n'>C
-		/'	x = '>C *HprintfBN(L1/) /'\n'>C
-		/'	y = '>C *HprintfBN(L2/) /'\n'>C
-		/'	Result = '>C *HprintfBN(L3/) /'\n'>C
+		*** /'	n = '>C *printf(n/) /'\n'>C
+		*** /'	x = '>C *HprintfBN(L1/) /'\n'>C
+		*** /'	y = '>C *HprintfBN(L2/) /'\n'>C
+		*** /'	Result = '>C *HprintfBN(L3/) /'\n'>C
 		*** ?(f=0)8 L1.0=t 0=L1.0 ?(f=1)8 t=L1.0 0=L2.0
 		?=8
 	
@@ -126,12 +158,12 @@ karatsuba(L1, L2/L3)
 		*** /'L6 = '>C *HprintfBN(L6/) /'\n'>C
 		*** /'L7 = '>C *HprintfBN(L7/) /'\n'>C
 	P6
-		/'*** A\n'>C 
+		*** /'*** A\n'>C 
 		*karatsuba(L4, L6/L8) *** A
-		/'A L8 = '>C *HprintfBN(L8/) /'\n'>C
-		/'*** B\n'>C
+		*** /'A L8 = '>C *HprintfBN(L8/) /'\n'>C
+		*** /'*** B\n'>C
 		*karatsuba(L5, L7/L9) *** B
-		/'B L9 = '>C *HprintfBN(L9/) /'\n'>C
+		*** /'B L9 = '>C *HprintfBN(L9/) /'\n'>C
 		Q4=t+1=Q4 OL4t
 		Q6=t+1=Q6 OL6t
 		L4+L5=L4 L6+L7=L6
@@ -139,27 +171,27 @@ karatsuba(L1, L2/L3)
 	P9
 		Q6-1=t ?(L6t>0)10 t=Q6
 	P10
-		/'*** C\n'>C
+		*** /'*** C\n'>C
 		*karatsuba(L4, L6/L3) *** C
-		/'C L3 = '>C *HprintfBN(L3/) /'\n'>C
+		*** /'C L3 = '>C *HprintfBN(L3/) /'\n'>C
 	P7
 		*** /'n = '>C *printf(n/) /'\n'>C
 		*** /'w = '>C *printf(w/) /'\n'>C
 		/'L8 = '>C *HprintfBN(L8/) /'\n'>C
 		/'L9 = '>C *HprintfBN(L9/) /'\n'>C
 		/'L3 = '>C *HprintfBN(L3/) /'\n'>C
-		/'1.Q3 = '>C *printf(Q3/) /'\n'>C
+		*** /'1.Q3 = '>C *printf(Q3/) /'\n'>C
 		Q3=t+w=Q3 OL3t
-		32*w=t
+		n-w*32=t
 		/'w = '>C *printf(w/) /'\n'>C
-		/'2.Q3 = '>C *printf(Q3/) /'\n'>C
+		*** /'2.Q3 = '>C *printf(Q3/) /'\n'>C
 		L3-L8=L3
 		/'1.L3 = '>C *HprintfBN(L3/) /'\n'>C
 		L3-L9=L3
 		/'2.L3 = '>C *HprintfBN(L3/) /'\n'>C
 		L3<t=L3
 		/'3.L3 = '>C *HprintfBN(L3/) /'\n'>C
-		/'3.Q3 = '>C *printf(Q3/) /'\n'>C
+		*** /'3.Q3 = '>C *printf(Q3/) /'\n'>C
 		*** /'t = '>C *printf(t/) /'\n'>C
 		/'L3 = '>C *HprintfBN(L3/) /'\n'>C
 		32*n=t n+Q8=Q8 L8<t=L8
@@ -171,17 +203,6 @@ karatsuba(L1, L2/L3)
 		/'L3 = '>C *HprintfBN(L3/) /'\n'>C
 	P8
 **
-
-
-
-
-
-
-
-
-0x2bb42378ea662af4b7cc33723d836f11386c5544182353f9296bf4d2ef3fc459d294fa5642128f2b7e6074b499bc1d8f5112d9de3f7d151b4efc42c47adecba
-
-0x2BB42378EA662AF4B7CC336D8D9A1313434C16046CD10CB85924D46402C95C09D294FA5B448B1B0BC13337EA4B31D6FF5112D9DE6D7F81AB4EFC42C47ADECBA
 
 
 

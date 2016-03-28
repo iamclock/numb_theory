@@ -112,9 +112,9 @@ EuclAlg_bar(L1, L2/L3)
 	
 	P2
 		*barmod(L4, L5/L6)
-		*** /'Q6 = '>C *printf(Q6/) /'\n'>C
-		*** /'Q5 = '>C *printf(Q5/) /'\n'>C
-		*** /'Q4 = '>C *printf(Q4/) /'\n'>C
+		/'Q6 = '>C *printf(Q6/) /'\n'>C
+		/'Q5 = '>C *printf(Q5/) /'\n'>C
+		/'Q4 = '>C *printf(Q4/) /'\n'>C
 		*** *cutZerosBN(L6/L6)
 		*BN_gr(L6, L7/a) ?(a<1)3 Q5=Q4 L5=L4 Q6=Q5 L6=L5 ?=2
 	P3
