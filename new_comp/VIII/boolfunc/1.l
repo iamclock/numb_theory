@@ -4,7 +4,6 @@ main(/)
 	
 	*** *bool_input_output_weight_test(/)
 	*bool_rand_test(/)
-	
 **
 
 
@@ -79,14 +78,39 @@ BFinput(F1/L2)
 	P4 Dz Di ?(i=Q1)7 i;32?-5 ?=2
 	P5 Dj Oz OL2j ?=2
 	P6 /'Ошибка: Возможно пустой символьный комплекс или длина булевой функции\n'>C
-	P7 *cutZerosBN(L2/L2)
+	P7 Q2-1=l ?(L2l>0)8 l=Q2 *** *cutZerosBN(L2/L2)
 		 *** *printf(L2.0/) /' '>C *printf(L2.1/) /' '>C *printf(L2.2/) /' '>C *printf(Q2/)  /'\n'>C
+	P8
 **
+
 
 *** 
 *** n - размер булевой функции
-*** вывод булевой функции
+*** вывод булевой функции со значениями переменных
 BFoutput(L1/)
+	?(Q1<1)3
+	Oi
+	P1 ?(i>=L1.0)2 /' X'>C *printf(i/) /' '>C Di ?=1
+	P2 /'| f \n'>C Oi
+	P3 ?(i>=L1.0)4 /'----'>C Di ?=3
+	P4 /'----\n'>C
+	Oz=c 1=i 1<L1.0=n
+	P5 0=j 1<L1.0>1=l 1<z=q L1i&q>z=t Dc
+		 *** *printf(c/) /' '>C
+		 P8
+			?(j>=L1.0)9 L1.0-j-1=w c-1&l>w=w /' '>C *printf(w/) /'  '>C l>1=l Dj ?=8
+		 P9
+			/'| '>C *printf(t/) /' '>C
+		 Dz ?(z=32)6 ?(c=n)7 /'\n'>C ?=5
+	P6 Oz Di ?(i=Q1)7 /'\n'>C ?=5
+	P7 *** /'\n'>C
+**
+
+
+*** 
+*** n - размер булевой функции
+*** вывод булевой функции строкой или в столбик
+string_BFoutput(L1/)
 	?(Q1<1)3
 	Oz=c 1=i 1<L1.0=n
 	P1 1<z=t L1i&t>z=t Dc
@@ -128,8 +152,3 @@ BFrand(L1, n/L1)
 	*** нужен ли cutZerosBN ?
 **
 
-civilOutput(/)
-	
-	
-	
-**
