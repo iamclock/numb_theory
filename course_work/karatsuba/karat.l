@@ -3,9 +3,9 @@ main(/)
 	
 	*** *test2(/)
 	*** *test(/)
-	*kar_test(/)
+	*** *kar_test(/)
 	*** *shift_test(/)
-	*** *for_testing(/)
+	*for_testing(/)
 	
 	
 **

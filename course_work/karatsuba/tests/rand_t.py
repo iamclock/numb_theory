@@ -14,8 +14,8 @@ for i in range (1, 65):
 	string = string+".ans"
 	file_ans = open(string, "wt")
 	
-	rand_val1 = random.getrandbits(150+(i*3))
-	rand_val2 = random.getrandbits(100+(i*3))
+	rand_val1 = random.getrandbits(150+(i*21))
+	rand_val2 = random.getrandbits(100+(i*19))
 	
 	file_dat.write('0'+'x'+str(hex(rand_val1))[2:].upper() + '\n' + '0'+'x'+str(hex(rand_val2))[2:].upper()+'\n')
 	file_ans.write('0'+'x'+str(hex(rand_val1 * rand_val2))[2:].upper())
