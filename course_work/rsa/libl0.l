@@ -470,8 +470,7 @@ inputBN(L2, F1, i/L2, k)
 **
 
 
-*** ввод большого числа 2ой вариант [Добавить обработку нуля!!!]
-*** одна строка - одно число
+*** ввод большого числа 2ой вариант (одна строка - одно число) [Добавить обработку нуля!!!]
 *** k может вернуться больше размерности комплекса F1 => алгоритм не сработает, необходимо проверять в программе, что размер числа > 0
 *** big_int_input(L2, F1, i/L2, k) - старое название
 inputBN_2(L2, F1/L2)
@@ -538,22 +537,26 @@ HprintfBN(L1/)
 
 *** Дихотомический алг-тм возведения в степень
 *** L1 - число возводимое в степень, L2 - степень этого числа, L3 - модуль
-*** L5 - q, L4 - z 
+*** L5 - q, L4 - z
 *** 01.11.2015 операции над большими числами не изменяют мощность комплексов
 powBN(L1, L2, L3/L4)
 	@+L5(100)
 	@+L6(100)
-	
-	1⇒Q6⇒Q5 Oj
-	L1⇒L5 Q3+Q3⇒l *optimize(L5, l/L5) *optimize(L6, l/L6) 1⇒L6.0⇒i⇒s i<1⇒i L2j&1↪1 L1⇒L6 *optimize(L6, l/L6)
-	§1 ↑(s≥32)3 L5*L5;L3⇒L5
-	   *** /'L5= '>C *HprintfBN(L5/) /'\n'>C
-		 i&L2j↪2 L5*L6;L3⇒L6
+	1⇒Q6⇒Q5⇒L6.0⇒i Oj⇒s
+	L1;L3⇒L5 Q3+Q3⇒l *optimize(L6, l/L6) *optimize(L5, l/L5)
+	§1
+		 ↑(s≥32)3 i&L2j↪2
+		 L6*L5;L3⇒L6
 	   *** /'L6= '>C *HprintfBN(L6/) /'\n'>C
-	§2 ∆s i<1⇒i →1
-	§3 ∆j ↑(j≥Q2)4 Os 1⇒i →1
-	§4 Q6⇒Q4 L6⇒L4 *cutZerosBN(L4/L4)
+	§2
+		 L5*L5;L3⇒L5
+	   *** /'L5= '>C *HprintfBN(L5/) /'\n'>C
+	 ∆s i<1⇒i →1
+	§3 ∆j ↑(j≥Q2)4 1⇒i Os →1
+	§4 Q6⇒Q4 L6⇒L4
+		 *cutZerosBN(L4/L4)
 **
+
 
 
 *** /'d L4= '>C *HprintfBN(L4/)
@@ -563,8 +566,8 @@ powBN(L1, L2, L3/L4)
 
 optimize(L1, n/L1)
 	Q1⇒i n⇒Q1
-	§1 ↑(i>n)2 OL1i ∆i →1
-	§2 
+	§1 ↑(i≥n)2 OL1i ∆i →1
+	§2
 **
 
 *** Метод пробных делений на больших числах
@@ -841,32 +844,39 @@ countZeroesBN(L1/s)
 *** L1 - x число
 *** L2 - m модуль
 *** L3 - z
+*** L3 = [(b^2k)/L2] ~ z = [(b^2k)/m]
+*** Q2*2⇒Q3 OL3
+*** Q3⇒k+1⇒Q3 1⇒L3k L3/L2⇒L3 *** L3 = z
 *** L4 - q, r2, r(результат)
 *** base ⇒ 2^32 ⇒ 0x100000000
-barmod(L1, L2/L4)
-	*** 32=b
-	@+L3(100)
-	Q2*2⇒Q3 OL3
-	@+L5(100) *** r1
-	@+L6(100) *** r'
-	@+L7(100)
+barmod(L1, L2, L3/L4)
+	/'		Barret\n'>C
+	/'L1 = '>C *HprintfBN(L1/) /'\n'>C
+	/'L2 = '>C *HprintfBN(L2/) /'\n'>C
+	/'L3(z) = '>C *HprintfBN(L3/) /'\n'>C
 	
-	*** L3 = [(b^2k)/L2] ~ z = [(b^2k)/m]
-	Q3⇒k+1⇒Q3 1⇒L3k L3/L2⇒L3 *** L3 = z
+	*** 32=b
+	@+L5(1000) *** r1
+	@+L6(1000) *** r'
+	@+L7(1000)
 	
 	*** Если b = 0x100000000 тогда b^2k = 1^(2*(k+1)*32)?
 	
-	*** /'L3(z) = '>C *HprintfBN(L3/) /'\n'>C
+	
+	
 	Q2-1*32⇒k *** /'k = '>C *printf(k/) /'\n'>C
 	Q2+1*32⇒t *** /'t = '>C *printf(t/) /'\n'>C
-	L1>k⇒L4 Q4+Q3⇒l *optimize(L4, l/L4) L4*L3⇒L4 L4>t⇒L4 *** L4 = q
-	*** /'L4(q) = '>C *HprintfBN(L4/) /'\n'>C
-	*** /'b^(k+1) = '>C *HprintfBN(L5/) /'\n'>C
-	L1⇒L5 Q2+1⇒Q5 *** L5 = r1
-	L4*L2⇒L4 Q2+1⇒Q4 *** L4 = r2
-	*** /'Q4 = '>C *printf(Q4/) /'\n'>C
+	*** /'			L1 = '>C *HprintfBN(L1/) /'\n'>C
+	L1>k⇒L7 Q7+Q3⇒l *optimize(L7, l/L7) L7*L3⇒L7 L7>t⇒L7 *** L7 = q
+	*** /'Q7 = '>C *printf(Q7/) /'\n'>C
+	*** /'L7(q`) = '>C *HprintfBN(L7/) /'\n'>C
+	*** /'r1 = '>C
+	L1⇒L5 Q2+1⇒Q5 *** *HprintfBN(L5/) /'\n'>C *** L5 = r1
+	*** /'r2 = '>C
+	L7*L2⇒L7 Q2+1⇒Q7 *** *HprintfBN(L7/) /'\n'>C *** L7 = r2
+	*** /'Q7 = '>C *printf(Q7/) /'\n'>C
 	*** /'Q5 = '>C *printf(Q5/) /'\n'>C
-	*** /'L4 = '>C *HprintfBN(L4/) /'\n'>C
+	*** /'L7 = '>C *HprintfBN(L7/) /'\n'>C
 	*** /'L5 = '>C *HprintfBN(L5/) /'\n'>C
 	
 	*** GLITCH: в Q5 оказалось значение Q1
@@ -874,28 +884,32 @@ barmod(L1, L2/L4)
 	
 	
 	*** /'L5(r1) = '>C *HprintfBN(L5/) /'\n'>C
-	*** /'L4(r2) = '>C *HprintfBN(L4/) /'\n'>C
+	*** /'L7(r2) = '>C *HprintfBN(L7/) /'\n'>C
 	*** /'L6(r`) = '>C *HprintfBN(L6/) /'\n'>C
 	
 	
-	*BN_greq(L5, L4/c) ↑(c=0)1 L5-L4⇒L6 →2
+	*BN_greq(L5, L7/c) ↑(c=0)1 L5-L7⇒L6 →2
 	§1
-		L6+L5-L4⇒L6
+		L6+L5-L7⇒L6
 	§2
 		*** /'L6 = '>C *HprintfBN(L6/) /'\n'>C
 		*cutZerosBN(L6/L6) *BN_greq(L6, L2/c)
 		↑(c=0)3 L6-L2⇒L6 →2
 	§3
-		/'L6 = '>C *HprintfBN(L6/) /'\n'>C
-		Q6⇒Q4 L6⇒L4 *** L4 = r(результат)
+		*** /'L6 = '>C *HprintfBN(L6/) /'\n'>C
+		Q6⇒Q4 L6⇒L4 *** L7 = r(результат)
 	
 	
 	*** *Hprintf(L1.0/) /'\n'>C
 	*** *Hprintf(L2.0/) /'\n'>C
 	*** /'k = '>C *printf(k/) /'\n'>C
 	*** /'L1 = '>C *HprintfBN(L1/) /'\n'>C
-	*** /'L4 = '>C *HprintfBN(L4/) /'\n'>C
+	*** /'L7 = '>C *HprintfBN(L7/) /'\n'>C
 **
+
+
+
+
 
 
 

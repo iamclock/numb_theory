@@ -538,21 +538,25 @@ HprintfBN(L1/)
 
 *** Дихотомический алг-тм возведения в степень
 *** L1 - число возводимое в степень, L2 - степень этого числа, L3 - модуль
-*** L5 - q, L4 - z 
+*** L5 - q, L4 - z
 *** 01.11.2015 операции над большими числами не изменяют мощность комплексов
 powBN(L1, L2, L3/L4)
 	@+L5(100)
 	@+L6(100)
-	
-	1⇒Q6⇒Q5 Oj
-	L1⇒L5 Q3+Q3⇒l *optimize(L5, l/L5) *optimize(L6, l/L6) 1⇒L6.0⇒i⇒s i<1⇒i L2j&1↪1 L1⇒L6 *optimize(L6, l/L6)
-	§1 ↑(s≥32)3 L5*L5;L3⇒L5
-	   *** /'L5= '>C *HprintfBN(L5/) /'\n'>C
-		 i&L2j↪2 L5*L6;L3⇒L6
+	1⇒Q6⇒Q5⇒L6.0⇒i Oj⇒s
+	L1⇒L5
+	§1
+		 ↑(s≥32)3 i&L2j↪2 Q5+Q6⇒l *optimize(L6, l/L6)
+		 L6*L5;L3⇒L6 Q3⇒Q6
 	   *** /'L6= '>C *HprintfBN(L6/) /'\n'>C
-	§2 ∆s i<1⇒i →1
-	§3 ∆j ↑(j≥Q2)4 Os 1⇒i →1
-	§4 Q6⇒Q4 L6⇒L4 *cutZerosBN(L4/L4)
+	§2
+		 Q5+Q5⇒l *optimize(L5, l/L5)
+		 L5*L5;L3⇒L5 Q3⇒Q5
+	   *** /'L5= '>C *HprintfBN(L5/) /'\n'>C
+	 ∆s i<1⇒i →1
+	§3 ∆j ↑(j≥Q2)4 1⇒i Os →1
+	§4 Q6⇒Q4 L6⇒L4
+		 *cutZerosBN(L4/L4)
 **
 
 
@@ -563,7 +567,7 @@ powBN(L1, L2, L3/L4)
 
 optimize(L1, n/L1)
 	Q1⇒i n⇒Q1
-	§1 ↑(i>n)2 OL1i ∆i →1
+	§1 ↑(i≥n)2 OL1i ∆i →1
 	§2 
 **
 
