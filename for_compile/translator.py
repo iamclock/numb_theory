@@ -116,6 +116,9 @@ def old_lyapas_sintax_replace(file_from, file_to):
 		elif x == '|':
 			file_to.write(disunction)
 			x = x = file_from.read(1)
+		elif x == '^':
+			file_to.write(xor)
+			x = x = file_from.read(1)
 		elif x == '*':
 			while x == '*':
 				countStars += 1
