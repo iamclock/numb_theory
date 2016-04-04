@@ -345,7 +345,7 @@ miral(n, r/b)
 
 *** формирует простое число из k бит
 randPrime(k/t)
-	↑(k<2)3 ↑(k>32)3
+	Ot ↑(k<2)3 ↑(k>32)3
 	§1
 		 32-k⇒t k-1⇒c
 		 X>t∨1∨Ic⇒t
@@ -762,6 +762,8 @@ randPrimeBN(k/L1)
 		 *** /'b = '>C *printf(b/) /'\n'>C
 		  b↪2 *** ↑(b=0)2
 	§3
+		/'L1 = '>C *HprintfBN(L1/) /'\n'>C
+		/'Q1 = '>C *printf(Q1/) /'\n'>C
 **
 
 *** miller-rabin-algorithm()
@@ -850,10 +852,10 @@ countZeroesBN(L1/s)
 *** L4 - q, r2, r(результат)
 *** base ⇒ 2^32 ⇒ 0x100000000
 barmod(L1, L2, L3/L4)
-	/'		Barret\n'>C
-	/'L1 = '>C *HprintfBN(L1/) /'\n'>C
-	/'L2 = '>C *HprintfBN(L2/) /'\n'>C
-	/'L3(z) = '>C *HprintfBN(L3/) /'\n'>C
+	*** /'		Barret\n'>C
+	*** /'L1 = '>C *HprintfBN(L1/) /'\n'>C
+	*** /'L2 = '>C *HprintfBN(L2/) /'\n'>C
+	*** /'L3(z) = '>C *HprintfBN(L3/) /'\n'>C
 	
 	*** 32=b
 	@+L5(1000) *** r1
