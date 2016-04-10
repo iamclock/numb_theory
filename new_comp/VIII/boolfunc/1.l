@@ -42,7 +42,6 @@ bool_moebius_test(/)
 	
 **
 
-
 *** функция преобразование Мёбиуса
 *** a b c d e f g h
 *** a
@@ -91,9 +90,6 @@ moebiusTransform(L1/L2)
 *** /'*z = '>C *printf(z/) /'\n'>C
 *** /'*j = '>C *printf(j/) /'\n'>C
 
-e = 0
-a^b = 1
-h = 1
 
 *** 
 *** L1.0 - размер булевой функции
