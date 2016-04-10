@@ -70,7 +70,7 @@ moebiusTransform(L1/L2)
 		1<j&L1i^g^f=h|z=z Dq Dj
 	?(q=2)3 j=l e<4=a f<2=b x<4=c h<4=d z=L3i ?(j>n)4 ?(j>31)2 ?=1
 	P2
-		z=L3i Di ?(i>=Q1)4 Oj=z ?=1
+		z=L3i Di ?(i>=Q1)4 Oj=z=r ?=1
 	P3
 		Oy
 		*** a<4=a b<2=b c<4=c d<4=d
