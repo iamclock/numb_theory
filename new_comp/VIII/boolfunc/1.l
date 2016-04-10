@@ -18,8 +18,8 @@ bool_moebius_test(/)
 	@+F2(100)
 	*** 32=L1.0
 	*** OQ2 @'01010011'>F2
-	OQ2 @'0111010110101010101010101010100101010101010101010101010101101101'>F2
 	*** OQ2 @'01110101101010101010101010101001'>F2
+	OQ2 @'0111010110101010101010101010100101010101010101010101010101101101'>F2
 	*** *printf(Q2/) /'\n'>C
 	*** /F2>C /'\n'>C
 	*** *printf(Q2/) /'\n'>C
@@ -56,41 +56,33 @@ bool_moebius_test(/)
 moebiusTransform(L1/L2)
 	@+L3(100)
 	/'L1 = '>C *BFoutput_string(L1/) /'\n'>C
-	L1=L3 1<L3.0-1=n 1=i=s Or=q=j
+	Q1=Q3 L1.0=L3.0 1<L1.0-1=n 1=i Or=q=j
 	Oa=b=c=d=z
 	*** /'n = '>C *printf(n/) /'\n'>C
 	P1
-		1<j&L3i=e|z=z Dj
+		1<j&L1i=e|z=z Dj
 		*** z = a,a^b
-		e<1=x
-		1<j&L3i=f^x=f|z=z Dj
+		e<1=x 1<j&L1i=f^x=f|z=z Dj
 		*** z = a,a^b,a^c
-		x<1=x
-		1<j&L3i=g^x=x|z=z Dj
+		x<1=x 1<j&L1i=g^x=x|z=z Dj
 		*** z = a,a^b,a^c,c^d^a^b
 		g<1=g f<2=f
-		1<j&L3i^g^f=h|z=z Dq Dj
-	?(q=2)3 j=l e<4=a f<2=b x<4=c h<4=d ?(j>n)4 ?(j>31)2 ?=1
+		1<j&L1i^g^f=h|z=z Dq Dj
+	?(q=2)3 j=l e<4=a f<2=b x<4=c h<4=d z=L3i ?(j>n)4 ?(j>31)2 ?=1
 	P2
-		z=L3i Di ?(i>=Q1)4 1=s Oj=z ?=1
+		z=L3i Di ?(i>=Q1)4 Oj=z ?=1
 	P3
 		Oy
 		*** a<4=a b<2=b c<4=c d<4=d
-		1<l&L3i=e^a=x|y=y Dl
-		e<1=e
-		1<l&L3i^e=f^b=x|y=y Dl
-		e<1=e
-		1<l&L3i=g^e^c=x|y=y Dl
-		f<2=f g<1=g
-		1<l&L3i=h^g^f^d=x|y=y Dl
-		*** /'x = '>C *printf(x/) /'\n'>C
-		*** /'y = '>C *printf(y/) /'\n'>C
-		*** j-8=t
-		*** /'y = '>C *printf(y/) /'\n'>C
-		*** fh<t&z=t *** y|t|r=r
+		1<l&z=e^a=x|y=y Dl
+		1<l&z^b=x|y=y Dl
+		1<l&z^c=x|y=y Dl
+		1<l&z^d=x|y=y Dl
+		j-8=t
+		fh<t&z=t y|t|r=r=z
 		Oq ?(j>n)4 ?(j>31)2 ?=1
 	P4
-		z=L3i L3=L2
+		L3=L2
 **
 
 *** /'s = '>C *printf(s/) /'\n'>C
