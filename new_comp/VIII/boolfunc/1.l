@@ -11,35 +11,97 @@ main(/)
 *****************************************  Алгоритмы  *****************************************
 ***********************************************************************************************
 
-
 *** тестирование функции преобразования Мёбиуса
-moebiusTransform(L1/L2)
-	@+L3(100)
-	L1=L3 1=i=s Or=q
-	P1
-		Oy q;32=q
-		*** y = a
-		L3i&s=x|y=y *** /'y = '>C *printf(s/) /'\n'>C
-		*** y = a,a^b
-		s<1=s&L3i=a^x|y=y *** /'y = '>C *printf(y/) /'\n'>C /'a = '>C *printf(a/) /'\n'>C
-		*** y = a,a^b,a^c
-		s<1=s&L3i=c^x|y=y *** /'y = '>C *printf(y/) /'\n'>C
-		/'c = '>C *printf(c/) /'\n'>C
-		*** y = a,a^b,a^c,c^d^a^b
-		q+1=w
-		/'w = '>C *printf(w/) /'\n'>C
-		1<w&L3i=w s<1=s&L3i=d^c^w|y=y
-	/'s = '>C *printf(s/) /'\n'>C
-	/'w = '>C *printf(w/) /'\n'>C
-	/'d = '>C *printf(d/) /'\n'>C
-	/'c = '>C *printf(c/) /'\n'>C
-	/'y = '>C *printf(y/) /'\n'>C
+bool_moebius_test(/)
+	@+L1(100)
+	@+L2(100)
+	@+F2(100)
+	*** 32=L1.0
+	*** OQ2 @'01010011'>F2
+	OQ2 @'0111010110101010101010101010100101010101010101010101010101101101'>F2
+	*** OQ2 @'01110101101010101010101010101001'>F2
+	*** *printf(Q2/) /'\n'>C
+	*** /F2>C /'\n'>C
+	*** *printf(Q2/) /'\n'>C
+	*BFinput(F2/L1)
+	*** *printf(L1.0/) /'\n'>C
+	*** /'Q1 = '>C *printf(Q1/) /'\n'>C
+	*BFoutput_string(L1/) /'\n'>C
+	*moebiusTransform(L1/L2)
+	
+	*** *BFoutput(L1/) /'\n'>C
+	*** *BFweight(L1/n)
+	*** *printf(n/) /'\n'>C
+	*** *BFoutput_string(L2/) /'\n'>C
+	*** *BFoutput(L2/) /'\n'>C
+	
+	*moebiusTransform(L2/L1)
+	*BFoutput_string(L1/) /'\n'>C
+	*** *BFoutput(L1/) /'\n'>C
 	
 	
 **
 
 
+*** функция преобразование Мёбиуса
+*** a b c d e f g h
+*** a
+*** a^b
+*** a^c
+*** (a^b)^(c^d)
+*** (a^e)
+*** (a^b)^(e^f)
+*** (a^c)^(e^g)
+*** (a^b)^(c^d)^(e^f)^(i^h)
+moebiusTransform(L1/L2)
+	@+L3(100)
+	/'L1 = '>C *BFoutput_string(L1/) /'\n'>C
+	L1=L3 1<L3.0-1=n 1=i=s Or=q=j
+	Oa=b=c=d=z
+	*** /'n = '>C *printf(n/) /'\n'>C
+	P1
+		1<j&L3i=e|z=z Dj
+		*** z = a,a^b
+		e<1=x
+		1<j&L3i=f^x=f|z=z Dj
+		*** z = a,a^b,a^c
+		x<1=x
+		1<j&L3i=g^x=x|z=z Dj
+		*** z = a,a^b,a^c,c^d^a^b
+		g<1=g f<2=f
+		1<j&L3i^g^f=h|z=z Dq Dj
+	?(q=2)3 j=l e<4=a f<2=b x<4=c h<4=d ?(j>n)4 ?(j>31)2 ?=1
+	P2
+		z=L3i Di ?(i>=Q1)4 1=s Oj=z ?=1
+	P3
+		Oy
+		*** a<4=a b<2=b c<4=c d<4=d
+		1<l&L3i=e^a=x|y=y Dl
+		e<1=e
+		1<l&L3i^e=f^b=x|y=y Dl
+		e<1=e
+		1<l&L3i=g^e^c=x|y=y Dl
+		f<2=f g<1=g
+		1<l&L3i=h^g^f^d=x|y=y Dl
+		*** /'x = '>C *printf(x/) /'\n'>C
+		*** /'y = '>C *printf(y/) /'\n'>C
+		*** j-8=t
+		*** /'y = '>C *printf(y/) /'\n'>C
+		*** fh<t&z=t *** y|t|r=r
+		Oq ?(j>n)4 ?(j>31)2 ?=1
+	P4
+		z=L3i L3=L2
+**
 
+*** /'s = '>C *printf(s/) /'\n'>C
+*** /'*w = '>C *printf(w/) /'\n'>C
+*** /'*d = '>C *printf(d/) /'\n'>C
+*** /'*z = '>C *printf(z/) /'\n'>C
+*** /'*j = '>C *printf(j/) /'\n'>C
+
+e = 0
+a^b = 1
+h = 1
 
 *** 
 *** L1.0 - размер булевой функции
@@ -92,7 +154,7 @@ BFoutput(L1/)
 *** 
 *** n - размер булевой функции
 *** вывод булевой функции строкой или в столбик
-string_BFoutput(L1/)
+BFoutput_string(L1/)
 	?(Q1<1)3
 	Oz=c 1=i 1<L1.0=n
 	P1 1<z=t L1i&t>z=t Dc
@@ -181,27 +243,6 @@ bool_rand_test(/)
 	
 **
 
-*** тестирование функции преобразования Мёбиуса
-bool_moebius_test(/)
-	@+L1(100)
-	@+L2(100)
-	@+F2(100)
-	*** 32=L1.0
-	OQ2 @'01010011'>F2
-	*** @'0111010110101010101010101010100101010101010101010101010101101101'>F2
-	/F2>C /'\n'>C
-	*** *printf(Q2/) /'\n'>C
-	*BFinput(F2/L1)
-	*** *printf(L1.0/) /'\n'>C
-	/'Q1 = '>C *printf(Q1/) /'\n'>C
-	*moebiusTransform(L1/L2)
-	*BFoutput(L1/) /'\n'>C
-	*BFweight(L1/n)
-	*printf(n/) /'\n'>C
-	
-	
-	
-	
-**
+
 
 
