@@ -55,11 +55,17 @@ pua(L1/L2)
 		 1<k=s Op=j Dk
 		
 		P98
-			1<j&L1i>j+2;3-1=a
-			/'a = '>C *sprintf(a/) /'\n'>C
-			j+s=l
+			?(s>1)102
+			1<j&L1i>j+2;3-1=a j+s=l
 			1<l&L1i>l+2;3-1=b
+			/'a = '>C *sprintf(a/) /'\n'>C
 			/'b = '>C *sprintf(b/) /'\n'>C
+			 ?=103
+		P102
+			L3j=a j+s=l L3l=b
+			/'a = '>C *sprintf(a/) /'\n'>C
+			/'b = '>C *sprintf(b/) /'\n'>C
+		P103
 			a+b=L3j a-b=L3l
 			/'	j = '>C *sprintf(j/) /'\n'>C
 			/'	l = '>C *sprintf(l/) /'\n'>C
@@ -72,7 +78,7 @@ pua(L1/L2)
 			?=98
 			*** ?=100
 	P99
-		j+s=j ?=98
+		j+s=j Op ?=98
 		
 		Dj
 		*** ?(l>=n)3 ?(j>=8)2 ?=1
@@ -81,9 +87,6 @@ pua(L1/L2)
 	P100
 		L3=L2
 **
-1=s
-
-s<1
 
 
 
