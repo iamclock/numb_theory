@@ -4,7 +4,8 @@ main(/)
 	*** *EuclAlg_test(/)
 	*** *dih_bar_test(/)
 	*** *degree_tset(/)
-	*extEuclAlg_test(/)
+	*** *extEuclAlg_test2(/)
+	*extEuclAlg_rowTest(/)
 	*** *rsaGen_test(/)
 **
 
@@ -16,6 +17,32 @@ main(/)
 ***********************************************************
 *********************    Алгоритмы    *********************
 ***********************************************************
+
+
+extEuclAlg_rowTest(/)
+	@+L1(100000)
+	@+L2(100000)
+	@+L3(100000)
+	@+L4(100000)
+	@+L5(100000)
+	@+F6(100000)
+	
+	OQ6 /F6<C *inputBN(L1, F6, 0/L1, k)
+	OQ6 /F6<C *inputBN(L2, F6, k/L2, k)
+	
+	*BNextEuclAlg(L1, L2/L3, L4, L6, f)
+	*HprintfBN(L6/) /'\n'>C
+	*** ?=2
+	?(f>0)1 L2-L3=L3 ?=2
+	P1
+		L2-L4=L4
+	P2
+		*** /'f = '>C *printf(f/) /'\n'>C
+		*HprintfBN(L3/) /'\n'>C
+		*HprintfBN(L4/) /'\n'>C
+**
+
+
 extEuclAlg_test(/)
 	@+L1(1000)
 	@+L2(1000)
@@ -48,7 +75,7 @@ extEuclAlg_test2(/)
 	@+L6(1000)
 	0=Q1=Q2=Q3=Q5=Q6
 	
-	*** ?=99
+	?=99
 	
 	1=Q1=Q2
 	3=L1.0
@@ -67,10 +94,10 @@ extEuclAlg_test2(/)
 	
 	
 	P99
-		*** 3=a
-		*** 9167368=b
-		14=a
-		88=b
+		3=a
+		9167368=b
+		*** 14=a
+		*** 88=b
 		*Extended_Euclidean_Algorithm(a, b/x, y, c, f)
 		
 		/'x = '>C *printf(x/) /'\n'>C
