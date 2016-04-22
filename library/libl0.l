@@ -144,7 +144,13 @@ Extended_Euclidean_Algorithm(a, b/x, y, c, f)
 	§2 ∆f;2⇒f ↑(d=0)3 OZ c:d⇒q Z⇒r *** *printf(d/) /'	'>C  *printf(w/) /'	'>C *printf(q/) /'\n'>C
 		*** q*d⇒r c-r⇒r
 		q*w⇒t y+t⇒y d⇒c r⇒d w⇒t y⇒w t⇒y →2
-	§3	↑(f>0)5 b*y-c/a⇒x →6
+	§3
+		/'f = '>C *printf(f/) /'\n'>C
+		/'b = '>C *printf(b/) /'\n'>C
+		/'y = '>C *printf(y/) /'\n'>C
+		/'c = '>C *printf(c/) /'\n'>C
+		/'a = '>C *printf(a/) /'\n'>C
+		↑(f>0)5 b*y-c/a⇒x →6
 	§5 b*y+c/a⇒x →6
 	§6	*** /'\n'>C
 **
