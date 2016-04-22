@@ -101,6 +101,8 @@ GCD(a,b/b)
 **
 
 
+
+
 invertible_element_old(a, b/y, c)
 	Of a⇒c b⇒d 0⇒y 1⇒w Os ↑(a≠0)1 1⇒y b⇒c →6
 	§1	/'a	y	q'>C /'\n'>C *printf(c/) /'	'>C *printf(y/) /'\n'>C
@@ -113,7 +115,7 @@ invertible_element_old(a, b/y, c)
 **
 
 
-
+*** в отличии от старого заменена операция деления с остатком на OZ c:d
 invertible_element(a, b/y, c)
 	Of a⇒c b⇒d 0⇒y 1⇒w Os ↑(a≠0)1 1⇒y b⇒c →6
 	§1	*** /'a	y	q'>C /'\n'>C *printf(c/) /'	'>C *printf(y/) /'\n'>C
@@ -137,14 +139,13 @@ invertible_element(a, b/y, c)
 *** a - входное число для GCD(a, b)
 *** b - входное число для GCD(a, b)
 Extended_Euclidean_Algorithm(a, b/x, y, c, f)
-	Of⇒s⇒y+1⇒w a⇒c b⇒d ↑(a≠0)1 ∆y b⇒c →6
+	Of⇒y+1⇒w a⇒c b⇒d ↑(a≠0)1 ∆y b⇒c →6
 	§1 *** /'a	y	q'>C /'\n'>C *printf(c/) /'	'>C *printf(y/) /'\n'>C
-	§2 ∆s ↑(d=0)3 OZ c:d⇒q Z⇒r *** *printf(d/) /'	'>C  *printf(w/) /'	'>C *printf(q/) /'\n'>C
+	§2 ∆f;2⇒f ↑(d=0)3 OZ c:d⇒q Z⇒r *** *printf(d/) /'	'>C  *printf(w/) /'	'>C *printf(q/) /'\n'>C
 		*** q*d⇒r c-r⇒r
 		q*w⇒t y+t⇒y d⇒c r⇒d w⇒t y⇒w t⇒y →2
-	§3	s;2⇒f ↑(f>0)5
-	§4	b*y-c/a⇒x →6
-	§5	b*y+c/a⇒x →6
+	§3	↑(f>0)5 b*y-c/a⇒x →6
+	§5 b*y+c/a⇒x →6
 	§6	*** /'\n'>C
 **
 
@@ -882,6 +883,59 @@ countZeroesBN(L1/s)
 
 
 
+*** Алгоритм карацубы перемножения 2ух больших чисел
+*** http://samos-it.com/posts/recursive-karatsuba-multiplication-python.html
+*** f - признак нулевого комплекса - требуется восстановить значение 0
+karatsuba(L1, L2/L3)
+	@+L4(1000) *** 1ая половина L1 b
+	@+L5(1000) *** 2ая половина L1 a
+	@+L6(1000) *** 1ая половина L2 d
+	@+L7(1000) *** 2ая половина L2 c
+	@+L8(1000) *** результат первых половин ab
+	@+L9(1000) *** результат вторых половин cd
+	@+L11(1000)
+	@+L12(1000)
+	
+	Q1⇒Q11 L1⇒L11 Q2⇒Q12 L2⇒L12
+	
+	*** Q2 сравнивается со старым значением Q1 (t)
+	*** мощность одного из комплексов увеличивается до максимума n
+	Q12⇒n/2⇒w ↑(Q12=Q11)1 Q11⇒t ↑(Q12>t)1 t⇒Q11⇒n/2⇒w
+	§1
+		*optimize(L11, n/L11) *optimize(L12, n/L12)
+		↑(n>1)2
+		Q11+Q12⇒Q3 OL3 1⇒L3.0 L3*L11*L12⇒L3 →8
+	
+	§2
+		n;2↪4 n⇒t+1⇒Q11⇒Q12⇒n/2⇒w OL12t OL11t
+	§4
+		L11⇒L5 Q11-w⇒Q5⇒Q4-1⇒t OL4t Q11-w*32⇒t L11>t⇒L4 w⇒Q4
+	§3
+		L12⇒L7 Q12-w⇒Q7⇒Q6-1⇒t OL6t Q12-w*32⇒t L12>t⇒L6 w⇒Q6
+	§6
+		*karatsuba(L4, L6/L8) *** A
+		*karatsuba(L5, L7/L9) *** B
+		Q4⇒t+1⇒Q4 OL4t
+		Q6⇒t+1⇒Q6 OL6t
+		L4+L5⇒L4 L6+L7⇒L6
+		Q4-1⇒t ↑(L4t>0)9 t⇒Q4
+	§9
+		Q6-1⇒t ↑(L6t>0)10 t⇒Q6
+	§10
+		*karatsuba(L4, L6/L3) *** C
+	§7
+		Q3⇒t+w⇒Q3 OL3t
+		w⇒q*32⇒t
+		L3-L8-L9⇒L3
+		L3<t⇒L3
+		32*n⇒t n+Q8⇒Q8 L8<t⇒L8
+		L8+L3+L9⇒L3
+	§8
+**
+
+
+
+
 *** Алгоритм баррета приведения числа по модулю
 *** L1 - x число
 *** L2 - m модуль
@@ -905,24 +959,8 @@ barmod(L1, L2/L4)
 	Q2-1*32⇒k *** /'k = '>C *printf(k/) /'\n'>C
 	Q2+1*32⇒t *** /'t = '>C *printf(t/) /'\n'>C
 	L1>k⇒L4 Q4+Q3⇒l *optimize(L4, l/L4) L4*L3⇒L4 L4>t⇒L4 *** L4 = q
-	*** /'L4(q) = '>C *HprintfBN(L4/) /'\n'>C
-	*** /'b^(k+1) = '>C *HprintfBN(L5/) /'\n'>C
 	L1⇒L5 Q2+1⇒Q5 *** L5 = r1
 	L4*L2⇒L4 Q2+1⇒Q4 *** L4 = r2
-	*** /'Q4 = '>C *printf(Q4/) /'\n'>C
-	*** /'Q5 = '>C *printf(Q5/) /'\n'>C
-	*** /'L4 = '>C *HprintfBN(L4/) /'\n'>C
-	*** /'L5 = '>C *HprintfBN(L5/) /'\n'>C
-	
-	*** GLITCH: в Q5 оказалось значение Q1
-	
-	
-	
-	*** /'L5(r1) = '>C *HprintfBN(L5/) /'\n'>C
-	*** /'L4(r2) = '>C *HprintfBN(L4/) /'\n'>C
-	*** /'L6(r`) = '>C *HprintfBN(L6/) /'\n'>C
-	
-	
 	*BN_greq(L5, L4/c) ↑(c=0)1 L5-L4⇒L6 →2
 	§1
 		L6+L5-L4⇒L6
@@ -930,15 +968,7 @@ barmod(L1, L2/L4)
 		*cutZerosBN(L6/L6) *BN_greq(L6, L2/c)
 		↑(c=0)3 L6-L2⇒L6 →2
 	§3
-		*** /'L6 = '>C *HprintfBN(L6/) /'\n'>C
 		Q6⇒Q4 L6⇒L4 *** L4 = r(результат)
-	
-	
-	*** *Hprintf(L1.0/) /'\n'>C
-	*** *Hprintf(L2.0/) /'\n'>C
-	*** /'k = '>C *printf(k/) /'\n'>C
-	*** /'L1 = '>C *HprintfBN(L1/) /'\n'>C
-	*** /'L4 = '>C *HprintfBN(L4/) /'\n'>C
 **
 
 

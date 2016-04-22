@@ -16,7 +16,6 @@ main(/)
 ***********************************************************
 *********************    Алгоритмы    *********************
 ***********************************************************
-
 extEuclAlg_test(/)
 	@+L1(1000)
 	@+L2(1000)
@@ -24,29 +23,54 @@ extEuclAlg_test(/)
 	@+L5(1000)
 	@+L6(1000)
 	@+F4(100)
-	
+	0=Q1=Q2=Q3=Q5=Q6
 	OQ4 @'0x2fd67fb7fef3b0b6a256dbc8a2912c25dd20d40bf7a66f35a0189cc9c5b71d2'>F4
 	*inputBN_2(L1, F4/L1)
 	OQ4 @'0x1603a51baf31d57a52b8e9b30826cdd122acc6140f48502728483b3ac5d649d'>F4
 	*inputBN_2(L2, F4/L2)
 	
-	?=99
 	
-	*** *BNextEuclAlg(L1, L2/L3, L5, L6, f)
+	*BNextEuclAlg(L1, L2/L3, L5, L6, f)
 	
+	/'L3 = '>C *HprintfBN(L3/) /'\n'>C
+	/'L5 = '>C *HprintfBN(L5/) /'\n'>C
+	/'L6 = '>C *HprintfBN(L6/) /'\n'>C
 	
+**
+
+
+
+extEuclAlg_test2(/)
+	@+L1(1000)
+	@+L2(1000)
+	@+L3(1000)
+	@+L5(1000)
+	@+L6(1000)
+	0=Q1=Q2=Q3=Q5=Q6
 	
+	*** ?=99
 	
+	1=Q1=Q2
+	3=L1.0
+	9167368=L2.0
+	*BNextEuclAlg(L1, L2/L3, L5, L6, f)
+	/'L3.0 = '>C *printf(L3.0/) /'\n'>C
+	/'L5.0 = '>C *printf(L5.0/) /'\n'>C
+	/'L6.0 = '>C *printf(L6.0/) /'\n'>C
+	/'f = '>C *printf(f/) /'\n'>C
+	?(f>1)100
+	L2-L3=L3
+	/'L3.0 = '>C *printf(L3.0/) /'\n'>C
 	
 	
 	/'L3 = '>C *HprintfBN(L3/) /'\n'>C ?=100
 	
 	
 	P99
-		3=a
-		9167368=b
-		*** 14=a
-		*** 88=b
+		*** 3=a
+		*** 9167368=b
+		14=a
+		88=b
 		*Extended_Euclidean_Algorithm(a, b/x, y, c, f)
 		
 		/'x = '>C *printf(x/) /'\n'>C
@@ -78,18 +102,42 @@ BNinvElement(L1, L2/L3, c)
 *** L5 - наибольший общий делитель L1 и L2
 *** f - признак отрицательного числа L3 или L4
 BNextEuclAlg(L1, L2/L3, L4, L5, f)
-	@+L6(1000) OQ6
-	@+L7(1000) OQ7
-	@+L8(1000) OQ8
-	@+L9(1000) OQ9
-	Of=L7.0+1=L8.0 L1=L5 L2=L6 1=Q9 0=L9.0 *BN_neq(L1, L9/a) ?(a=1)1 1=L9.0
-	P1 
-	P2
-	P3
-	P4
+	@+L6(1000) OQ6 *** c
+	@+L7(1000) OQ7 *** d
+	@+L8(1000) OQ8 *** y
+	@+L9(1000) OQ9 *** w
+	@+L10(1000) OQ10 *** q
+	@+L11(1000) OQ11 *** r
+	@+L12(1000) OQ12 *** t
+	
+	Of=L8.0+1=L9.0=Q8=Q9=Q12 0=L12.0 L1=L6 L2=L7 *BN_neq(L1, L12/a) ?(a=1)1 ∆L8.0 L2=L5 ?=4
+	P1
+		∆f;2=f 1=Q12 OL12.0 *BN_eq(L7, L12/a) ?(a=1)2
+		L6/L7=L10 Q10+Q7=l
+		*karatsuba(L10, L7/L11)
+		L6-L11=L11 *cutZerosBN(L11/L11)
+		*karatsuba(L10, L9/L12)
+		Q8+1=l ?(Q8>Q12)5 Q12+1=l
+		
 	P5
-	P6
+		*optimize(L8, l/L8)
+		L8+L12=L8 *cutZerosBN(L8/L8)
+		L7=L6 L11=L7 L9=L12 L8=L9 L12=L8 ?=1
+	P2
+		
+		*karatsuba(L2, L8/L12)
+		?(f>0)3
+		L12-L6/L1=L3 ?=4
+	P3
+		Q12=i Q12+1=Q12 OL12i L12+L6/L1=L3 *** проверить мощность L3 и L12 до и после увеличения на 1
+	P4
+		*cutZerosBN(L3/L3)
+		L8=L4
+		L6=L5
+		
 **
+
+*** Q2+Q8=l *optimize(L12, l/L12) 1=L12.0 L12*L2*L8=L12
 
 
 *** Дихотомический алг-тм возведения в степень
