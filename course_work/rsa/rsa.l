@@ -35,7 +35,7 @@ extEuclAlg_test(/)
 	/'L3 = '>C *HprintfBN(L3/) /'\n'>C
 	/'L5 = '>C *HprintfBN(L5/) /'\n'>C
 	/'L6 = '>C *HprintfBN(L6/) /'\n'>C
-	
+	/'f = '>C *printf(f/) /'\n'>C
 **
 
 
@@ -58,7 +58,7 @@ extEuclAlg_test2(/)
 	/'L5.0 = '>C *printf(L5.0/) /'\n'>C
 	/'L6.0 = '>C *printf(L6.0/) /'\n'>C
 	/'f = '>C *printf(f/) /'\n'>C
-	?(f>1)100
+	?(f>0)100
 	L2-L3=L3
 	/'L3.0 = '>C *printf(L3.0/) /'\n'>C
 	
