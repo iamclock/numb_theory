@@ -101,10 +101,11 @@ GCD(a,b/b)
 **
 
 
-invertible_element(a, b/y, c)
+invertible_element_old(a, b/y, c)
 	Of a⇒c b⇒d 0⇒y 1⇒w Os ↑(a≠0)1 1⇒y b⇒c →6
 	§1	/'a	y	q'>C /'\n'>C *printf(c/) /'	'>C *printf(y/) /'\n'>C
-	§2	∆s ↑(d=0)3 c/d⇒q *printf(d/) /'	'>C *printf(w/) /'	'>C *printf(q/) /'\n'>C q*d⇒r c-r⇒r q*w⇒t y+t⇒y d⇒c r⇒d w⇒t y⇒w t⇒y →2
+	§2	∆s ↑(d=0)3 c/d⇒q *printf(d/) /'	'>C *printf(w/) /'	'>C *printf(q/) /'\n'>C
+		q*d⇒r c-r⇒r q*w⇒t y+t⇒y d⇒c r⇒d w⇒t y⇒w t⇒y →2
 	§3	↑(c≠1)5 s;2⇒f ↑(f>0)4 →6
 	§4	↑(y=0)6 a-y⇒y →6
 	§5	/'Error: Im sorry, but there is no invertible element GCD != 1\n'>C Oy Oc
@@ -113,15 +114,38 @@ invertible_element(a, b/y, c)
 
 
 
-
-Extended_Euclidean_Algorithm(a, b/x, y, c, f)
+invertible_element(a, b/y, c)
 	Of a⇒c b⇒d 0⇒y 1⇒w Os ↑(a≠0)1 1⇒y b⇒c →6
-	§1 /'a	y	q'>C /'\n'>C *printf(c/) /'	'>C *printf(y/) /'\n'>C
-	§2 ∆s ↑(d=0)3 c/d⇒q *printf(d/) /'	'>C  *printf(w/) /'	'>C *printf(q/) /'\n'>C q*d⇒r c-r⇒r q*w⇒t y+t⇒y d⇒c r⇒d w⇒t y⇒w t⇒y →2
+	§1	*** /'a	y	q'>C /'\n'>C *printf(c/) /'	'>C *printf(y/) /'\n'>C
+	§2	∆s ↑(d=0)3 OZ c:d⇒q Z⇒r *** *printf(d/) /'	'>C *printf(w/) /'	'>C *printf(q/) /'\n'>C
+		q*w⇒t y+t⇒y d⇒c r⇒d w⇒t y⇒w t⇒y →2
+	§3	↑(c≠1)5 s;2⇒f ↑(f>0)4 →6
+	§4	↑(y=0)6 a-y⇒y →6
+	§5	/'Error: Im sorry, but there is no invertible element GCD != 1\n'>C Oy Oc
+	§6 *** /'\n'>C
+**
+
+
+
+*** Расширенный Алгоритм Евклида
+*** x - a*x+b*y=c
+*** y - a*x+b*y=c
+*** c - наибольший общий делитель чисел a и b
+*** f - признак отрицательности чисел x или y
+*** f = 0 => x < 0
+*** f = 1 => y < 0
+*** a - входное число для GCD(a, b)
+*** b - входное число для GCD(a, b)
+Extended_Euclidean_Algorithm(a, b/x, y, c, f)
+	Of⇒s⇒y+1⇒w a⇒c b⇒d ↑(a≠0)1 ∆y b⇒c →6
+	§1 *** /'a	y	q'>C /'\n'>C *printf(c/) /'	'>C *printf(y/) /'\n'>C
+	§2 ∆s ↑(d=0)3 OZ c:d⇒q Z⇒r *** *printf(d/) /'	'>C  *printf(w/) /'	'>C *printf(q/) /'\n'>C
+		*** q*d⇒r c-r⇒r
+		q*w⇒t y+t⇒y d⇒c r⇒d w⇒t y⇒w t⇒y →2
 	§3	s;2⇒f ↑(f>0)5
 	§4	b*y-c/a⇒x →6
 	§5	b*y+c/a⇒x →6
-	§6	/'\n'>C
+	§6	*** /'\n'>C
 **
 
 

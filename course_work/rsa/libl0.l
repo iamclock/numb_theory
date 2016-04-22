@@ -6,6 +6,23 @@ print_complex(L1/)
 	§100 *printf(L1i/) ∆i /' '>C ↑(i<Q1)100
 **
 
+*** вывод комплекса с отрицательными числами
+print_scomplex(L1/)
+	Oi
+	§100 *sprintf(L1i/) ∆i /' '>C ↑(i<Q1)100
+**
+
+*** вывод отрицательного числа
+*** 19.04.2016 ВНИМАНИЕ: не всегда работает правильно, например на ffffffffh
+sprintf(x/)
+	@+F1(100) OQ1
+	x&ffff0000h⇒y x⇒t
+	↑(y=0)1 0-x⇒t /'-'>C
+	§1
+		*n2s(t,10/F1)
+		/F1>C
+**
+
 
 
 *** обернуть эту функцию в алгоритм поиска функции эйлера
@@ -84,10 +101,11 @@ GCD(a,b/b)
 **
 
 
-invertible_element(a, b/y, c)
+invertible_element_old(a, b/y, c)
 	Of a⇒c b⇒d 0⇒y 1⇒w Os ↑(a≠0)1 1⇒y b⇒c →6
 	§1	/'a	y	q'>C /'\n'>C *printf(c/) /'	'>C *printf(y/) /'\n'>C
-	§2	∆s ↑(d=0)3 c/d⇒q *printf(d/) /'	'>C *printf(w/) /'	'>C *printf(q/) /'\n'>C q*d⇒r c-r⇒r q*w⇒t y+t⇒y d⇒c r⇒d w⇒t y⇒w t⇒y →2
+	§2	∆s ↑(d=0)3 c/d⇒q *printf(d/) /'	'>C *printf(w/) /'	'>C *printf(q/) /'\n'>C
+		q*d⇒r c-r⇒r q*w⇒t y+t⇒y d⇒c r⇒d w⇒t y⇒w t⇒y →2
 	§3	↑(c≠1)5 s;2⇒f ↑(f>0)4 →6
 	§4	↑(y=0)6 a-y⇒y →6
 	§5	/'Error: Im sorry, but there is no invertible element GCD != 1\n'>C Oy Oc
@@ -96,15 +114,38 @@ invertible_element(a, b/y, c)
 
 
 
-
-Extended_Euclidean_Algorithm(a, b/x, y, c, f)
+invertible_element(a, b/y, c)
 	Of a⇒c b⇒d 0⇒y 1⇒w Os ↑(a≠0)1 1⇒y b⇒c →6
-	§1 /'a	y	q'>C /'\n'>C *printf(c/) /'	'>C *printf(y/) /'\n'>C
-	§2 ∆s ↑(d=0)3 c/d⇒q *printf(d/) /'	'>C  *printf(w/) /'	'>C *printf(q/) /'\n'>C q*d⇒r c-r⇒r q*w⇒t y+t⇒y d⇒c r⇒d w⇒t y⇒w t⇒y →2
+	§1	*** /'a	y	q'>C /'\n'>C *printf(c/) /'	'>C *printf(y/) /'\n'>C
+	§2	∆s ↑(d=0)3 OZ c:d⇒q Z⇒r *** *printf(d/) /'	'>C *printf(w/) /'	'>C *printf(q/) /'\n'>C
+		q*w⇒t y+t⇒y d⇒c r⇒d w⇒t y⇒w t⇒y →2
+	§3	↑(c≠1)5 s;2⇒f ↑(f>0)4 →6
+	§4	↑(y=0)6 a-y⇒y →6
+	§5	/'Error: Im sorry, but there is no invertible element GCD != 1\n'>C Oy Oc
+	§6 *** /'\n'>C
+**
+
+
+
+*** Расширенный Алгоритм Евклида
+*** x - a*x+b*y=c
+*** y - a*x+b*y=c
+*** c - наибольший общий делитель чисел a и b
+*** f - признак отрицательности чисел x или y
+*** f = 0 => x < 0
+*** f = 1 => y < 0
+*** a - входное число для GCD(a, b)
+*** b - входное число для GCD(a, b)
+Extended_Euclidean_Algorithm(a, b/x, y, c, f)
+	Of⇒s⇒y+1⇒w a⇒c b⇒d ↑(a≠0)1 ∆y b⇒c →6
+	§1 *** /'a	y	q'>C /'\n'>C *printf(c/) /'	'>C *printf(y/) /'\n'>C
+	§2 ∆s ↑(d=0)3 OZ c:d⇒q Z⇒r *** *printf(d/) /'	'>C  *printf(w/) /'	'>C *printf(q/) /'\n'>C
+		*** q*d⇒r c-r⇒r
+		q*w⇒t y+t⇒y d⇒c r⇒d w⇒t y⇒w t⇒y →2
 	§3	s;2⇒f ↑(f>0)5
 	§4	b*y-c/a⇒x →6
 	§5	b*y+c/a⇒x →6
-	§6	/'\n'>C
+	§6	*** /'\n'>C
 **
 
 
@@ -345,7 +386,7 @@ miral(n, r/b)
 
 *** формирует простое число из k бит
 randPrime(k/t)
-	Ot ↑(k<2)3 ↑(k>32)3
+	↑(k<2)3 ↑(k>32)3
 	§1
 		 32-k⇒t k-1⇒c
 		 X>t∨1∨Ic⇒t
@@ -470,7 +511,8 @@ inputBN(L2, F1, i/L2, k)
 **
 
 
-*** ввод большого числа 2ой вариант (одна строка - одно число) [Добавить обработку нуля!!!]
+*** ввод большого числа 2ой вариант [Добавить обработку нуля!!!]
+*** одна строка - одно число
 *** k может вернуться больше размерности комплекса F1 => алгоритм не сработает, необходимо проверять в программе, что размер числа > 0
 *** big_int_input(L2, F1, i/L2, k) - старое название
 inputBN_2(L2, F1/L2)
@@ -543,20 +585,20 @@ powBN(L1, L2, L3/L4)
 	@+L5(100)
 	@+L6(100)
 	1⇒Q6⇒Q5⇒L6.0⇒i Oj⇒s
-	L1;L3⇒L5 Q3+Q3⇒l *optimize(L6, l/L6) *optimize(L5, l/L5)
+	L1⇒L5
 	§1
-		 ↑(s≥32)3 i&L2j↪2
-		 L6*L5;L3⇒L6
+		 ↑(s≥32)3 i&L2j↪2 Q5+Q6⇒l *optimize(L6, l/L6)
+		 L6*L5;L3⇒L6 Q3⇒Q6
 	   *** /'L6= '>C *HprintfBN(L6/) /'\n'>C
 	§2
-		 L5*L5;L3⇒L5
+		 Q5+Q5⇒l *optimize(L5, l/L5)
+		 L5*L5;L3⇒L5 Q3⇒Q5
 	   *** /'L5= '>C *HprintfBN(L5/) /'\n'>C
 	 ∆s i<1⇒i →1
 	§3 ∆j ↑(j≥Q2)4 1⇒i Os →1
 	§4 Q6⇒Q4 L6⇒L4
 		 *cutZerosBN(L4/L4)
 **
-
 
 
 *** /'d L4= '>C *HprintfBN(L4/)
@@ -567,7 +609,7 @@ powBN(L1, L2, L3/L4)
 optimize(L1, n/L1)
 	Q1⇒i n⇒Q1
 	§1 ↑(i≥n)2 OL1i ∆i →1
-	§2
+	§2 
 **
 
 *** Метод пробных делений на больших числах
@@ -683,7 +725,7 @@ tdmBN_ndc(L1/L3, L4)
 *** функция сжимает большое число - уменьшает его мощность, если впереди есть нулевые элементы
 *** применяется после арифметических операций, где возможно уменьшение мощности числа, но сами арифметические операции его не уменьшают 08.12.2015
 cutZerosBN(L1/L1)
-	Q1-1⇒i *** /'i = '>C *printf(i/) /'\n'>C
+	Q1-1⇒i
 	§1 ↑(L1i≠0)2 ↑(i=0)2 i⇒Q1 ∇i →1
 	§2
 **
@@ -762,8 +804,6 @@ randPrimeBN(k/L1)
 		 *** /'b = '>C *printf(b/) /'\n'>C
 		  b↪2 *** ↑(b=0)2
 	§3
-		/'L1 = '>C *HprintfBN(L1/) /'\n'>C
-		/'Q1 = '>C *printf(Q1/) /'\n'>C
 **
 
 *** miller-rabin-algorithm()
@@ -846,39 +886,32 @@ countZeroesBN(L1/s)
 *** L1 - x число
 *** L2 - m модуль
 *** L3 - z
-*** L3 = [(b^2k)/L2] ~ z = [(b^2k)/m]
-*** Q2*2⇒Q3 OL3
-*** Q3⇒k+1⇒Q3 1⇒L3k L3/L2⇒L3 *** L3 = z
 *** L4 - q, r2, r(результат)
 *** base ⇒ 2^32 ⇒ 0x100000000
-barmod(L1, L2, L3/L4)
-	*** /'		Barret\n'>C
-	*** /'L1 = '>C *HprintfBN(L1/) /'\n'>C
-	*** /'L2 = '>C *HprintfBN(L2/) /'\n'>C
-	*** /'L3(z) = '>C *HprintfBN(L3/) /'\n'>C
-	
+barmod(L1, L2/L4)
 	*** 32=b
-	@+L5(1000) *** r1
-	@+L6(1000) *** r'
-	@+L7(1000)
+	@+L3(100)
+	Q2*2⇒Q3 OL3
+	@+L5(100) *** r1
+	@+L6(100) *** r'
+	@+L7(100)
+	
+	*** L3 = [(b^2k)/L2] ~ z = [(b^2k)/m]
+	Q3⇒k+1⇒Q3 1⇒L3k L3/L2⇒L3 *** L3 = z
 	
 	*** Если b = 0x100000000 тогда b^2k = 1^(2*(k+1)*32)?
 	
-	
-	
+	*** /'L3(z) = '>C *HprintfBN(L3/) /'\n'>C
 	Q2-1*32⇒k *** /'k = '>C *printf(k/) /'\n'>C
 	Q2+1*32⇒t *** /'t = '>C *printf(t/) /'\n'>C
-	*** /'			L1 = '>C *HprintfBN(L1/) /'\n'>C
-	L1>k⇒L7 Q7+Q3⇒l *optimize(L7, l/L7) L7*L3⇒L7 L7>t⇒L7 *** L7 = q
-	*** /'Q7 = '>C *printf(Q7/) /'\n'>C
-	*** /'L7(q`) = '>C *HprintfBN(L7/) /'\n'>C
-	*** /'r1 = '>C
-	L1⇒L5 Q2+1⇒Q5 *** *HprintfBN(L5/) /'\n'>C *** L5 = r1
-	*** /'r2 = '>C
-	L7*L2⇒L7 Q2+1⇒Q7 *** *HprintfBN(L7/) /'\n'>C *** L7 = r2
-	*** /'Q7 = '>C *printf(Q7/) /'\n'>C
+	L1>k⇒L4 Q4+Q3⇒l *optimize(L4, l/L4) L4*L3⇒L4 L4>t⇒L4 *** L4 = q
+	*** /'L4(q) = '>C *HprintfBN(L4/) /'\n'>C
+	*** /'b^(k+1) = '>C *HprintfBN(L5/) /'\n'>C
+	L1⇒L5 Q2+1⇒Q5 *** L5 = r1
+	L4*L2⇒L4 Q2+1⇒Q4 *** L4 = r2
+	*** /'Q4 = '>C *printf(Q4/) /'\n'>C
 	*** /'Q5 = '>C *printf(Q5/) /'\n'>C
-	*** /'L7 = '>C *HprintfBN(L7/) /'\n'>C
+	*** /'L4 = '>C *HprintfBN(L4/) /'\n'>C
 	*** /'L5 = '>C *HprintfBN(L5/) /'\n'>C
 	
 	*** GLITCH: в Q5 оказалось значение Q1
@@ -886,32 +919,27 @@ barmod(L1, L2, L3/L4)
 	
 	
 	*** /'L5(r1) = '>C *HprintfBN(L5/) /'\n'>C
-	*** /'L7(r2) = '>C *HprintfBN(L7/) /'\n'>C
+	*** /'L4(r2) = '>C *HprintfBN(L4/) /'\n'>C
 	*** /'L6(r`) = '>C *HprintfBN(L6/) /'\n'>C
 	
 	
-	*BN_greq(L5, L7/c) ↑(c=0)1 L5-L7⇒L6 →2
+	*BN_greq(L5, L4/c) ↑(c=0)1 L5-L4⇒L6 →2
 	§1
-		L6+L5-L7⇒L6
+		L6+L5-L4⇒L6
 	§2
-		*** /'L6 = '>C *HprintfBN(L6/) /'\n'>C
 		*cutZerosBN(L6/L6) *BN_greq(L6, L2/c)
 		↑(c=0)3 L6-L2⇒L6 →2
 	§3
 		*** /'L6 = '>C *HprintfBN(L6/) /'\n'>C
-		Q6⇒Q4 L6⇒L4 *** L7 = r(результат)
+		Q6⇒Q4 L6⇒L4 *** L4 = r(результат)
 	
 	
 	*** *Hprintf(L1.0/) /'\n'>C
 	*** *Hprintf(L2.0/) /'\n'>C
 	*** /'k = '>C *printf(k/) /'\n'>C
 	*** /'L1 = '>C *HprintfBN(L1/) /'\n'>C
-	*** /'L7 = '>C *HprintfBN(L7/) /'\n'>C
+	*** /'L4 = '>C *HprintfBN(L4/) /'\n'>C
 **
-
-
-
-
 
 
 

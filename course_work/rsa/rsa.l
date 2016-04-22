@@ -4,8 +4,8 @@ main(/)
 	*** *EuclAlg_test(/)
 	*** *dih_bar_test(/)
 	*** *degree_tset(/)
-	*** extEuclAlg_test(/)
-	*rsaGen_test(/)
+	*extEuclAlg_test(/)
+	*** *rsaGen_test(/)
 **
 
 
@@ -16,6 +16,80 @@ main(/)
 ***********************************************************
 *********************    Алгоритмы    *********************
 ***********************************************************
+
+extEuclAlg_test(/)
+	@+L1(1000)
+	@+L2(1000)
+	@+L3(1000)
+	@+L5(1000)
+	@+L6(1000)
+	@+F4(100)
+	
+	OQ4 @'0x2fd67fb7fef3b0b6a256dbc8a2912c25dd20d40bf7a66f35a0189cc9c5b71d2'>F4
+	*inputBN_2(L1, F4/L1)
+	OQ4 @'0x1603a51baf31d57a52b8e9b30826cdd122acc6140f48502728483b3ac5d649d'>F4
+	*inputBN_2(L2, F4/L2)
+	
+	?=99
+	
+	*** *BNextEuclAlg(L1, L2/L3, L5, L6, f)
+	
+	
+	
+	
+	
+	
+	/'L3 = '>C *HprintfBN(L3/) /'\n'>C ?=100
+	
+	
+	P99
+		3=a
+		9167368=b
+		*** 14=a
+		*** 88=b
+		*Extended_Euclidean_Algorithm(a, b/x, y, c, f)
+		
+		/'x = '>C *printf(x/) /'\n'>C
+		/'y = '>C *printf(y/) /'\n'>C
+		/'c = '>C *printf(c/) /'\n'>C
+		/'f = '>C *printf(f/) /'\n'>C
+	
+	
+	P100
+**
+
+
+
+BNinvElement(L1, L2/L3, c)
+	
+	
+	
+	
+	
+	
+**
+
+
+
+*** Расширенный алгоритм Евклида
+*** https://ru.wikipedia.org/wiki/%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC_%D0%95%D0%B2%D0%BA%D0%BB%D0%B8%D0%B4%D0%B0#.D0.A0.D0.B0.D1.81.D1.88.D0.B8.D1.80.D0.B5.D0.BD.D0.BD.D1.8B.D0.B9_.D0.B0.D0.BB.D0.B3.D0.BE.D1.80.D0.B8.D1.82.D0.BC_.D0.95.D0.B2.D0.BA.D0.BB.D0.B8.D0.B4.D0.B0_.D0.B8_.D1.81.D0.BE.D0.BE.D1.82.D0.BD.D0.BE.D1.88.D0.B5.D0.BD.D0.B8.D0.B5_.D0.91.D0.B5.D0.B7.D1.83
+*** L3 - x - коэффициент при L1
+*** L4 - y - коэффициент при L2
+*** L5 - наибольший общий делитель L1 и L2
+*** f - признак отрицательного числа L3 или L4
+BNextEuclAlg(L1, L2/L3, L4, L5, f)
+	@+L6(1000) OQ6
+	@+L7(1000) OQ7
+	@+L8(1000) OQ8
+	@+L9(1000) OQ9
+	Of=L7.0+1=L8.0 L1=L5 L2=L6 1=Q9 0=L9.0 *BN_neq(L1, L9/a) ?(a=1)1 1=L9.0
+	P1 
+	P2
+	P3
+	P4
+	P5
+	P6
+**
 
 
 *** Дихотомический алг-тм возведения в степень
@@ -31,7 +105,7 @@ powBN_bar(L1, L2, L3/L4)
 	Q7⇒k+1⇒Q7 1⇒L7k L7/L3⇒L7 *** L7 = z
 	
 	1⇒Q6⇒Q5⇒L6.0⇒i Oj⇒s
-	*** L1;L3=L5 не заменяется на baarmod(...)
+	*** L1;L3=L5 не заменяется на barmod(...)
 	L1;L3⇒L5 Q3+Q3=l *optimize(L6, l/L6) *optimize(L5, l/L5) *** *barmod(L1, L3, L7/L5)
 	§1
 		 ↑(s≥32)3 i&L2j↪2 Q5+Q6⇒l *optimize(L6, l/L6)
@@ -53,7 +127,7 @@ powBN_bar(L1, L2, L3/L4)
 *** генерация ключей для алгоритма RSA
 *** L1 - открытый ключ, p
 *** L2 - закрытый ключ, q
-rsaGen(k/L1, L2)
+BNrsaGen(k/L1, L2)
 	@+L3(1000) *** q-1, n = p*q
 	@+L4(1000) *** p-1, Ф(n)
 	@+L5(1000)
@@ -88,14 +162,14 @@ rsaGen(k/L1, L2)
 	P99
 **
 
-rsaCipher(L1, F2/F3)
+BNrsaCipher(L1, F2/F3)
 	
 	
 	
 	
 **
 
-rsaDecipher(L1, F2/F3)
+BNrsaDecipher(L1, F2/F3)
 	
 	
 	
@@ -103,7 +177,7 @@ rsaDecipher(L1, F2/F3)
 
 *** Алгоритм Евклида
 *** https://ru.wikipedia.org/wiki/%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC_%D0%95%D0%B2%D0%BA%D0%BB%D0%B8%D0%B4%D0%B0
-EuclAlg(L1, L2/L3)
+BNEuclAlg(L1, L2/L3)
 	@+L4(1000)
 	@+L5(1000)
 	@+L6(1000)
@@ -119,7 +193,7 @@ EuclAlg(L1, L2/L3)
 
 *** Алгоритм Евклида с приведением числа по модулю методом баррета
 *** не работает(зацикливается)
-EuclAlg_bar(L1, L2/L3)
+BNEuclAlg_bar(L1, L2/L3)
 	@+L4(1000)
 	@+L5(1000)
 	@+L6(1000)
@@ -151,16 +225,6 @@ EuclAlg_bar(L1, L2/L3)
 		Q5=Q3 L5=L3
 **
 
-
-*** Расширенный алгоритм Евклида
-*** https://ru.wikipedia.org/wiki/%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC_%D0%95%D0%B2%D0%BA%D0%BB%D0%B8%D0%B4%D0%B0#.D0.A0.D0.B0.D1.81.D1.88.D0.B8.D1.80.D0.B5.D0.BD.D0.BD.D1.8B.D0.B9_.D0.B0.D0.BB.D0.B3.D0.BE.D1.80.D0.B8.D1.82.D0.BC_.D0.95.D0.B2.D0.BA.D0.BB.D0.B8.D0.B4.D0.B0_.D0.B8_.D1.81.D0.BE.D0.BE.D1.82.D0.BD.D0.BE.D1.88.D0.B5.D0.BD.D0.B8.D0.B5_.D0.91.D0.B5.D0.B7.D1.83
-extEuclAlg(/)
-	
-	
-	
-	
-	
-**
 
 
 *** Расширенный алгоритм Евклида с алгоритмом баррета
@@ -250,27 +314,8 @@ EuclAlg_test(/)
 	OQ4 @'0x1603a51baf31d57a52b8e9b30826cdd122acc6140f48502728483b3ac5d649d'>F4
 	*inputBN_2(L2, F4/L2)
 	
-	*** *EuclAlg(L1, L2/L3)
-	*EuclAlg_bar(L1, L2/L3) *** не работает(зацикливается)
+	*** *BNEuclAlg(L1, L2/L3)
+	*BNEuclAlg_bar(L1, L2/L3) *** не работает(зацикливается)
 	/'L3 = '>C *HprintfBN(L3/) /'\n'>C
 	
 **
-
-
-extEuclAlg_test(/)
-	@+L1(1000)
-	@+L2(1000)
-	@+L3(1000)
-	@+F4(100)
-	
-	OQ4 @'0x2fd67fb7fef3b0b6a256dbc8a2912c25dd20d40bf7a66f35a0189cc9c5b71d2'>F4
-	*inputBN_2(L1, F4/L1)
-	OQ4 @'0x1603a51baf31d57a52b8e9b30826cdd122acc6140f48502728483b3ac5d649d'>F4
-	*inputBN_2(L2, F4/L2)
-	
-	
-	/'L3 = '>C *HprintfBN(L3/) /'\n'>C
-	
-**
-
-
