@@ -7,7 +7,7 @@ print_complex(L1/)
 **
 
 *** вывод комплекса с отрицательными числами
-print_scomplex(L1/)
+sprint_complex(L1/)
 	Oi
 	§100 *sprintf(L1i/) ∆i /' '>C ↑(i<Q1)100
 **
@@ -798,14 +798,18 @@ countZeroesBN(L1/s)
 *** L1 - число
 randPrimeBN(k/L1)
 	Q1⇒l
-	Oi⇒Q1⇒s⇒t ↑(k<2)3
+	Oi⇒Q1⇒s⇒t ↑(k<2)3 l⇒Q1
 	§1 OZ k:32⇒t Z⇒s
-		 ↑(t>l)3 ↑(s=0)2 ∆t ↑(t>l)3 t⇒Q1 *** DQ1
+		 ↑(t>l)3 31⇒c ↑(s=0)2 s-1⇒c ∆t ↑(t>l)3 t⇒Q1 *** DQ1
 	§2
 		*randBN(L1/)
 		*** /'t = '>C *printf(t/) /'\n'>C
-		 s-1⇒c Q1-1⇒t
-		 L1.0∨1⇒L1.0 L1t∨Ic⇒L1t 32-s⇒c ffffffffh>c⇒c L1t&c⇒L1t
+		 Q1-1⇒t
+		 /'c = '>C *printf(c/) /'\n'>C
+		 /'t = '>C *printf(t/) /'\n'>C
+		 Ic⇒p
+		 /'p = '>C *printf(p/) /'\n'>C
+		 L1.0&fffffffeh∨1⇒L1.0 L1t&5∨Ic⇒L1t 32-s⇒c /'c = '>C *printf(c/) /'\n'>C ffffffffh>c⇒c L1t&c⇒L1t
 		 *** /'Current Number: '>C *HprintfBN(L1/) /'\n'>C
 		 *miralBN(L1, 5/b)
 		 *** /'b = '>C *printf(b/) /'\n'>C
@@ -822,14 +826,15 @@ randPrimeBN(k/L1)
 *** 
 *** 
 miralBN(L1, r/b)
-	@+L3(20) *** m ⇒ n-1 (L1-1)
-	@+L4(20) *** q, потом t n ⇒ (q^2)*t+1
+	Q1*2⇒n
+	@+L3(n) *** m ⇒ n-1 (L1-1)
+	@+L4(n) *** q, потом t n ⇒ (q^2)*t+1
 	*** @+L5(20) *** t
-	@+L6(20) *** i, до начала индексации промежуточный комплекс
-	@+L7(20) *** a
-	@+L8(20) *** 1ца, 2ка для последовательности 2, 3, 5 ,7,...
+	@+L6(n) *** i, до начала индексации промежуточный комплекс
+	@+L7(n) *** a
+	@+L8(n) *** 1ца, 2ка для последовательности 2, 3, 5 ,7,...
 	*** @+L9(20) *** 
-	@+L10(100) *** x
+	@+L10(n) *** x
 	*** @+L11(20) *** j на случай, если степень двойки(число s) будет большим числом
 	
 	1⇒L4.0⇒Q6⇒Q4⇒Q3 Ob
