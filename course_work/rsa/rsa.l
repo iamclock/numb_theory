@@ -5,8 +5,8 @@ main(/)
 	*** *dih_bar_test(/)
 	*** *degree_tset(/)
 	*** *extEuclAlg_test2(/)
-	*extEuclAlg_rowTest(/)
-	*** *rsaGen_test(/)
+	*** *extEuclAlg_rowTest(/)
+	*rsaGen_test(/)
 **
 
 
@@ -17,98 +17,6 @@ main(/)
 ***********************************************************
 *********************    Алгоритмы    *********************
 ***********************************************************
-
-
-extEuclAlg_rowTest(/)
-	@+L1(100000)
-	@+L2(100000)
-	@+L3(100000)
-	@+L4(100000)
-	@+L5(100000)
-	@+F6(100000)
-	
-	OQ6 /F6<C *inputBN(L1, F6, 0/L1, k)
-	OQ6 /F6<C *inputBN(L2, F6, k/L2, k)
-	
-	*BNextEuclAlg(L1, L2/L3, L4, L6, f)
-	*HprintfBN(L6/) /'\n'>C
-	*** ?=2
-	?(f>0)1 L2-L3=L3 ?=2
-	P1
-		L2-L4=L4
-	P2
-		*** /'f = '>C *printf(f/) /'\n'>C
-		*HprintfBN(L3/) /'\n'>C
-		*HprintfBN(L4/) /'\n'>C
-**
-
-
-extEuclAlg_test(/)
-	@+L1(1000)
-	@+L2(1000)
-	@+L3(1000)
-	@+L5(1000)
-	@+L6(1000)
-	@+F4(100)
-	0=Q1=Q2=Q3=Q5=Q6
-	OQ4 @'0x2fd67fb7fef3b0b6a256dbc8a2912c25dd20d40bf7a66f35a0189cc9c5b71d2'>F4
-	*inputBN_2(L1, F4/L1)
-	OQ4 @'0x1603a51baf31d57a52b8e9b30826cdd122acc6140f48502728483b3ac5d649d'>F4
-	*inputBN_2(L2, F4/L2)
-	
-	
-	*BNextEuclAlg(L1, L2/L3, L5, L6, f)
-	
-	/'L3 = '>C *HprintfBN(L3/) /'\n'>C
-	/'L5 = '>C *HprintfBN(L5/) /'\n'>C
-	/'L6 = '>C *HprintfBN(L6/) /'\n'>C
-	/'f = '>C *printf(f/) /'\n'>C
-**
-
-
-
-extEuclAlg_test2(/)
-	@+L1(1000)
-	@+L2(1000)
-	@+L3(1000)
-	@+L5(1000)
-	@+L6(1000)
-	0=Q1=Q2=Q3=Q5=Q6
-	
-	?=99
-	
-	1=Q1=Q2
-	3=L1.0
-	9167368=L2.0
-	*BNextEuclAlg(L1, L2/L3, L5, L6, f)
-	/'L3.0 = '>C *printf(L3.0/) /'\n'>C
-	/'L5.0 = '>C *printf(L5.0/) /'\n'>C
-	/'L6.0 = '>C *printf(L6.0/) /'\n'>C
-	/'f = '>C *printf(f/) /'\n'>C
-	?(f>0)100
-	L2-L3=L3
-	/'L3.0 = '>C *printf(L3.0/) /'\n'>C
-	
-	
-	/'L3 = '>C *HprintfBN(L3/) /'\n'>C ?=100
-	
-	
-	P99
-		3=a
-		9167368=b
-		*** 14=a
-		*** 88=b
-		*Extended_Euclidean_Algorithm(a, b/x, y, c, f)
-		
-		/'x = '>C *printf(x/) /'\n'>C
-		/'y = '>C *printf(y/) /'\n'>C
-		/'c = '>C *printf(c/) /'\n'>C
-		/'f = '>C *printf(f/) /'\n'>C
-	
-	
-	P100
-**
-
 
 
 BNinvElement(L1, L2/L3, c)
@@ -196,6 +104,13 @@ powBN_bar(L1, L2, L3/L4)
 		 *cutZerosBN(L4/L4)
 **
 
+rsaGen_test(/)
+	@+L1(1000)
+	@+L2(1000)
+	
+	*BNrsaGen(1024/L1,L2)
+	
+**
 
 
 *** https://ru.wikipedia.org/wiki/RSA#.D0.9F.D1.80.D0.B8.D0.BC.D0.B5.D1.80
@@ -206,23 +121,27 @@ BNrsaGen(k/L1, L2)
 	@+L3(1000) *** q-1, n = p*q
 	@+L4(1000) *** p-1, Ф(n)
 	@+L5(1000)
-	?(k<33)10
+	?(k<3)10
 	X=c
 	X;c X=t c;t=t
-	/'c = '>C *printf(c/) /'\n'>C
-	/'t = '>C *printf(t/) /'\n'>C
+	*** /'c = '>C *printf(c/) /'\n'>C
+	*** /'t = '>C *printf(t/) /'\n'>C
 	
 	*** возможна проблема, если числа будут отрицательными
-	OZ k:32=q Z=s-1=e s;e=s
-	q+s=Q1=Q2
-	/'Q1 = '>C *printf(Q1/) /'\n'>C
-	/'Q2 = '>C *printf(Q2/) /'\n'>C
-	*randPrimeBN(k/L1)
-	*randPrimeBN(k/L2)
-	/'L1 = '>C *HprintfBN(L1/) /'\n'>C
-	/'Q1 = '>C *printf(Q1/) /'\n'>C
-	/'L2 = '>C *HprintfBN(L2/) /'\n'>C
-	/'Q2 = '>C *printf(Q2/) /'\n'>C
+	OZ=s k:32=q Z?-100 1=s
+	/'q = '>C *printf(q/) /'\n'>C
+	/'s = '>C *printf(s/) /'\n'>C
+	
+	P100
+		q+s=Q1=Q2
+		/'Q1 = '>C *printf(Q1/) /'\n'>C
+		/'Q2 = '>C *printf(Q2/) /'\n'>C
+		*randPrimeBN(k/L1)
+		*randPrimeBN(k/L2)
+		/'L1 = '>C *HprintfBN(L1/) /'\n'>C
+		/'Q1 = '>C *printf(Q1/) /'\n'>C
+		/'L2 = '>C *HprintfBN(L2/) /'\n'>C
+		/'Q2 = '>C *printf(Q2/) /'\n'>C
 	
 	1=Q4=L4.0=Q3=L3.0
 	L1-L4=L4 *** p-1
@@ -315,6 +234,97 @@ extEuclAlg_bar(/)
 ***********************    ТЕСТЫ    ***********************
 ***********************************************************
 
+extEuclAlg_rowTest(/)
+	@+L1(100000)
+	@+L2(100000)
+	@+L3(100000)
+	@+L4(100000)
+	@+L5(100000)
+	@+F6(100000)
+	
+	OQ6 /F6<C *inputBN(L1, F6, 0/L1, k)
+	OQ6 /F6<C *inputBN(L2, F6, k/L2, k)
+	
+	*BNextEuclAlg(L1, L2/L3, L4, L6, f)
+	*HprintfBN(L6/) /'\n'>C
+	*** ?=2
+	?(f>0)1 L2-L3=L3 ?=2
+	P1
+		L2-L4=L4
+	P2
+		*** /'f = '>C *printf(f/) /'\n'>C
+		*HprintfBN(L3/) /'\n'>C
+		*HprintfBN(L4/) /'\n'>C
+**
+
+
+extEuclAlg_test(/)
+	@+L1(1000)
+	@+L2(1000)
+	@+L3(1000)
+	@+L5(1000)
+	@+L6(1000)
+	@+F4(100)
+	0=Q1=Q2=Q3=Q5=Q6
+	OQ4 @'0x2fd67fb7fef3b0b6a256dbc8a2912c25dd20d40bf7a66f35a0189cc9c5b71d2'>F4
+	*inputBN_2(L1, F4/L1)
+	OQ4 @'0x1603a51baf31d57a52b8e9b30826cdd122acc6140f48502728483b3ac5d649d'>F4
+	*inputBN_2(L2, F4/L2)
+	
+	
+	*BNextEuclAlg(L1, L2/L3, L5, L6, f)
+	
+	/'L3 = '>C *HprintfBN(L3/) /'\n'>C
+	/'L5 = '>C *HprintfBN(L5/) /'\n'>C
+	/'L6 = '>C *HprintfBN(L6/) /'\n'>C
+	/'f = '>C *printf(f/) /'\n'>C
+**
+
+
+
+extEuclAlg_test2(/)
+	@+L1(1000)
+	@+L2(1000)
+	@+L3(1000)
+	@+L5(1000)
+	@+L6(1000)
+	0=Q1=Q2=Q3=Q5=Q6
+	
+	?=99
+	
+	1=Q1=Q2
+	3=L1.0
+	9167368=L2.0
+	*BNextEuclAlg(L1, L2/L3, L5, L6, f)
+	/'L3.0 = '>C *printf(L3.0/) /'\n'>C
+	/'L5.0 = '>C *printf(L5.0/) /'\n'>C
+	/'L6.0 = '>C *printf(L6.0/) /'\n'>C
+	/'f = '>C *printf(f/) /'\n'>C
+	?(f>0)100
+	L2-L3=L3
+	/'L3.0 = '>C *printf(L3.0/) /'\n'>C
+	
+	
+	/'L3 = '>C *HprintfBN(L3/) /'\n'>C ?=100
+	
+	
+	P99
+		3=a
+		9167368=b
+		*** 14=a
+		*** 88=b
+		*Extended_Euclidean_Algorithm(a, b/x, y, c, f)
+		
+		/'x = '>C *printf(x/) /'\n'>C
+		/'y = '>C *printf(y/) /'\n'>C
+		/'c = '>C *printf(c/) /'\n'>C
+		/'f = '>C *printf(f/) /'\n'>C
+	
+	
+	P100
+**
+
+
 degree_tset(/)
 	@+L1(1000)
 	@+L2(1000)
@@ -350,14 +360,7 @@ dih_bar_test(/)
 **
 
 
-rsaGen_test(/)
-	@+L1(1000)
-	@+L2(1000)
-	
-	*rsaGen(1024/L1,L2)
-	
-	
-**
+
 
 rsaCipher_test(/)
 	
