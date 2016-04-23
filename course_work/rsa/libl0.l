@@ -7,7 +7,7 @@ print_complex(L1/)
 **
 
 *** вывод комплекса с отрицательными числами
-print_scomplex(L1/)
+sprint_complex(L1/)
 	Oi
 	§100 *sprintf(L1i/) ∆i /' '>C ↑(i<Q1)100
 **
@@ -592,7 +592,7 @@ powBN(L1, L2, L3/L4)
 	@+L5(100)
 	@+L6(100)
 	1⇒Q6⇒Q5⇒L6.0⇒i Oj⇒s
-	L1⇒L5
+	L1;L3⇒L5
 	§1
 		 ↑(s≥32)3 i&L2j↪2 Q5+Q6⇒l *optimize(L6, l/L6)
 		 L6*L5;L3⇒L6 Q3⇒Q6
@@ -606,6 +606,88 @@ powBN(L1, L2, L3/L4)
 	§4 Q6⇒Q4 L6⇒L4
 		 *cutZerosBN(L4/L4)
 **
+
+
+*** Дихотомический алг-тм возведения в степень с методом баррета взятия по модулю
+*** L1 - число возводимое в степень, L2 - степень этого числа, L3 - модуль
+*** L5 - q, L4 - z
+*** 01.11.2015 операции над большими числами не изменяют мощность комплексов
+powBN_bar(L1, L2, L3/L4)
+	@+L5(1000)
+	@+L6(1000)
+	@+L7(1000)
+	
+	Q3*2⇒Q7 OL7
+	Q7⇒k+1⇒Q7 1⇒L7k L7/L3⇒L7 *** L7 = z
+	
+	1⇒Q6⇒Q5⇒L6.0⇒i Oj⇒s
+	*** L1;L3=L5 не заменяется на barmod(...)
+	L1;L3⇒L5 Q3+Q3⇒l *optimize(L6, l/L6) *optimize(L5, l/L5) *** *barmod(L1, L3, L7/L5)
+	§1
+		 ↑(s≥32)3 i&L2j↪2 Q5+Q6⇒l *optimize(L6, l/L6)
+		 L6*L5⇒L6 *barmod(L6, L3, L7/L6) *** Q3⇒Q6
+	   *** /'L6= '>C *HprintfBN(L6/) /'\n'>C
+	§2
+		 Q5+Q5⇒l *optimize(L5, l/L5)
+		 L5*L5⇒L5 *barmod(L5, L3, L7/L5) *** Q3⇒Q5
+	   *** /'L5= '>C *HprintfBN(L5/) /'\n'>C
+	 ∆s i<1⇒i →1
+	§3 ∆j ↑(j≥Q2)4 1⇒i Os →1
+	§4 Q6⇒Q4 L6⇒L4
+		 *cutZerosBN(L4/L4)
+**
+
+
+*** Дихотомический алг-тм возведения в степень с методом Карацубы
+*** L1 - число возводимое в степень, L2 - степень этого числа, L3 - модуль
+*** L5 - q, L4 - z
+*** 01.11.2015 операции над большими числами не изменяют мощность комплексов
+powBN_karat(L1, L2, L3/L4)
+	@+L5(1000)
+	@+L6(1000)
+	1⇒Q6⇒Q5⇒L6.0⇒i Oj⇒s
+	L1;L3⇒L5 Q3+Q3⇒l *optimize(L6, l/L6) *optimize(L5, l/L5)
+	§1
+		 ↑(s≥32)3 i&L2j↪2
+		 *karatsuba(L5, L6/L6) L6;L3⇒L6 Q3⇒Q6
+	   *** /'L6= '>C *HprintfBN(L6/) /'\n'>C
+	§2
+		 *karatsuba(L5, L5/L5) L5;L3⇒L5 Q3⇒Q5
+	   *** /'L5= '>C *HprintfBN(L5/) /'\n'>C
+	 ∆s i<1⇒i →1
+	§3 ∆j ↑(j≥Q2)4 1⇒i Os →1
+	§4 Q6⇒Q4 L6⇒L4
+		 *cutZerosBN(L4/L4)
+**
+
+
+*** Дихотомический алг-тм возведения в степень с методом Карацубы и методом баррета взятия по модулю
+*** L1 - число возводимое в степень, L2 - степень этого числа, L3 - модуль
+*** L5 - q, L4 - z
+*** 01.11.2015 операции над большими числами не изменяют мощность комплексов
+powBN_mix(L1, L2, L3/L4)
+	@+L5(1000)
+	@+L6(1000)
+	@+L7(1000)
+	
+	Q3*2⇒Q7 OL7
+	Q7⇒k+1⇒Q7 1⇒L7k L7/L3⇒L7 *** L7 = z
+	
+	1⇒Q6⇒Q5⇒L6.0⇒i Oj⇒s
+	L1;L3⇒L5 Q3+Q3⇒l *optimize(L6, l/L6) *optimize(L5, l/L5)
+	§1
+		 ↑(s≥32)3 i&L2j↪2
+		 *karatsuba(L5, L6/L6) *barmod(L6, L3, L7/L6)
+	   *** /'L6= '>C *HprintfBN(L6/) /'\n'>C
+	§2
+		 *karatsuba(L5, L5/L5) *barmod(L5, L3, L7/L5)
+	   *** /'L5= '>C *HprintfBN(L5/) /'\n'>C
+	 ∆s i<1⇒i →1
+	§3 ∆j ↑(j≥Q2)4 1⇒i Os →1
+	§4 Q6⇒Q4 L6⇒L4
+		 *cutZerosBN(L4/L4)
+**
+
 
 
 *** /'d L4= '>C *HprintfBN(L4/)
@@ -797,22 +879,28 @@ countZeroesBN(L1/s)
 *** l - максимально возможная длина числа (количество элементов)
 *** L1 - число
 randPrimeBN(k/L1)
-	Q1⇒l
-	Oi⇒Q1⇒s⇒t ↑(k<2)3 l⇒Q1
+	Oi⇒Q1⇒s⇒t ↑(k<2)4
 	§1 OZ k:32⇒t Z⇒s
-		 ↑(t>l)3 32-1⇒c ↑(s=0)2 s-1⇒c ∆t ↑(t>l)3 t⇒Q1 *** DQ1
+		31⇒c ↑(s=0)2 s-1⇒c ∆t
 	§2
+		c+1⇒q ↑(t>S1)4 t⇒Q1
+	§3
 		*randBN(L1/)
 		*** /'t = '>C *printf(t/) /'\n'>C
 		 Q1-1⇒t
-		 /'c = '>C *printf(c/) /'\n'>C
+		 /'rBN s = '>C *printf(s/) /'\n'>C
+		 /'begin c = '>C *printf(c/) /'\n'>C
 		 /'t = '>C *printf(t/) /'\n'>C
-		 L1.0∨1⇒L1.0 /'c = '>C *printf(c/) /'\n'>C L1t∨Ic⇒L1t 32-s⇒c ffffffffh>c⇒c L1t&c⇒L1t
-		 *** /'Current Number: '>C *HprintfBN(L1/) /'\n'>C
+		 L1.0&fffffffeh∨1⇒L1.0 ffffffffh-Ic⇒p
+		 L1t&p∨Ic⇒L1t 32-q⇒c
+		 /'c = '>C *printf(c/) /'\n'>C
+		 ffffffffh>c⇒c
+		 L1t&c⇒L1t
+		 /'Current Number: '>C *HprintfBN(L1/) /'\n'>C
 		 *miralBN(L1, 5/b)
-		 *** /'b = '>C *printf(b/) /'\n'>C
-		  b↪2 *** ↑(b=0)2
-	§3
+		 /'b = '>C *printf(b/) /'\n'>C
+		  b↪3 *** ↑(b=0)3
+	§4
 **
 
 *** miller-rabin-algorithm()
@@ -851,7 +939,7 @@ miralBN(L1, r/b)
 		 *** /'L7 = '>C *HprintfBN(L7/) /'\n'>C
 		 *** /'L4 = '>C *HprintfBN(L4/) /'\n'>C
 		 *** /'L1 = '>C *HprintfBN(L1/) /'\n'>C
-		 *powBN(L7, L4, L1/L10)
+		 *powBN(L7, L4, L1/L10) /'qq\n'>C
 		 *** /'L10 = '>C *HprintfBN(L10/) /'\n'>C
 		 ∆i L7+L8⇒L7 1⇒L8.0
 		 *** /'L7^L4 mod L1 = '>C *HprintfBN(L10/) /'\n'>C
@@ -943,42 +1031,78 @@ karatsuba(L1, L2/L3)
 **
 
 
-
-
 *** Алгоритм баррета приведения числа по модулю
 *** L1 - x число
 *** L2 - m модуль
+***
+***
 *** L3 - z
+*** L3 = [(b^2k)/L2] ~ z = [(b^2k)/m]
+*** Q2*2⇒Q3 OL3
+*** Q3⇒k+1⇒Q3 1⇒L3k L3/L2⇒L3
+*** 
+*** Q2*2⇒Q3 OL3
+*** Q3⇒k+1⇒Q3 1⇒L3k L3/L2⇒L3 *** L3 = z
 *** L4 - q, r2, r(результат)
 *** base ⇒ 2^32 ⇒ 0x100000000
-barmod(L1, L2/L4)
-	*** 32=b
-	@+L3(100)
-	Q2*2⇒Q3 OL3
-	@+L5(100) *** r1
-	@+L6(100) *** r'
-	@+L7(100)
+barmod(L1, L2, L3/L4)
+	*** /'		Barret\n'>C
+	*** /'L1 = '>C *HprintfBN(L1/) /'\n'>C
+	*** /'L2 = '>C *HprintfBN(L2/) /'\n'>C
+	*** /'L3(z) = '>C *HprintfBN(L3/) /'\n'>C
 	
-	*** L3 = [(b^2k)/L2] ~ z = [(b^2k)/m]
-	Q3⇒k+1⇒Q3 1⇒L3k L3/L2⇒L3 *** L3 = z
+	*** 32=b
+	@+L5(1000) *** r1
+	@+L6(1000) *** r'
+	@+L7(1000)
 	
 	*** Если b = 0x100000000 тогда b^2k = 1^(2*(k+1)*32)?
 	
-	*** /'L3(z) = '>C *HprintfBN(L3/) /'\n'>C
+	
+	
 	Q2-1*32⇒k *** /'k = '>C *printf(k/) /'\n'>C
 	Q2+1*32⇒t *** /'t = '>C *printf(t/) /'\n'>C
-	L1>k⇒L4 Q4+Q3⇒l *optimize(L4, l/L4) L4*L3⇒L4 L4>t⇒L4 *** L4 = q
-	L1⇒L5 Q2+1⇒Q5 *** L5 = r1
-	L4*L2⇒L4 Q2+1⇒Q4 *** L4 = r2
-	*BN_greq(L5, L4/c) ↑(c=0)1 L5-L4⇒L6 →2
+	*** /'			L1 = '>C *HprintfBN(L1/) /'\n'>C
+	L1>k⇒L7 Q7+Q3⇒l *optimize(L7, l/L7) L7*L3⇒L7 L7>t⇒L7 *** L7 = q
+	*** /'Q7 = '>C *printf(Q7/) /'\n'>C
+	*** /'L7(q`) = '>C *HprintfBN(L7/) /'\n'>C
+	*** /'r1 = '>C
+	L1⇒L5 Q2+1⇒Q5 *** *HprintfBN(L5/) /'\n'>C *** L5 = r1
+	*** /'r2 = '>C
+	L7*L2⇒L7 Q2+1⇒Q7 *** *HprintfBN(L7/) /'\n'>C *** L7 = r2
+	*** /'Q7 = '>C *printf(Q7/) /'\n'>C
+	*** /'Q5 = '>C *printf(Q5/) /'\n'>C
+	*** /'L7 = '>C *HprintfBN(L7/) /'\n'>C
+	*** /'L5 = '>C *HprintfBN(L5/) /'\n'>C
+	
+	*** GLITCH: в Q5 оказалось значение Q1
+	
+	
+	
+	*** /'L5(r1) = '>C *HprintfBN(L5/) /'\n'>C
+	*** /'L7(r2) = '>C *HprintfBN(L7/) /'\n'>C
+	*** /'L6(r`) = '>C *HprintfBN(L6/) /'\n'>C
+	
+	
+	*BN_greq(L5, L7/c) ↑(c=0)1 L5-L7⇒L6 →2
 	§1
-		L6+L5-L4⇒L6
+		L6+L5-L7⇒L6
 	§2
+		*** /'L6 = '>C *HprintfBN(L6/) /'\n'>C
 		*cutZerosBN(L6/L6) *BN_greq(L6, L2/c)
 		↑(c=0)3 L6-L2⇒L6 →2
 	§3
-		Q6⇒Q4 L6⇒L4 *** L4 = r(результат)
+		*** /'L6 = '>C *HprintfBN(L6/) /'\n'>C
+		Q6⇒Q4 L6⇒L4 *** L7 = r(результат)
+	
+	
+	*** *Hprintf(L1.0/) /'\n'>C
+	*** *Hprintf(L2.0/) /'\n'>C
+	*** /'k = '>C *printf(k/) /'\n'>C
+	*** /'L1 = '>C *HprintfBN(L1/) /'\n'>C
+	*** /'L7 = '>C *HprintfBN(L7/) /'\n'>C
 **
+
 
 
 
