@@ -630,8 +630,11 @@ powBN_bar(L1, L2, L3/L4)
 	L1;L3⇒L5 Q3+Q3⇒l *optimize(L6, l/L6) *optimize(L5, l/L5) *** *barmod(L1, L3, L7/L5)
 	§1
 		 ↑(i≥32)3 Ii&L2j↪2 Q5+Q6⇒l *optimize(L6, l/L6)
-		 L6*L5⇒L6 *barmod(L6, L3, L7/L6) *** Q3⇒Q6
-	   *** /'L6= '>C *HprintfBN(L6/) /'\n'>C
+		 L6*L5⇒L6
+		 /'L6= '>C *HprintfBN(L6/) /'\n'>C
+		 /'L3= '>C *HprintfBN(L3/) /'\n'>C
+		 *barmod(L6, L3, L7/L6) *** Q3⇒Q6
+		 /'L6= '>C *HprintfBN(L6/) /'\n'>C
 	§2
 		 Q5+Q5⇒l *optimize(L5, l/L5)
 		 L5*L5⇒L5 *barmod(L5, L3, L7/L5) *** Q3⇒Q5
@@ -1093,7 +1096,7 @@ barmod(L1, L2, L3/L4)
 	§1
 		L6+L5-L7⇒L6
 	§2
-		*** /'L6 = '>C *HprintfBN(L6/) /'\n'>C
+		*** /'bar L6 = '>C *HprintfBN(L6/) /'\n'>C
 		*cutZerosBN(L6/L6) *BN_greq(L6, L2/c)
 		↑(c=0)3 L6-L2⇒L6 →2
 	§3
