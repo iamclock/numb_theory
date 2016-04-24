@@ -591,18 +591,23 @@ HprintfBN(L1/)
 powBN(L1, L2, L3/L4)
 	@+L5(100)
 	@+L6(100)
-	1⇒Q6⇒Q5⇒L6.0⇒i Oj⇒s
+	1⇒Q6⇒Q5⇒L6.0 Oj⇒i
 	L1;L3⇒L5
 	§1
-		 ↑(s≥32)3 i&L2j↪2 Q5+Q6⇒l *optimize(L6, l/L6)
-		 L6*L5;L3⇒L6 Q3⇒Q6
+		 ↑(i≥32)3 Ii&L2j↪2 Q5+Q6⇒l *optimize(L6, l/L6)
+		 *** /'11\n'>C
+		 L6*L5⇒L6
+		 *** /'22\n'>C
+		 *** /'L6= '>C *HprintfBN(L6/) /'\n'>C
+		 *** /'L3= '>C *HprintfBN(L3/) /'\n'>C
+		 L6;L3⇒L6 /'33\n'>C Q3⇒Q6
 	   *** /'L6= '>C *HprintfBN(L6/) /'\n'>C
 	§2
 		 Q5+Q5⇒l *optimize(L5, l/L5)
 		 L5*L5;L3⇒L5 Q3⇒Q5
-	   *** /'L5= '>C *HprintfBN(L5/) /'\n'>C
-	 ∆s i<1⇒i →1
-	§3 ∆j ↑(j≥Q2)4 1⇒i Os →1
+	    *** /'L5= '>C *HprintfBN(L5/) /'\n'>C
+	 ∆i →1
+	§3 ∆j ↑(j≥Q2)4 Oi →1
 	§4 Q6⇒Q4 L6⇒L4
 		 *cutZerosBN(L4/L4)
 **
@@ -620,19 +625,19 @@ powBN_bar(L1, L2, L3/L4)
 	Q3*2⇒Q7 OL7
 	Q7⇒k+1⇒Q7 1⇒L7k L7/L3⇒L7 *** L7 = z
 	
-	1⇒Q6⇒Q5⇒L6.0⇒i Oj⇒s
+	1⇒Q6⇒Q5⇒L6.0 Oj⇒i
 	*** L1;L3=L5 не заменяется на barmod(...)
 	L1;L3⇒L5 Q3+Q3⇒l *optimize(L6, l/L6) *optimize(L5, l/L5) *** *barmod(L1, L3, L7/L5)
 	§1
-		 ↑(s≥32)3 i&L2j↪2 Q5+Q6⇒l *optimize(L6, l/L6)
+		 ↑(i≥32)3 Ii&L2j↪2 Q5+Q6⇒l *optimize(L6, l/L6)
 		 L6*L5⇒L6 *barmod(L6, L3, L7/L6) *** Q3⇒Q6
 	   *** /'L6= '>C *HprintfBN(L6/) /'\n'>C
 	§2
 		 Q5+Q5⇒l *optimize(L5, l/L5)
 		 L5*L5⇒L5 *barmod(L5, L3, L7/L5) *** Q3⇒Q5
 	   *** /'L5= '>C *HprintfBN(L5/) /'\n'>C
-	 ∆s i<1⇒i →1
-	§3 ∆j ↑(j≥Q2)4 1⇒i Os →1
+	 ∆i →1
+	§3 ∆j ↑(j≥Q2)4 Oi →1
 	§4 Q6⇒Q4 L6⇒L4
 		 *cutZerosBN(L4/L4)
 **
@@ -645,17 +650,17 @@ powBN_bar(L1, L2, L3/L4)
 powBN_karat(L1, L2, L3/L4)
 	@+L5(1000)
 	@+L6(1000)
-	1⇒Q6⇒Q5⇒L6.0⇒i Oj⇒s
+	1⇒Q6⇒Q5⇒L6.0 Oj⇒i
 	L1;L3⇒L5 Q3+Q3⇒l *optimize(L6, l/L6) *optimize(L5, l/L5)
 	§1
-		 ↑(s≥32)3 i&L2j↪2
+		 ↑(i≥32)3 Ii&L2j↪2
 		 *karatsuba(L5, L6/L6) L6;L3⇒L6 Q3⇒Q6
 	   *** /'L6= '>C *HprintfBN(L6/) /'\n'>C
 	§2
 		 *karatsuba(L5, L5/L5) L5;L3⇒L5 Q3⇒Q5
 	   *** /'L5= '>C *HprintfBN(L5/) /'\n'>C
-	 ∆s i<1⇒i →1
-	§3 ∆j ↑(j≥Q2)4 1⇒i Os →1
+	 ∆i →1
+	§3 ∆j ↑(j≥Q2)4 Oi →1
 	§4 Q6⇒Q4 L6⇒L4
 		 *cutZerosBN(L4/L4)
 **
@@ -673,17 +678,17 @@ powBN_mix(L1, L2, L3/L4)
 	Q3*2⇒Q7 OL7
 	Q7⇒k+1⇒Q7 1⇒L7k L7/L3⇒L7 *** L7 = z
 	
-	1⇒Q6⇒Q5⇒L6.0⇒i Oj⇒s
+	1⇒Q6⇒Q5⇒L6.0 Oj⇒i
 	L1;L3⇒L5 Q3+Q3⇒l *optimize(L6, l/L6) *optimize(L5, l/L5)
 	§1
-		 ↑(s≥32)3 i&L2j↪2
+		 ↑(i≥32)3 Ii&L2j↪2
 		 *karatsuba(L5, L6/L6) *barmod(L6, L3, L7/L6)
 	   *** /'L6= '>C *HprintfBN(L6/) /'\n'>C
 	§2
 		 *karatsuba(L5, L5/L5) *barmod(L5, L3, L7/L5)
 	   *** /'L5= '>C *HprintfBN(L5/) /'\n'>C
-	 ∆s i<1⇒i →1
-	§3 ∆j ↑(j≥Q2)4 1⇒i Os →1
+	 ∆i →1
+	§3 ∆j ↑(j≥Q2)4 Oi →1
 	§4 Q6⇒Q4 L6⇒L4
 		 *cutZerosBN(L4/L4)
 **
