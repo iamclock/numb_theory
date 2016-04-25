@@ -589,22 +589,25 @@ HprintfBN(L1/)
 *** L5 - q, L4 - z
 *** 01.11.2015 операции над большими числами не изменяют мощность комплексов
 powBN(L1, L2, L3/L4)
-	@+L5(100)
-	@+L6(100)
+	@+L5(1000)
+	@+L6(1000)
 	1⇒Q6⇒Q5⇒L6.0 Oj⇒i
-	L1;L3⇒L5
+	L1;L3⇒L5 Q3*2⇒l *optimize(L5, l/L5)
 	§1
-		 ↑(i≥32)3 Ii&L2j↪2 Q5+Q6⇒l *optimize(L6, l/L6)
+		 ↑(i≥32)3 Ii&L2j↪2
 		 *** /'11\n'>C
-		 L6*L5⇒L6
+		 L5*L6⇒L6
 		 *** /'22\n'>C
 		 *** /'L6= '>C *HprintfBN(L6/) /'\n'>C
 		 *** /'L3= '>C *HprintfBN(L3/) /'\n'>C
-		 L6;L3⇒L6 /'33\n'>C Q3⇒Q6
+		 
+		 *** /'1\nQ6 = '>C *printf(Q6/) /'\n'>C
+		 *** /'Q3 = '>C *printf(Q3/) /'\n'>C
+		 
+		 L6;L3⇒L6 *** /'33\n'>C *** Q3⇒Q6
 	   *** /'L6= '>C *HprintfBN(L6/) /'\n'>C
 	§2
-		 Q5+Q5⇒l *optimize(L5, l/L5)
-		 L5*L5;L3⇒L5 Q3⇒Q5
+		 L5*L5;L3⇒L5
 	    *** /'L5= '>C *HprintfBN(L5/) /'\n'>C
 	 ∆i →1
 	§3 ∆j ↑(j≥Q2)4 Oi →1
@@ -631,10 +634,10 @@ powBN_bar(L1, L2, L3/L4)
 	§1
 		 ↑(i≥32)3 Ii&L2j↪2 Q5+Q6⇒l *optimize(L6, l/L6)
 		 L6*L5⇒L6
-		 /'L6= '>C *HprintfBN(L6/) /'\n'>C
-		 /'L3= '>C *HprintfBN(L3/) /'\n'>C
+		 *** /'L6= '>C *HprintfBN(L6/) /'\n'>C
+		 *** /'L3= '>C *HprintfBN(L3/) /'\n'>C
 		 *barmod(L6, L3, L7/L6) *** Q3⇒Q6
-		 /'L6= '>C *HprintfBN(L6/) /'\n'>C
+		 *** /'L6= '>C *HprintfBN(L6/) /'\n'>C
 	§2
 		 Q5+Q5⇒l *optimize(L5, l/L5)
 		 L5*L5⇒L5 *barmod(L5, L3, L7/L5) *** Q3⇒Q5
@@ -891,7 +894,7 @@ randPrimeBN(k/L1)
 	§1 OZ k:32⇒t Z⇒s
 		31⇒c ↑(s=0)2 s-1⇒c ∆t
 	§2
-		c+1⇒q ↑(t>S1)4 t⇒Q1
+		↑(t>S1)4 t⇒Q1
 	§3
 		*randBN(L1/)
 		*** /'t = '>C *printf(t/) /'\n'>C
@@ -899,11 +902,11 @@ randPrimeBN(k/L1)
 		 /'rBN s = '>C *printf(s/) /'\n'>C
 		 /'begin c = '>C *printf(c/) /'\n'>C
 		 /'t = '>C *printf(t/) /'\n'>C
-		 L1.0&fffffffeh∨1⇒L1.0 ffffffffh-Ic⇒p
-		 L1t&p∨Ic⇒L1t 32-q⇒c
-		 /'c = '>C *printf(c/) /'\n'>C
-		 ffffffffh>c⇒c
-		 L1t&c⇒L1t
+		 L1.0∨1⇒L1.0 *** ffffffffh-Ic⇒p
+		 L1t∨Ic⇒L1t *** 32-q⇒c
+		 /'s = '>C *printf(s/) /'\n'>C
+		 *** ffffffffh>c⇒c
+		 Is-1&L1t⇒L1t
 		 /'Current Number: '>C *HprintfBN(L1/) /'\n'>C
 		 *miralBN(L1, 5/b)
 		 /'b = '>C *printf(b/) /'\n'>C
@@ -1001,6 +1004,8 @@ karatsuba(L1, L2/L3)
 	@+L11(1000)
 	@+L12(1000)
 	
+	
+	
 	Q1⇒Q11 L1⇒L11 Q2⇒Q12 L2⇒L12
 	
 	*** Q2 сравнивается со старым значением Q1 (t)
@@ -1008,7 +1013,7 @@ karatsuba(L1, L2/L3)
 	Q12⇒n/2⇒w ↑(Q12=Q11)1 Q11⇒t ↑(Q12>t)1 t⇒Q11⇒n/2⇒w
 	§1
 		*optimize(L11, n/L11) *optimize(L12, n/L12)
-		↑(n>1)2
+		↑(n>50)2
 		Q11+Q12⇒Q3 OL3 1⇒L3.0 L3*L11*L12⇒L3 →8
 	
 	§2

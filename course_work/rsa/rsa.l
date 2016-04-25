@@ -7,6 +7,7 @@ main(/)
 	*** *extEuclAlg_test2(/)
 	*** *extEuclAlg_rowTest(/)
 	*rsaGen_test(/)
+	*** *ttt(/)
 **
 
 
@@ -28,6 +29,29 @@ BNinvElement(L1, L2/L3, c)
 	
 **
 
+
+
+ttt(/)
+	@+L1(1000)
+	@+L2(1000)
+	@+F3(1000)
+	
+	OQ3 @'0x2'>F3 *inputBN_2(L1, F3/L1) 8=Q1
+	OQ3 @'0x49375151C4D3484681CFAC7F'>F3 *inputBN_2(L2, F3/L2)
+	
+	*HprintfBN(L1/) /'\n'>C
+	*HprintfBN(L2/) /'\n'>C
+	
+	
+	/'1\nQ1 = '>C *printf(Q1/) /'\n'>C
+	/'Q2 = '>C *printf(Q2/) /'\n'>C
+	L1;L2=L2
+	
+	/'2\nQ1 = '>C *printf(Q1/) /'\n'>C
+	/'Q2 = '>C *printf(Q2/) /'\n'>C
+	*HprintfBN(L2/) /'\n'>C
+	
+**
 
 
 *** Расширенный алгоритм Евклида
