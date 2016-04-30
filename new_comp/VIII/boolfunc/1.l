@@ -15,8 +15,8 @@ main(/)
 *** тестирование функции преобразования уолша-адамара
 bool_pua_test(/)
 	@+L1(10000000)
-	*** @+L3(1000)
-	@+L3(10000000)
+	28=n In+10=t
+	@+L3(t)
 	@+F2(100)
 	*** 32=L1.0
 	*** OQ2 @'0101'>F2
@@ -36,7 +36,8 @@ bool_pua_test(/)
 	*** OQ2 @'01100000'>F2
 	*** OQ2 @'01110111'>F2
 	*** *BFinput(F2/L1)
-	*BFrand(L1, 21/L1) /'ok\n'>C
+	/'t = '>C *printf(t/) /'\n'>C
+	*BFrand(L1, n/L1) /'ok\n'>C
 	*** *BFoutput_string(L1/) /'\n'>C /'\n'>C
 	*pua(L1/L3)
 	*** *sprint_complex(L3/) /'\n'>C
@@ -64,20 +65,17 @@ toCharactVect(L1/L2)
 *** e+g f+h e-g f-h
 *** b - граница
 pua(L1/L2)
-	1<L1.0=n+10=t
-	*** *printf(L1.0/) /'\n'>C
-	@+L3(t) ***(512)
-	n=Q3 Op=j=k 1=i=s 1<L1.0-1=n/2+1=m
-	*toCharactVect(L1/L3)
-	*** /'n = '>C *printf(n/) /'\n'>C
-	*** *sprint_complex(L3/) /'\n'>C
+	L1.0=n In=Q2 Op=j=k 1=i=s In-1=n/2+1=m  *** 1<L1.0-1=n/2+1=m
+	*toCharactVect(L1/L2)
+	/'n = '>C *printf(n/) /'\n'>C
+	*** *sprint_complex(L2/) /'\n'>C
 	P97
 		 Ik=s Op=j ?(s>m)100 Dk
 		P98
-			L3j=a j+s=l L3l=b *** /'22\n'>C
+			L2j=a j+s=l L2l=b *** /'22\n'>C
 			*** /'a = '>C *sprintf(a/) /'\n'>C
 			*** /'b = '>C *sprintf(b/) /'\n'>C
-			a+b=L3j a-b=L3l *** /'33\n'>C
+			a+b=L2j a-b=L2l *** /'33\n'>C
 			*** /'	j = '>C *printf(j/) /'\n'>C
 			*** /'	l = '>C *printf(l/) /'\n'>C
 			*** /'	p = '>C *printf(p/) /'\n'>C
@@ -91,10 +89,8 @@ pua(L1/L2)
 			*** ?=100
 	P99
 		j+s=j Op ?=98
-	P100 /'qq\n'>C
-		/'Q3 = '>C *printf(Q3/) /'\n'>C
-		L3=L2
-		/'Q2 = '>C *printf(Q2/) /'\n'>C
+	P100 *** /'qq\n'>C
+		*** /'Q2 = '>C *printf(Q2/) /'\n'>C
 **
 
 
