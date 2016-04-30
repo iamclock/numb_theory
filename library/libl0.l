@@ -902,7 +902,7 @@ randPrimeBN(k/L1)
 		 L1.0∨1⇒L1.0 L1t∨Ic⇒L1t s&L1t⇒L1t
 		 *** /'Current Number: '>C *HprintfBN(L1/) /'\n'>C
 		 *miralBN(L1, 5/b)
-		 /'b = '>C *printf(b/) /'\n'>C
+		 *** /'b = '>C *printf(b/) /'\n'>C
 		  b↪3 *** ↑(b=0)3
 	§4 *** /'Q1 = '>C *printf(Q1/) /'\n'>C
 **

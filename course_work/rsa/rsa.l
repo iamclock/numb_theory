@@ -6,7 +6,8 @@ main(/)
 	*** *degree_tset(/)
 	*** *extEuclAlg_test2(/)
 	*** *extEuclAlg_rowTest(/)
-	*rsaGen_test(/)
+	*** *rsaGen_test(/)
+	*BNrsaCipher(/)
 	*** *ttt(/)
 **
 
@@ -167,7 +168,13 @@ rsaGen_test(/)
 	@+L5(1000)
 	
 	
-	*BNrsaGen(1024/L1, L2, L3, L4, L5)
+	*BNrsaGen(100/L1, L2, L3, L4, L5)
+	/'L1(p) = '>C *HprintfBN(L1/) /'\n'>C
+	/'L2(q) = '>C *HprintfBN(L2/) /'\n'>C
+	/'L3(n) = '>C *HprintfBN(L3/) /'\n'>C
+	/'L4(e) = '>C *HprintfBN(L4/) /'\n'>C
+	/'L5(d) = '>C *HprintfBN(L5/) /'\n'>C
+	
 	
 **
 
@@ -183,23 +190,19 @@ BNrsaGen(k/L1, L2, L3, L4, L5)
 	@+L6(1000) OQ6
 	@+L7(1000) OQ7
 	OQ1=Q2=Q3=Q4=Q5
-	?(k<3)99
+	?(k<3)4
 	@+L8(4) OQ8
 	*** открытая экспонента может быть равна {3, 17, 257, 65537}
 	4=Q8 3=L8.0+14=L8.1+240=L8.2+65280=L8.3
-	*** X=c X;c X=t c;t;S5=t
-	*** /'c = '>C *printf(c/) /'\n'>C
-	*** /'t = '>C *printf(t/) /'\n'>C
-	
 	*** возможна проблема, если числа будут отрицательными
-	OZ=s k:32=q Z?-100 1=s
+	OZ=s k:32=q Z?-1 1=s
 	*** /'q = '>C *printf(q/) /'\n'>C
 	*** /'s = '>C *printf(s/) /'\n'>C
-	
-	P100
+	P1
 		q+s=Q1=Q2 X X X
 		*randPrimeBN(k/L1)
-		X X X
+		/'tasty\n'>C
+		X X
 		*randPrimeBN(k/L2)
 		*** /'L1 = '>C *HprintfBN(L1/) /'\n'>C
 		*** /'Q1 = '>C *printf(Q1/) /'\n'>C
@@ -211,7 +214,7 @@ BNrsaGen(k/L1, L2, L3, L4, L5)
 	*** L3 = n = p*q
 	*karatsuba(L1, L2/L3)
 	Oj+1=Q4
-	P98
+	P2
 		L8j=L4.0
 		*BNinvElement(L4, L5/L6, L7)
 		/'L4 = '>C *HprintfBN(L4/) /'\n\n'>C
@@ -223,25 +226,61 @@ BNrsaGen(k/L1, L2, L3, L4, L5)
 		*** значение, при котором был найден обратный элемент
 		*** с наибольшим общим делителем равным 1 лежит в L8
 		*** j-1 элементе
-		Dj 1=L4.0 *BN_eq(L7, L4/a) ?(j>3)97 ?(a#1)98
+		Dj 1=L4.0 *BN_eq(L7, L4/a) ?(j>3)3 ?(a#1)2
 	Yj L8j=L4.0
 	L6=L5
-	/'L5 = '>C *HprintfBN(L5/) /'\n'>C
-	
-	?=99
-	P97 /'Ошибка: Что то не так с j в P98\n'>C *** на всякий случай, по теории, ошибки не должно быть
-	P99
+	*** /'L5 = '>C *HprintfBN(L5/) /'\n'>C
+	?=4
+	P3 /'Ошибка: Что то не так с j в P2\n'>C *** на всякий случай, по теории, ошибки не должно быть
+	P4
 **
 
-BNrsaCipher(L1, F2/F3)
+BNrsaCipher(/) *** (L1, F2/F3)
+	@+F1(1000) OQ1
+	@+F2(100) OQ2
+	@+L3(1000) OQ3
+	@+L4(1000) OQ4
+	@+L5(1000) OQ5
+	@+L6(1000) OQ6
+	@+L7(1000) OQ7
+	@+L8(1000) OQ8
+	@+L9(10) OQ9
+	*BNrsaGen(213/L3, L4, L5, L6, L7)
+	@'text.txt'>F2  /F2>C /'\n'>C
+	*fopen(F2,0/a)
+	
+	P1
+		*freadf(a,F1,0,999/b)
+		b=Q1 Oi ?(b=0)3
+	P2
+		?(i>=Q1)1
+		1=Q9 L1i=L9.0
+		*powBN(L9, L6, L5/L8) Di
+		*HprintfBN(L8/) /' '>C ?=2
+	P3
+		
+	*fclose(a/) OQ2
+	
+	*** @'rsa_encr.txt'>F2 /F2>C /'\n'>C
+	*** *fopen(F2,1/a)
+	*** *fwritef(a,F1,0,150/b)
 	
 	
-	
-	
+	*** /'Q1 = '>C *printf(Q1/) /'\n'>C
+	*** /'b = '>C *printf(b/) /'\n'>C
 **
 
-BNrsaDecipher(L1, F2/F3)
+BNrsaDecipher(/) *** (L1, F2/F3)
+	@+F1(1000)
+	@+F2(100)
+	@'rsa_encr.txt'>F2  /F2>C /'\n'>C
+	*fopen(F2,0/a)
+	*freadf(a,F1,0,150/b)
+	*fclose(a/) OQ2
 	
+	@'rsa_decr.txt'>F2 /F2>C /'\n'>C
+	*** *fopen(F2,1/a)
+	*** *fwritef(a,F1,0,150/b)
 	
 	
 **
