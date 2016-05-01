@@ -627,17 +627,19 @@ powBN_bar(L1, L2, L3/L4)
 	
 	1⇒Q6⇒Q5⇒L6.0 Oj⇒i
 	*** L1;L3=L5 не заменяется на barmod(...)
-	L1;L3⇒L5 Q3+Q3⇒l *optimize(L6, l/L6) *optimize(L5, l/L5) *** *barmod(L1, L3, L7/L5)
+	L1;L3⇒L5 Q3*2⇒l
 	§1
-		 ↑(i≥32)3 Ii&L2j↪2 Q5+Q6⇒l *optimize(L6, l/L6)
-		 L6*L5⇒L6
+		 ↑(i≥32)3 *optimize(L5, l/L5) *** в barmod обрезается мощность и без этого не работает
+		 Ii&L2j↪2 *** Q5+Q6⇒l *optimize(L6, l/L6)
+		 L5*L6⇒L6
 		 *** /'L6= '>C *HprintfBN(L6/) /'\n'>C
 		 *** /'L3= '>C *HprintfBN(L3/) /'\n'>C
+		 *** /'11\n'>C
 		 *barmod(L6, L3, L7/L6) *** Q3⇒Q6
 		 *** /'L6= '>C *HprintfBN(L6/) /'\n'>C
 	§2
-		 Q5+Q5⇒l *optimize(L5, l/L5)
-		 L5*L5⇒L5 *barmod(L5, L3, L7/L5) *** Q3⇒Q5
+		 L5*L5⇒L5
+		 *barmod(L5, L3, L7/L5) *** Q3⇒Q5
 	   *** /'L5= '>C *HprintfBN(L5/) /'\n'>C
 	 ∆i →1
 	§3 ∆j ↑(j≥Q2)4 Oi →1
@@ -1007,7 +1009,7 @@ karatsuba(L1, L2/L3)
 	§1
 		*optimize(L11, n/L11) *optimize(L12, n/L12)
 		↑(n>50)2
-		Q11+Q12⇒Q3 OL3 1⇒L3.0 L3*L11*L12⇒L3 *cutZerosBN(L3/L3) →8
+		n*2⇒Q3 OL3 1⇒L3.0 L3*L11*L12⇒L3 *cutZerosBN(L3/L3) →8
 	
 	§2
 		n;2↪4 n⇒t+1⇒Q11⇒Q12⇒n/2⇒w OL12t OL11t
@@ -1092,7 +1094,7 @@ barmod(L1, L2, L3/L4)
 	
 	*BN_greq(L5, L7/c) ↑(c=0)1 L5-L7⇒L6 →2
 	§1
-		L6+L5-L7⇒L6
+		L5+L6-L7⇒L6
 	§2
 		*** /'bar L6 = '>C *HprintfBN(L6/) /'\n'>C
 		*cutZerosBN(L6/L6) *BN_greq(L6, L2/c)

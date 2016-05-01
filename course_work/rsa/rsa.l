@@ -7,7 +7,7 @@ main(/)
 	*** *extEuclAlg_test2(/)
 	*** *extEuclAlg_rowTest(/)
 	*** *rsaGen_test(/)
-	*BNrsaCipher(/)
+	*rsaEncrypt_test(/)
 	*** *ttt(/)
 **
 
@@ -131,34 +131,6 @@ BNextEuclAlg(L1, L2/L3, L4, L5, f)
 *** Q2+Q8=l *optimize(L12, l/L12) 1=L12.0 L12*L2*L8=L12
 
 
-*** Дихотомический алг-тм возведения в степень с методом баррета взятия по модулю
-*** L1 - число возводимое в степень, L2 - степень этого числа, L3 - модуль
-*** L5 - q, L4 - z
-*** 01.11.2015 операции над большими числами не изменяют мощность комплексов
-powBN_bar(L1, L2, L3/L4)
-	@+L5(1000)
-	@+L6(1000)
-	@+L7(1000)
-	
-	Q3*2⇒Q7 OL7
-	Q7⇒k+1⇒Q7 1⇒L7k L7/L3⇒L7 *** L7 = z
-	
-	1⇒Q6⇒Q5⇒L6.0⇒i Oj⇒s
-	*** L1;L3=L5 не заменяется на barmod(...)
-	L1;L3⇒L5 Q3+Q3=l *optimize(L6, l/L6) *optimize(L5, l/L5) *** *barmod(L1, L3, L7/L5)
-	§1
-		 ↑(s≥32)3 i&L2j↪2 Q5+Q6⇒l *optimize(L6, l/L6)
-		 L6*L5⇒L6 *barmod(L6, L3, L7/L6) *** Q3⇒Q6
-	   *** /'L6= '>C *HprintfBN(L6/) /'\n'>C
-	§2
-		 Q5+Q5⇒l *optimize(L5, l/L5)
-		 L5*L5⇒L5 *barmod(L5, L3, L7/L5) *** Q3⇒Q5
-	   *** /'L5= '>C *HprintfBN(L5/) /'\n'>C
-	 ∆s i<1⇒i →1
-	§3 ∆j ↑(j≥Q2)4 1⇒i Os →1
-	§4 Q6⇒Q4 L6⇒L4
-		 *cutZerosBN(L4/L4)
-**
 
 rsaGen_test(/)
 	@+L1(1000)
@@ -199,7 +171,7 @@ BNrsaGen(k/L1, L2, L3, L4, L5)
 	*** /'q = '>C *printf(q/) /'\n'>C
 	*** /'s = '>C *printf(s/) /'\n'>C
 	P1
-		q+s=Q1=Q2 X X X
+		q+s=Q1=Q2 X X *** X
 		*randPrimeBN(k/L1)
 		/'tasty\n'>C
 		X X
@@ -235,52 +207,125 @@ BNrsaGen(k/L1, L2, L3, L4, L5)
 	P4
 **
 
-BNrsaCipher(/) *** (L1, F2/F3)
-	@+F1(1000) OQ1
-	@+F2(100) OQ2
+rsaEncrypt_test(/)
+	@+F1(100) OQ1
+	@+L2(1000) OQ2
 	@+L3(1000) OQ3
 	@+L4(1000) OQ4
 	@+L5(1000) OQ5
 	@+L6(1000) OQ6
-	@+L7(1000) OQ7
-	@+L8(1000) OQ8
-	@+L9(10) OQ9
-	*BNrsaGen(213/L3, L4, L5, L6, L7)
-	@'text.txt'>F2  /F2>C /'\n'>C
-	*fopen(F2,0/a)
-	
+	X X X
+	*BNrsaGen(899/L2, L3, L4, L5, L6)
+	*** /'Q4 = '>C *printf(Q4/) /'\n'>C
+	OQ1 @'text.txt'>F1
+	*fopen(F1, 0/a)
+	OQ1 @'rsa_encr.txt'>F1  /F1>C /'\n'>C
+	*fopen(F1, 1/b)
+	?(a=0)1 ?(b=0)1
+	*** /'descriptor a = '>C *printf(a/) /'\n'>C
+	/'	*******************\n'>C
+	*BNrsaEncrypt(a, b, L5, L4, L6/e)
+	/'	*******************\n'>C
+	*fclose(a/)
+	*fclose(b/)
 	P1
-		*freadf(a,F1,0,999/b)
-		b=Q1 Oi ?(b=0)3
+**
+
+rsaDecrypt_test(/)
+	
+	
+	
+**
+
+*** перевод большого числа в символьный комплекс
+*** e - признак ошибки
+BNtoStr(L1, F2/F2, e)
+	1=e ↑(Q1=0)6 Oe
+	Oi⇒f 4⇒s Q1-1⇒j 15⇒y '0'@>F2 'x'@>F2 '0'@>F2 2⇒l+1⇒Q2
+	§1 ↑(i≥8)4
+			***/'j= '>C *printf(j/) /'\n'>C
+			16<1-s⇒t ***/'t= '>C *printf(t/) /'\n'>C	*** 16 для оптимизации под конкретную архитектуру
+			L1j>t⇒x x&y⇒x s+4⇒s *** /'x= '>C *printf(x/) /'\n'>C
+			*** *Hprintf(L1j/)
+			x↪2 1⇒f
+	§2 ↑(x<10)3 ∆i x-10+'A'⇒F2l ∆l⇒Q2 →1 *** ∆l⇒Q2 для того, чтобы обрабатывался ноль, как 0x0
+	§3 ∆i ↑(f=0)1 x+'0'⇒F2l ∆l⇒Q2 →1 *** связано с 2⇒l+1⇒Q2
+	§4 ↑(j=0)5 4⇒s ∇j Oi →1 *** ↑(j≥Q1)5
+	§5 ↑(Q1>1)6 *** ↑(L1.0>0)6 '0'@>F2
+	§6
+**
+
+
+*** Алгоритм шифрования сообщения методом RSA
+*** r - дескриптор файла, с которого производить чтение
+*** сообщения
+*** w - дескриптор файла, в который производить запись
+*** зашифрованного сообщения
+*** L3 - e - открытая экспонента
+*** L4 - n - модуль
+*** e - признак ошибки(не то e, что выше)
+BNrsaEncrypt(r, w, L3, L4, L6/e)
+	@+F1(1000) OQ1
+	@+F2(1000) OQ2
+	@+L5(1000) OQ5
+	@+L8(1000) OQ8
+	Oe
+	P1
+		*freadf(r, F1, 0, 999/k)
+		*** обработать случай, когда k может означать ошибку
+		k=Q1 Oi ?(k=0)3
 	P2
 		?(i>=Q1)1
-		1=Q9 L1i=L9.0
-		*powBN(L9, L6, L5/L8) Di
-		*HprintfBN(L8/) /' '>C ?=2
+		1=Q5 F1i=L5.0
+		*** возведение в степень с методом карацубы на более
+		*** 899 битов выдаёт не правильные результаты
+		*powBN_karat(L5, L3, L4/L8)
+		*** /'L8 = '>C *HprintfBN(L8/) /'\n'>C
+		OQ2 *BNtoStr(L8, F2/F2, e)
+		' '@>F2
+		*** /'e = '>C *printf(e/) /'\n'>C
+		*** /'Q2 = '>C *printf(Q2/) /'\n'>C
+		*** /'F2 = '>C /F2>C /'\n'>C
+		*fwritef(w, F2, 0, Q2/k)
+		*** если k меньше Q2 r = 1
+		*powBN_karat(L8, L6, L4/L8)
+		Di
+		1=Q2 L8.0=F2.0 /F2>C
+		*** *HprintfBN(L8/) /' '>C
+		?=2
 	P3
-		
-	*fclose(a/) OQ2
-	
-	*** @'rsa_encr.txt'>F2 /F2>C /'\n'>C
-	*** *fopen(F2,1/a)
-	*** *fwritef(a,F1,0,150/b)
-	
-	
 	*** /'Q1 = '>C *printf(Q1/) /'\n'>C
 	*** /'b = '>C *printf(b/) /'\n'>C
 **
 
-BNrsaDecipher(/) *** (L1, F2/F3)
-	@+F1(1000)
-	@+F2(100)
-	@'rsa_encr.txt'>F2  /F2>C /'\n'>C
-	*fopen(F2,0/a)
-	*freadf(a,F1,0,150/b)
-	*fclose(a/) OQ2
-	
-	@'rsa_decr.txt'>F2 /F2>C /'\n'>C
-	*** *fopen(F2,1/a)
-	*** *fwritef(a,F1,0,150/b)
+
+
+*** НЕ ДОДЕЛАН
+*** Алгоритм расшифрования сообщения зашифрованного методом RSA
+*** r - признак ошибки
+BNrsaDecrypt(a, b, L3, L4/r)
+	@+F1(1000) OQ1
+	@+F2(1) OQ2
+	Or
+	P1
+		*** (*) ЗДЕСЬ алгоритм чтения числа из файла и
+		*** перевода в большое число
+		b=Q1 Oi ?(b=0)3
+	P2
+		?(i>=Q1)1
+		1=Q9 F1i=L9.0
+		*** возведение в степень с методом карацубы на более
+		*** 900 битов выдаёт не правильные результаты
+		*powBN_karat(L9, L6, L5/L8)
+		*** *fwritef(a, F1, 0, 150/b)
+		*powBN_karat(L8, L7, L5/L8)
+		Di
+		1=Q2 L8.0=F2.0 /F2>C
+		*** *HprintfBN(L8/) /' '>C
+		?=2
+	P3
+	*** /'Q1 = '>C *printf(Q1/) /'\n'>C
+	*** /'b = '>C *printf(b/) /'\n'>C
 	
 	
 **
@@ -472,21 +517,6 @@ dih_bar_test(/)
 	OQ4 /F4<C  *inputBN(L1, F4, 0/L1, k) *inputBN(L2, F4, k/L2, k) *inputBN(L3, F4, k/L3, k)
 	*powBN_bar(L1, L2, L3/L4)
 	*HprintfBN(L4/) /'\n'>C
-	
-**
-
-
-
-
-rsaCipher_test(/)
-	
-	
-	
-**
-
-rsaDecipher_test(/)
-	
-	
 	
 **
 
