@@ -131,23 +131,29 @@ BNextEuclAlg(L1, L2/L3, L4, L5, f)
 *** Q2+Q8=l *optimize(L12, l/L12) 1=L12.0 L12*L2*L8=L12
 
 
-
-rsaGen_test(/)
-	@+L1(1000)
-	@+L2(1000)
-	@+L3(1000)
-	@+L4(1000)
-	@+L5(1000)
-	
-	
-	*BNrsaGen(100/L1, L2, L3, L4, L5)
-	/'L1(p) = '>C *HprintfBN(L1/) /'\n'>C
-	/'L2(q) = '>C *HprintfBN(L2/) /'\n'>C
-	/'L3(n) = '>C *HprintfBN(L3/) /'\n'>C
-	/'L4(e) = '>C *HprintfBN(L4/) /'\n'>C
-	/'L5(d) = '>C *HprintfBN(L5/) /'\n'>C
-	
-	
+rsaEncrypt_test(/)
+	@+F1(100) OQ1
+	@+L2(1000) OQ2
+	@+L3(1000) OQ3
+	@+L4(1000) OQ4
+	@+L5(1000) OQ5
+	@+L6(1000) OQ6
+	*BNrsaGen(1024/L2, L3, L4, L5, L6)
+	*** /'Q4 = '>C *printf(Q4/) /'\n'>C
+	OQ1 @'text.txt'>F1
+	*fopen(F1, 0/a)
+	OQ1 @'rsa_encr.txt'>F1  /F1>C /'\n'>C
+	*fopen(F1, 1/b)
+	?(a=0)1 ?(b=0)1
+	*** /'descriptor a = '>C *printf(a/) /'\n'>C
+	/'	*******************\n'>C
+	T=t
+	*BNrsaEncrypt(a, b, L5, L4, L6/e)
+	T-t=t /'t = '>C *printf(t/) /'\n'>C
+	/'	*******************\n'>C
+	*fclose(a/)
+	*fclose(b/)
+	P1
 **
 
 
@@ -171,11 +177,33 @@ BNrsaGen(k/L1, L2, L3, L4, L5)
 	*** /'q = '>C *printf(q/) /'\n'>C
 	*** /'s = '>C *printf(s/) /'\n'>C
 	P1
-		q+s=Q1=Q2 X X *** X
+		q+s=Q1=Q2
+		X X X X X X X X X X X X
+		X X X X X X X X X X X X
+		X X X X X X X X X X X X
+		X X X X X X X X X X X X
+		X X X X X X X X X X X X
+		X X X X X X X X X X X X
+		X X X X X X X X X X X X
+		X X X X X X X X X X X X
+		X X X X X X X X X X X X
+		X X X X X X X X X X X X
+		X X X X X X X X X X X X
 		*randPrimeBN(k/L1)
 		/'tasty\n'>C
-		X X
+		X X X X X X X X X X X X
+		X X X X X X X X X X X X
+		X X X X X X X X X X X X
+		X X X X X X X X X X X X
+		X X X X X X X X X X X X
+		X X X X X X X X X X X X
+		X X X X X X X X X X X X
+		X X X X X X X X X X X X
+		X X X X X X X X X X X X
+		X X X X X X X X X X X X
+		X X X X X X X X X X X X
 		*randPrimeBN(k/L2)
+		/'yeah\n'>C
 		*** /'L1 = '>C *HprintfBN(L1/) /'\n'>C
 		*** /'Q1 = '>C *printf(Q1/) /'\n'>C
 	1=Q3=L3.0
@@ -189,10 +217,10 @@ BNrsaGen(k/L1, L2, L3, L4, L5)
 	P2
 		L8j=L4.0
 		*BNinvElement(L4, L5/L6, L7)
-		/'L4 = '>C *HprintfBN(L4/) /'\n\n'>C
-		/'L5 = '>C *HprintfBN(L5/) /'\n\n'>C
-		/'L6 = '>C *HprintfBN(L6/) /'\n\n'>C
-		/'L7 = '>C *HprintfBN(L7/) /'\n\n'>C
+		*** /'L4 = '>C *HprintfBN(L4/) /'\n\n'>C
+		*** /'L5 = '>C *HprintfBN(L5/) /'\n\n'>C
+		*** /'L6 = '>C *HprintfBN(L6/) /'\n\n'>C
+		*** /'L7 = '>C *HprintfBN(L7/) /'\n\n'>C
 		*** L4 приравниваю к 1 для сравнения с наибольшим
 		*** общим делителем, чтобы не заводить новый комплекс
 		*** значение, при котором был найден обратный элемент
@@ -207,29 +235,6 @@ BNrsaGen(k/L1, L2, L3, L4, L5)
 	P4
 **
 
-rsaEncrypt_test(/)
-	@+F1(100) OQ1
-	@+L2(1000) OQ2
-	@+L3(1000) OQ3
-	@+L4(1000) OQ4
-	@+L5(1000) OQ5
-	@+L6(1000) OQ6
-	X X X
-	*BNrsaGen(899/L2, L3, L4, L5, L6)
-	*** /'Q4 = '>C *printf(Q4/) /'\n'>C
-	OQ1 @'text.txt'>F1
-	*fopen(F1, 0/a)
-	OQ1 @'rsa_encr.txt'>F1  /F1>C /'\n'>C
-	*fopen(F1, 1/b)
-	?(a=0)1 ?(b=0)1
-	*** /'descriptor a = '>C *printf(a/) /'\n'>C
-	/'	*******************\n'>C
-	*BNrsaEncrypt(a, b, L5, L4, L6/e)
-	/'	*******************\n'>C
-	*fclose(a/)
-	*fclose(b/)
-	P1
-**
 
 rsaDecrypt_test(/)
 	
@@ -275,7 +280,7 @@ BNrsaEncrypt(r, w, L3, L4, L6/e)
 		*** обработать случай, когда k может означать ошибку
 		k=Q1 Oi ?(k=0)3
 	P2
-		?(i>=Q1)1
+		?(i>=Q1)1 *** ?(i>1)3
 		1=Q5 F1i=L5.0
 		*** возведение в степень с методом карацубы на более
 		*** 899 битов выдаёт не правильные результаты
@@ -290,7 +295,7 @@ BNrsaEncrypt(r, w, L3, L4, L6/e)
 		*** если k меньше Q2 r = 1
 		*powBN_karat(L8, L6, L4/L8)
 		Di
-		1=Q2 L8.0=F2.0 /F2>C
+		*** 1=Q2 L8.0=F2.0 /F2>C
 		*** *HprintfBN(L8/) /' '>C
 		?=2
 	P3
@@ -300,33 +305,11 @@ BNrsaEncrypt(r, w, L3, L4, L6/e)
 
 
 
-*** НЕ ДОДЕЛАН
 *** Алгоритм расшифрования сообщения зашифрованного методом RSA
-*** r - признак ошибки
-BNrsaDecrypt(a, b, L3, L4/r)
-	@+F1(1000) OQ1
-	@+F2(1) OQ2
-	Or
-	P1
-		*** (*) ЗДЕСЬ алгоритм чтения числа из файла и
-		*** перевода в большое число
-		b=Q1 Oi ?(b=0)3
-	P2
-		?(i>=Q1)1
-		1=Q9 F1i=L9.0
-		*** возведение в степень с методом карацубы на более
-		*** 900 битов выдаёт не правильные результаты
-		*powBN_karat(L9, L6, L5/L8)
-		*** *fwritef(a, F1, 0, 150/b)
-		*powBN_karat(L8, L7, L5/L8)
-		Di
-		1=Q2 L8.0=F2.0 /F2>C
-		*** *HprintfBN(L8/) /' '>C
-		?=2
-	P3
-	*** /'Q1 = '>C *printf(Q1/) /'\n'>C
-	*** /'b = '>C *printf(b/) /'\n'>C
+*** e - признак ошибки
+BNrsaDecrypt(a, b, L3, L4/e)
 	
+	/'tasty\n'>C
 	
 **
 
@@ -394,6 +377,28 @@ extEuclAlg_bar(/)
 ***********************************************************
 ***********************    ТЕСТЫ    ***********************
 ***********************************************************
+
+
+
+
+rsaGen_test(/)
+	@+L1(1000)
+	@+L2(1000)
+	@+L3(1000)
+	@+L4(1000)
+	@+L5(1000)
+	
+	
+	*BNrsaGen(100/L1, L2, L3, L4, L5)
+	/'L1(p) = '>C *HprintfBN(L1/) /'\n'>C
+	/'L2(q) = '>C *HprintfBN(L2/) /'\n'>C
+	/'L3(n) = '>C *HprintfBN(L3/) /'\n'>C
+	/'L4(e) = '>C *HprintfBN(L4/) /'\n'>C
+	/'L5(d) = '>C *HprintfBN(L5/) /'\n'>C
+	
+	
+**
+
 
 extEuclAlg_rowTest(/)
 	@+L1(100000)

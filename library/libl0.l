@@ -594,18 +594,24 @@ powBN(L1, L2, L3/L4)
 	1⇒Q6⇒Q5⇒L6.0 Oj⇒i
 	L1;L3⇒L5 Q3*2⇒l *optimize(L5, l/L5)
 	§1
-		 ↑(i≥32)3 Ii&L2j↪2
-		 L5*L6⇒L6
-		 *** /'L6= '>C *HprintfBN(L6/) /'\n'>C
-		 *** /'L3= '>C *HprintfBN(L3/) /'\n'>C
-		 *** /'Q6 = '>C *printf(Q6/) /'\n'>C
-		 *** /'Q3 = '>C *printf(Q3/) /'\n'>C
-		 
-		 L6;L3⇒L6 *** /'33\n'>C *** Q3⇒Q6
+		↑(i≥32)3 Ii&L2j↪2
+		*** /'#############\n'>C
+		*** /'L6= '>C *HprintfBN(L6/) /'\n'>C
+		*** /'L5= '>C *HprintfBN(L5/) /'\n'>C
+		*** /'#############\n'>C
+		L5*L6⇒L6
+		*** /'L6= '>C *HprintfBN(L6/) /'\n'>C
+		*** /'Q6 = '>C *printf(Q6/) /'\n'>C
+		*** /'L3= '>C *HprintfBN(L3/) /'\n'>C
+		*** /'Q3 = '>C *printf(Q3/) /'\n'>C
+		
+		L6;L3⇒L6 *** /'33\n'>C *** Q3⇒Q6
 	   *** /'L6= '>C *HprintfBN(L6/) /'\n'>C
+	   
 	§2
-		 L5*L5;L3⇒L5
-	    *** /'L5= '>C *HprintfBN(L5/) /'\n'>C
+		L5*L5;L3⇒L5
+	   *** /'L5= '>C *HprintfBN(L5/) /'\n'>C
+	   *** /'Q5 = '>C *printf(Q5/) /'\n'>C
 	 ∆i →1
 	§3 ∆j ↑(j≥Q2)4 Oi →1
 	§4 Q6⇒Q4 L6⇒L4
@@ -629,14 +635,14 @@ powBN_bar(L1, L2, L3/L4)
 	*** L1;L3=L5 не заменяется на barmod(...)
 	L1;L3⇒L5 Q3*2⇒l
 	§1
-		 ↑(i≥32)3 *optimize(L5, l/L5) *** в barmod обрезается мощность и без этого не работает
-		 Ii&L2j↪2 *** Q5+Q6⇒l *optimize(L6, l/L6)
-		 L5*L6⇒L6
-		 *** /'L6= '>C *HprintfBN(L6/) /'\n'>C
-		 *** /'L3= '>C *HprintfBN(L3/) /'\n'>C
-		 *** /'11\n'>C
-		 *barmod(L6, L3, L7/L6) *** Q3⇒Q6
-		 *** /'L6= '>C *HprintfBN(L6/) /'\n'>C
+		↑(i≥32)3 *optimize(L5, l/L5) *** в barmod обрезается мощность и без этого не работает
+		Ii&L2j↪2 *** Q5+Q6⇒l *optimize(L6, l/L6)
+		L5*L6⇒L6
+		*** /'L6= '>C *HprintfBN(L6/) /'\n'>C
+		*** /'L3= '>C *HprintfBN(L3/) /'\n'>C
+		*** /'11\n'>C
+		*barmod(L6, L3, L7/L6) *** Q3⇒Q6
+		*** /'L6= '>C *HprintfBN(L6/) /'\n'>C
 	§2
 		 L5*L5⇒L5
 		 *barmod(L5, L3, L7/L5) *** Q3⇒Q5
@@ -658,12 +664,22 @@ powBN_karat(L1, L2, L3/L4)
 	1⇒Q6⇒Q5⇒L6.0 Oj⇒i
 	L1;L3⇒L5 Q3+Q3⇒l *optimize(L6, l/L6) *optimize(L5, l/L5)
 	§1
-		 ↑(i≥32)3 Ii&L2j↪2
-		 *karatsuba(L5, L6/L6) L6;L3⇒L6 Q3⇒Q6
+		↑(i≥32)3 Ii&L2j↪2
+		*** /'#############\n'>C
+		*** /'L6= '>C *HprintfBN(L6/) /'\n'>C
+		*** /'L5= '>C *HprintfBN(L5/) /'\n'>C
+		*** /'#############\n'>C
+		*karatsuba(L5, L6/L6)
+		*** /'L6= '>C *HprintfBN(L6/) /'\n'>C
+		*** /'Q6 = '>C *printf(Q6/) /'\n'>C
+		*** /'L3= '>C *HprintfBN(L3/) /'\n'>C
+		*** /'Q3 = '>C *printf(Q3/) /'\n'>C
+		L6;L3⇒L6 Q3⇒Q6
 	   *** /'L6= '>C *HprintfBN(L6/) /'\n'>C
 	§2
-		 *karatsuba(L5, L5/L5) L5;L3⇒L5 Q3⇒Q5
+		*karatsuba(L5, L5/L5) L5;L3⇒L5 Q3⇒Q5
 	   *** /'L5= '>C *HprintfBN(L5/) /'\n'>C
+	   *** /'Q5 = '>C *printf(Q5/) /'\n'>C
 	 ∆i →1
 	§3 ∆j ↑(j≥Q2)4 Oi →1
 	§4 Q6⇒Q4 L6⇒L4
@@ -1020,6 +1036,7 @@ karatsuba(L1, L2/L3)
 	§6
 		*karatsuba(L4, L6/L8) *** A
 		*karatsuba(L5, L7/L9) *** B
+		*** /'L8 = '>C *HprintfBN(L8/) /'\n\n'>C
 		Q4⇒t+1⇒Q4 OL4t
 		Q6⇒t+1⇒Q6 OL6t
 		L4+L5⇒L4 L6+L7⇒L6
@@ -1028,13 +1045,17 @@ karatsuba(L1, L2/L3)
 		Q6-1⇒t ↑(L6t>0)10 t⇒Q6
 	§10
 		*karatsuba(L4, L6/L3) *** C
+		*** /'L3 = '>C *HprintfBN(L3/) /'\n'>C
+		*** /'Q3 = '>C *printf(Q3/) /'\n\n'>C
 	§7
 		Q3⇒t+w⇒Q3 OL3t
-		w⇒q*32⇒t
+		w⇒q<5⇒t
 		L3-L8-L9⇒L3
 		L3<t⇒L3
 		32*n⇒t n+Q8⇒Q8 L8<t⇒L8
-		L8+L3+L9⇒L3
+		Q8⇒l ↑(Q8>Q3)11 Q3⇒l *optimize(L8, l/L8)
+	§11
+		L8+L3+L9⇒L3 →8
 	§8
 **
 
