@@ -1001,7 +1001,6 @@ countZeroesBN(L1/s)
 **
 
 
-
 *** Алгоритм карацубы перемножения 2ух больших чисел
 *** http://samos-it.com/posts/recursive-karatsuba-multiplication-python.html
 *** f - признак нулевого комплекса - требуется восстановить значение 0
@@ -1015,49 +1014,52 @@ karatsuba(L1, L2/L3)
 	@+L11(1000)
 	@+L12(1000)
 	
-	
-	
 	Q1⇒Q11 L1⇒L11 Q2⇒Q12 L2⇒L12
 	
 	*** Q2 сравнивается со старым значением Q1 (t)
 	*** мощность одного из комплексов увеличивается до максимума n
-	Q12⇒n/2⇒w ↑(Q12=Q11)1 Q11⇒t ↑(Q12>t)1 t⇒Q11⇒n/2⇒w
+	Q12⇒n/2⇒w ↑(Q12=Q11)2 ↑(Q12>Q11)1 Q11⇒n/2⇒w *optimize(L12, n/L12) →2
 	§1
-		*optimize(L11, n/L11) *optimize(L12, n/L12)
-		↑(n>50)2
+		*optimize(L11, n/L11)
+	§2
+		↑(n>50)3
 		n*2⇒Q3 OL3 1⇒L3.0 L3*L11*L12⇒L3 *cutZerosBN(L3/L3) →8
 	
-	§2
+	§3
 		n;2↪4 n⇒t+1⇒Q11⇒Q12⇒n/2⇒w OL12t OL11t
 	§4
 		L11⇒L5 Q11-w⇒Q5⇒Q4-1⇒t OL4t Q11-w*32⇒t L11>t⇒L4 w⇒Q4
-	§3
 		L12⇒L7 Q12-w⇒Q7⇒Q6-1⇒t OL6t Q12-w*32⇒t L12>t⇒L6 w⇒Q6
-	§6
 		*karatsuba(L4, L6/L8) *** A
 		*karatsuba(L5, L7/L9) *** B
 		*** /'L8 = '>C *HprintfBN(L8/) /'\n\n'>C
 		Q4⇒t+1⇒Q4 OL4t
 		Q6⇒t+1⇒Q6 OL6t
 		L4+L5⇒L4 L6+L7⇒L6
-		Q4-1⇒t ↑(L4t>0)9 t⇒Q4
-	§9
-		Q6-1⇒t ↑(L6t>0)10 t⇒Q6
-	§10
+		Q4-1⇒t ↑(L4t>0)5 t⇒Q4
+	§5
+		Q6-1⇒t ↑(L6t>0)6 t⇒Q6
+	§6
 		*karatsuba(L4, L6/L3) *** C
 		*** /'L3 = '>C *HprintfBN(L3/) /'\n'>C
 		*** /'Q3 = '>C *printf(Q3/) /'\n\n'>C
-	§7
 		Q3⇒t+w⇒Q3 OL3t
 		w⇒q<5⇒t
 		L3-L8-L9⇒L3
 		L3<t⇒L3
 		32*n⇒t n+Q8⇒Q8 L8<t⇒L8
-		Q8⇒l ↑(Q8>Q3)11 Q3⇒l *optimize(L8, l/L8)
-	§11
-		L8+L3+L9⇒L3 →8
+		*** Здесь возможна ситуация, когда мощность L3
+		*** больше L8, тогда требуется к L3 добавить
+		*** содержимое двух комплексов L8 и L9
+		*** иначе(Q8>Q3) к L8 добавить L3 и L9
+		↑(Q8>Q3)7 L3+L8+L9⇒L3 →8
+		*** Q3⇒l *optimize(L8, l/L8)
+	§7
+		L8+L3+L9⇒L3
 	§8
 **
+
+
 
 
 *** Алгоритм баррета приведения числа по модулю

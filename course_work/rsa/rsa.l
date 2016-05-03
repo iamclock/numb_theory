@@ -138,7 +138,7 @@ rsaEncrypt_test(/)
 	@+L4(1000) OQ4
 	@+L5(1000) OQ5
 	@+L6(1000) OQ6
-	*BNrsaGen(1024/L2, L3, L4, L5, L6)
+	*BNrsaGen(950/L2, L3, L4, L5, L6)
 	*** /'Q4 = '>C *printf(Q4/) /'\n'>C
 	OQ1 @'text.txt'>F1
 	*fopen(F1, 0/a)
@@ -295,7 +295,7 @@ BNrsaEncrypt(r, w, L3, L4, L6/e)
 		*** если k меньше Q2 r = 1
 		*powBN_karat(L8, L6, L4/L8)
 		Di
-		*** 1=Q2 L8.0=F2.0 /F2>C
+		1=Q2 L8.0=F2.0 /F2>C
 		*** *HprintfBN(L8/) /' '>C
 		?=2
 	P3
