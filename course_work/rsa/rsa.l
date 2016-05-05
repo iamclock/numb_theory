@@ -138,7 +138,7 @@ rsaEncrypt_test(/)
 	@+L4(1000) OQ4
 	@+L5(1000) OQ5
 	@+L6(1000) OQ6
-	*BNrsaGen(950/L2, L3, L4, L5, L6)
+	*BNrsaGen(1024/L2, L3, L4, L5, L6)
 	*** /'Q4 = '>C *printf(Q4/) /'\n'>C
 	OQ1 @'text.txt'>F1
 	*fopen(F1, 0/a)
@@ -148,7 +148,7 @@ rsaEncrypt_test(/)
 	*** /'descriptor a = '>C *printf(a/) /'\n'>C
 	/'	*******************\n'>C
 	T=t
-	*BNrsaEncrypt(a, b, L5, L4, L6/e)
+	*BNrsaEncrypt(a, b, L5, L4, L6, L2, L3/e)
 	T-t=t /'t = '>C *printf(t/) /'\n'>C
 	/'	*******************\n'>C
 	*fclose(a/)
@@ -261,6 +261,87 @@ BNtoStr(L1, F2/F2, e)
 **
 
 
+
+*** 
+*** 
+*** 
+*** 
+rsaGarnersAlgorithm()
+	
+	
+	
+	
+	
+**
+
+
+*** 
+*** 
+*** 
+rsaChinRemAlg(L1, L2, L3, L4/L5)
+	
+	@+L6(1000) *** M
+	@+L7(1000) *** M^(-1)p
+	@+L8(1000) *** M^(-1)q
+	@+L9(1000) *** вспомогательное слагаемое для метода баррета
+	
+	*BNinvElement(L4, L3/L7, L6)
+	*BNinvElement(L3, L4/L8, L6)
+	*karatsuba(L3, L4/L6) *** L6 = M
+	
+	Q6*2⇒Q9 OL9
+	Q9⇒k+1⇒Q9 1⇒L9k L9/L6⇒L9
+	*karatsuba(L7,L4/L7) *karatsuba(L7,L1/L7)
+	*karatsuba(L8,L3/L8) *karatsuba(L8,L2/L8)
+	L7+L8;L6=L8 *** *barmod(L8, L6, L9/L8)
+	*** /'L8 = '>C *HprintfBN(L8/) /'\n'>C
+	L8=L5
+**
+
+
+
+*** расшифрование блока зашифрованного сообщения
+*** методом китайской теоремы об остатках
+*** L1 - число p из разложения числа N = p*q
+*** L2 - число q из разложения числа N = p*q
+*** L3 - число d секретная экспонента
+*** L4 - число C - расшифрованное значение
+crt_decrypt(L1, L2, L3, L4/L10)
+	@+L5(1000) OQ5 *** d mod (p-1), C^(d mod(p-1)), mp
+	@+L6(1000) OQ6 *** d mod (q-1), C^(d mod(q-1)), mq
+	@+L7(1000) OQ7 *** вспомогательное слагаемое для алгоритма баррета z
+	@+L8(1000) OQ8 *** 1
+	@+L9(1000) OQ9 *** p-1 или q-1
+	*** /'L1 = '>C *HprintfBN(L1/) /'\n'>C
+	*** /'L2 = '>C *HprintfBN(L2/) /'\n'>C
+	*** /'L3 = '>C *HprintfBN(L3/) /'\n'>C
+	*** /'L4 = '>C *HprintfBN(L4/) /'\n'>C
+	
+	
+	
+	
+	1=Q8=L8.0
+	L1-L8=L5 *** L5 = p-1
+	L2-L8=L6 *** L6 = q-1
+	
+	
+	Q5*2⇒Q7 OL7
+	Q7⇒k+1⇒Q7 1⇒L7k L7/L5⇒L7
+	Q5=t L3;L5=L5 t=Q5
+	*** *barmod(L3, L5, L7/L5) *** L5 = d mod (p-1)
+	Q6*2⇒Q7 OL7
+	Q7⇒k+1⇒Q7 1⇒L7k L7/L6⇒L7
+	Q6=t L3;L6=L6 t=Q6
+	*** *barmod(L3, L6, L7/L6) *** L6 = d mod (q-1)
+	
+	*powBN_karat(L4, L5, L1/L5) *** L5 = C^(d mod(p-1)) mod p
+	*powBN_karat(L4, L6, L2/L6) *** L6 = C^(d mod(q-1)) mod q
+	*rsaChinRemAlg(L5, L6, L1, L2/L6)
+	L6=L10
+	
+**
+
+
 *** Алгоритм шифрования сообщения методом RSA
 *** r - дескриптор файла, с которого производить чтение
 *** сообщения
@@ -269,7 +350,7 @@ BNtoStr(L1, F2/F2, e)
 *** L3 - e - открытая экспонента
 *** L4 - n - модуль
 *** e - признак ошибки(не то e, что выше)
-BNrsaEncrypt(r, w, L3, L4, L6/e)
+BNrsaEncrypt(r, w, L3, L4, L6, L9, L10/e)
 	@+F1(1000) OQ1
 	@+F2(1000) OQ2
 	@+L5(1000) OQ5
@@ -293,7 +374,10 @@ BNrsaEncrypt(r, w, L3, L4, L6/e)
 		*** /'F2 = '>C /F2>C /'\n'>C
 		*fwritef(w, F2, 0, Q2/k)
 		*** если k меньше Q2 r = 1
-		*powBN_karat(L8, L6, L4/L8)
+		*** /'\n##############################\n'>C
+		*crt_decrypt(L9, L10, L6, L8/L8)
+		*** /'##############################\n\n'>C
+		*** *powBN_karat(L8, L6, L4/L8)
 		Di
 		1=Q2 L8.0=F2.0 /F2>C
 		*** *HprintfBN(L8/) /' '>C
