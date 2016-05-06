@@ -7,7 +7,8 @@ main(/)
 	*** *extEuclAlg_test2(/)
 	*** *extEuclAlg_rowTest(/)
 	*** *rsaGen_test(/)
-	*rsaEncrypt_test(/)
+	*** *rsaEncrypt_test(/)
+	*rsaDecrypt_test(/)
 	*** *ttt(/)
 **
 
@@ -131,6 +132,17 @@ BNextEuclAlg(L1, L2/L3, L4, L5, f)
 *** Q2+Q8=l *optimize(L12, l/L12) 1=L12.0 L12*L2*L8=L12
 
 
+rsaDecrypt_test(/)
+	@+F1(100) OQ1
+	
+	OQ1 @'rsa_encr.txt'>F1  /F1>C /'\n'>C
+	*fopen(F1, 0/b)
+	/'descriptor b = '>C *printf(b/) /'\n'>C
+	*BNfromFile(b, L1/L1, e)
+	/'L1 = '>C *HprintfBN(L1/) /'\n'>C
+**
+
+
 rsaEncrypt_test(/)
 	@+F1(100) OQ1
 	@+L2(1000) OQ2
@@ -236,11 +248,23 @@ BNrsaGen(k/L1, L2, L3, L4, L5)
 **
 
 
-rsaDecrypt_test(/)
-	
-	
-	
+
+
+
+
+*** как определить мощность L1
+BNfromFile(r, L1/L1, e)
+	@+F2(1000)
+	Oi=s=k
+	P1
+		*freadf(r, F2, s, 999/k)
+		?(k=0)2
+		*** /'k = '>C *printf(k/) /'\n'>C
+		k=Q2=s *** /F2>C
+		*inputBN(L1, F2, 0/L1, i) s+i=s ?=1
+	P2
 **
+
 
 *** перевод большого числа в символьный комплекс
 *** e - признак ошибки
@@ -279,7 +303,6 @@ rsaGarnersAlgorithm()
 *** 
 *** 
 rsaChinRemAlg(L1, L2, L3, L4/L5)
-	
 	@+L6(1000) *** M
 	@+L7(1000) *** M^(-1)p
 	@+L8(1000) *** M^(-1)q
@@ -317,13 +340,9 @@ crt_decrypt(L1, L2, L3, L4/L10)
 	*** /'L3 = '>C *HprintfBN(L3/) /'\n'>C
 	*** /'L4 = '>C *HprintfBN(L4/) /'\n'>C
 	
-	
-	
-	
 	1=Q8=L8.0
 	L1-L8=L5 *** L5 = p-1
 	L2-L8=L6 *** L6 = q-1
-	
 	
 	Q5*2⇒Q7 OL7
 	Q7⇒k+1⇒Q7 1⇒L7k L7/L5⇒L7
@@ -341,9 +360,13 @@ crt_decrypt(L1, L2, L3, L4/L10)
 	
 **
 
-
-strToBlock(F1, L2/L2)
-	OZ Q1:4=n ?(Z=0)1 Dn
+*** преобразование блока символов в логический комплекс
+*** каждый символ это два числа в шестнадцатеричной
+*** системе счисления.
+*** требуется для алгоритма rsa
+*** e - признак ошибки
+strToBlock(F1, L2/L2, e)
+	OZ=e Q1:4=n ?(Z=0)1 Dn
 	P1
 		n=Q2
 	Oi Q2-1=j 24=s ff000000h=l
@@ -353,6 +376,20 @@ strToBlock(F1, L2/L2)
 	P3
 		Yj 24=s ffh=l ?=2
 	P4
+**
+
+
+*** преобразование блока чисел в логическом комплексе
+*** в символы в символьном комплексе
+*** требуется для алгоритма rsa
+*** e - признак ошибки
+blockToStr(L1, F2/F2, e)
+	Oe=j Q1*4=Q2
+	Q1-1=i 24=s
+	P1
+		L1i>s=F2j Dj s-8=s ?(s>24)2 ?=1
+	P2
+		Yi 24=s ?(i<Q1)1
 **
 
 
@@ -374,10 +411,8 @@ BNrsaEncrypt(r, w, L3, L4, L6, L9, L10/e)
 		*freadf(r, F1, 0, 999/k)
 		*** обработать случай, когда k может означать ошибку
 		k=Q1 Oi ?(k=0)2
-		*strToBlock(F1, L5/L5)
-		/'L5 = '>C *HprintfBN(L5/) /'\n\n'>C
-		*** *powBN_karat(L5, L3, L4/L8)
-		*** /'L8 = '>C *HprintfBN(L8/) /'\n'>C
+		*strToBlock(F1, L5/L5, e)
+		*powBN_karat(L5, L3, L4/L8)
 		OQ2 *BNtoStr(L8, F2/F2, e)
 		' '@>F2
 		*** /'e = '>C *printf(e/) /'\n'>C
@@ -385,13 +420,12 @@ BNrsaEncrypt(r, w, L3, L4, L6, L9, L10/e)
 		*** /'F2 = '>C /F2>C /'\n'>C
 		*fwritef(w, F2, 0, Q2/k)
 		*** если k меньше Q2 r = 1
-		*** /'\n##############################\n'>C
-		*** *crt_decrypt(L9, L10, L6, L8/L8)
-		*** /'##############################\n\n'>C
+		/'\n##############################\n'>C
+		*crt_decrypt(L9, L10, L6, L8/L8)
+		*blockToStr(L8, F2/F2, e)
+		/F2>C /'\n'>C
+		/'##############################\n\n'>C
 		*** *powBN_karat(L8, L6, L4/L8)
-		*** Di
-		*** 1=Q2 L8.0=F2.0 /F2>C
-		*** *HprintfBN(L8/) /' '>C
 		?=1
 	P2
 	*** /'Q1 = '>C *printf(Q1/) /'\n'>C
