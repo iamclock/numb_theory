@@ -7,8 +7,8 @@ main(/)
 	*** *extEuclAlg_test2(/)
 	*** *extEuclAlg_rowTest(/)
 	*** *rsaGen_test(/)
-	*** *rsaEncrypt_test(/)
-	*rsaDecrypt_test(/)
+	*rsaEncrypt_test(/)
+	*** *rsaDecrypt_test(/)
 	*** *ttt(/)
 **
 
@@ -374,7 +374,7 @@ strToBlock(F1, L2/L2, e)
 		ffffffffh-l=l L2j&l=L2j F1i<s=l L2j^l=L2j
 		Di s-8=s ?(i>=Q1)4 ?(s>24)3 ffh<s=l ?=2
 	P3
-		Yj 24=s ffh=l ?=2
+		Yj 24=s ff000000h=l ?=2
 	P4
 **
 
@@ -407,11 +407,15 @@ BNrsaEncrypt(r, w, L3, L4, L6, L9, L10/e)
 	@+L5(1000) OQ5
 	@+L8(1000) OQ8
 	Oe
-	P1
-		*freadf(r, F1, 0, 999/k)
+	P1 *** 124 - не фиксированное значение?
+		*** всё зависит от количества бит в ключе?
+		OQ1 *freadf(r, F1, 0, 124/k)
 		*** обработать случай, когда k может означать ошибку
 		k=Q1 Oi ?(k=0)2
 		*strToBlock(F1, L5/L5, e)
+		*** /'L5 = '>C *HprintfBN(L5/) /'\n'>C
+		*** *blockToStr(L5, F2/F2, e)
+		*** /F2>C
 		*powBN_karat(L5, L3, L4/L8)
 		OQ2 *BNtoStr(L8, F2/F2, e)
 		' '@>F2
@@ -422,10 +426,12 @@ BNrsaEncrypt(r, w, L3, L4, L6, L9, L10/e)
 		*** если k меньше Q2 r = 1
 		/'\n##############################\n'>C
 		*crt_decrypt(L9, L10, L6, L8/L8)
-		*blockToStr(L8, F2/F2, e)
-		/F2>C /'\n'>C
-		/'##############################\n\n'>C
 		*** *powBN_karat(L8, L6, L4/L8)
+		*** /'L8 = '>C *HprintfBN(L8/) /'\n'>C
+		*blockToStr(L8, F2/F2, e)
+		/F2>C
+		/'##############################\n\n'>C
+		
 		?=1
 	P2
 	*** /'Q1 = '>C *printf(Q1/) /'\n'>C
