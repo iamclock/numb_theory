@@ -342,6 +342,20 @@ crt_decrypt(L1, L2, L3, L4/L10)
 **
 
 
+strToBlock(F1, L2/L2)
+	OZ Q1:4=n ?(Z=0)1 Dn
+	P1
+		n=Q2
+	Oi Q2-1=j 24=s ff000000h=l
+	P2
+		ffffffffh-l=l L2j&l=L2j F1i<s=l L2j^l=L2j
+		Di s-8=s ?(i>=Q1)4 ?(s>24)3 ffh<s=l ?=2
+	P3
+		Yj 24=s ffh=l ?=2
+	P4
+**
+
+
 *** Алгоритм шифрования сообщения методом RSA
 *** r - дескриптор файла, с которого производить чтение
 *** сообщения
@@ -359,13 +373,10 @@ BNrsaEncrypt(r, w, L3, L4, L6, L9, L10/e)
 	P1
 		*freadf(r, F1, 0, 999/k)
 		*** обработать случай, когда k может означать ошибку
-		k=Q1 Oi ?(k=0)3
-	P2
-		?(i>=Q1)1 *** ?(i>1)3
-		1=Q5 F1i=L5.0
-		*** возведение в степень с методом карацубы на более
-		*** 899 битов выдаёт не правильные результаты
-		*powBN_karat(L5, L3, L4/L8)
+		k=Q1 Oi ?(k=0)2
+		*strToBlock(F1, L5/L5)
+		/'L5 = '>C *HprintfBN(L5/) /'\n\n'>C
+		*** *powBN_karat(L5, L3, L4/L8)
 		*** /'L8 = '>C *HprintfBN(L8/) /'\n'>C
 		OQ2 *BNtoStr(L8, F2/F2, e)
 		' '@>F2
@@ -375,14 +386,14 @@ BNrsaEncrypt(r, w, L3, L4, L6, L9, L10/e)
 		*fwritef(w, F2, 0, Q2/k)
 		*** если k меньше Q2 r = 1
 		*** /'\n##############################\n'>C
-		*crt_decrypt(L9, L10, L6, L8/L8)
+		*** *crt_decrypt(L9, L10, L6, L8/L8)
 		*** /'##############################\n\n'>C
 		*** *powBN_karat(L8, L6, L4/L8)
-		Di
-		1=Q2 L8.0=F2.0 /F2>C
+		*** Di
+		*** 1=Q2 L8.0=F2.0 /F2>C
 		*** *HprintfBN(L8/) /' '>C
-		?=2
-	P3
+		?=1
+	P2
 	*** /'Q1 = '>C *printf(Q1/) /'\n'>C
 	*** /'b = '>C *printf(b/) /'\n'>C
 **
