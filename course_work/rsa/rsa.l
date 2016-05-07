@@ -7,8 +7,8 @@ main(/)
 	*** *extEuclAlg_test2(/)
 	*** *extEuclAlg_rowTest(/)
 	*** *rsaGen_test(/)
-	*rsaEncrypt_test(/)
-	*** *rsaDecrypt_test(/)
+	*** *rsaEncrypt_test(/)
+	*rsaDecrypt_test(/)
 	*** *ttt(/)
 **
 
@@ -133,14 +133,146 @@ BNextEuclAlg(L1, L2/L3, L4, L5, f)
 
 
 rsaDecrypt_test(/)
-	@+F1(100) OQ1
+	@+F1(1000) OQ1
+	@+L2(1000) OQ2
+	@+L3(1000) OQ3
+	255=n
+	OQ1 @'0x446858CCEA8625A906BD57D2A3ED76044A01F2558A844B200C57B34F34E79EE56DD88A0914F18AC87962E6B35F02805C10DAC103E8A338C40B52CC476CA1D18059E87287B73090CEA6FDC4807C697D866BF034B0E799762BB74EE04C1B3ACEA615F70A676521693CA2DC32E5EE49ECC7EC3024544DE054F9102CF5E16FDC2E10CDC9E9B6D6D335ACB0A4DF561B13622BD44976EAED8EB81C46C787A6F9862143FB51C189D045C1AD5B380A476E67152D4766AECB33E996CFCB3F5E028CB70A9EBED4BC028F4274E3359C3DB889C277BE53225744C1A5C3550852FEC7696CFA03C5A6CD983ADF10517C37CECAA402E3B42BA18D452F9A58490BB6A12CE52B74F3'>F1
+	*inputBN_2(L2, F1/L2)
+	OQ1 @'0x669C85335FC9387D8A1C03BBF5E431066F02EB804FC670B012838CF6CF5B6E5824C4CF0D9F6A502CB6145A0D0E83C08A19482185DCF4D52610FC326B22F2BA4086DCABCB92C8D935FA7CA6C0BA9E3C49A1E84F095B66314192F6507228D835F920F28F9B17B21DDAF44A4C58E56EE32BE248367E74D07F75984370D227CA451A790164DD54959ED83F713E684D10BE621D263A0370DA0DB73B62E179A4F49E7F3745CBC9F67CC1C88A12E881F597F455C3360A0369C099B4B1AE1DB2A6FD2AF712DE48AEDE396989E3D2715BA1B2AB9E613944EA0595446CD05EBB8A303C1A7EA68F8A3EC2B1F79FE15A18A70544AAFF3C72561B09F475CA0C37CDD1CE027555'>F1
+	*inputBN_2(L3, F1/L3)
 	
 	OQ1 @'rsa_encr.txt'>F1  /F1>C /'\n'>C
-	*fopen(F1, 0/b)
+	*fopen(F1, 0/a)
+	OQ1 @'rsa_decr.txt'>F1  /F1>C /'\n'>C
+	*fopen(F1, 1/b)
+	/'descriptor a = '>C *printf(a/) /'\n'>C
 	/'descriptor b = '>C *printf(b/) /'\n'>C
-	*BNfromFile(b, L1/L1, e)
-	/'L1 = '>C *HprintfBN(L1/) /'\n'>C
+	
+	*countBits(L3/n)
+	OZ n:8=n ?(Z=0)1 Dn
+	P1
+		Yn /'n = '>C *printf(n/) /'\n'>C
+	*BNrsaDecrypt(n, a, b, L2, L3/e)
+	*fclose(a/)
+	*fclose(b/)
+	*** /'L2 = '>C *HprintfBN(L2/) /'\n'>C
 **
+
+
+
+*** 
+*** 
+*** 
+*** 
+rsaGarnersAlgorithm()
+	
+	
+	
+	
+	
+**
+
+
+*** 
+*** 
+*** 
+rsaChinRemAlg(L1, L2, L3, L4/L5)
+	@+L6(1000) *** M
+	@+L7(1000) *** M^(-1)p
+	@+L8(1000) *** M^(-1)q
+	
+	*BNinvElement(L4, L3/L7, L6)
+	*BNinvElement(L3, L4/L8, L6)
+	*karatsuba(L3, L4/L6) *** L6 = M
+	*karatsuba(L7, L4/L7) *karatsuba(L7, L1/L7)
+	*karatsuba(L8, L3/L8) *karatsuba(L8, L2/L8)
+	L7+L8;L6=L8
+	*** /'L8 = '>C *HprintfBN(L8/) /'\n'>C
+	L8=L5
+**
+
+
+
+*** расшифрование блока зашифрованного сообщения
+*** методом китайской теоремы об остатках
+*** L1 - число p из разложения числа N = p*q
+*** L2 - число q из разложения числа N = p*q
+*** L3 - число d секретная экспонента
+*** L4 - число C - зашифрованное значение
+crt_decrypt(L1, L2, L3, L4/L10)
+	@+L5(1000) OQ5 *** d mod (p-1), C^(d mod(p-1)), mp
+	@+L6(1000) OQ6 *** d mod (q-1), C^(d mod(q-1)), mq
+	@+L7(1000) OQ7 *** вспомогательное слагаемое для алгоритма баррета z
+	@+L8(1000) OQ8 *** 1
+	*** /'L1 = '>C *HprintfBN(L1/) /'\n'>C
+	*** /'L2 = '>C *HprintfBN(L2/) /'\n'>C
+	*** /'L3 = '>C *HprintfBN(L3/) /'\n'>C
+	*** /'L4 = '>C *HprintfBN(L4/) /'\n'>C
+	
+	1=Q8=L8.0
+	L1-L8=L5 *** L5 = p-1
+	L2-L8=L6 *** L6 = q-1
+	
+	Q5*2⇒Q7 OL7
+	Q7⇒k+1⇒Q7 1⇒L7k L7/L5⇒L7
+	*** *barmod(L3, L5, L7/L5) *** L5 = d mod (p-1)
+	Q5=t L3;L5=L5 t=Q5
+	
+	Q6*2⇒Q7 OL7
+	Q7⇒k+1⇒Q7 1⇒L7k L7/L6⇒L7
+	*** *barmod(L3, L6, L7/L6) *** L6 = d mod (q-1)
+	Q6=t L3;L6=L6 t=Q6
+	
+	
+	*powBN_karat(L4, L5, L1/L5) *** L5 = C^(d mod(p-1)) mod p
+	*powBN_karat(L4, L6, L2/L6) *** L6 = C^(d mod(q-1)) mod q
+	*rsaChinRemAlg(L5, L6, L1, L2/L6)
+	L6=L10
+	
+**
+
+
+
+
+
+*** Алгоритм расшифрования сообщения зашифрованного методом RSA
+*** n - число байт для считывания
+*** r - дескриптор файла для считывания
+*** w - дескриптор файла для записи
+*** L3 - число d, закрытая экспонента
+*** L4 - число n, модуль
+*** e - признак ошибки
+BNrsaDecrypt(n, r, w, L3, L4/e)
+	@+F2(1000) OQ2
+	@+L5(1000) OQ5
+	Oi=k
+	P1
+		*freadf(r, F2, 0, n/k)
+		?(k=0)2 k=Q2 *** /F2>C
+		/'k = '>C *printf(k/) /'\n'>C
+		*strToBlock(F2, L5/L5, e)
+		/'L5 = '>C *HprintfBN(L5/) /'\n'>C
+		*** *crt_decrypt(Lp, Lq, Ld, L5/L8)
+		*powBN_karat(L5, L3, L4/L5)
+		*** /'L5 = '>C *HprintfBN(L5/) /'\n'>C
+		*blockToStr(L5, F2/F2, e)
+		/F2>C
+		
+	P2
+**
+
+
+
+countBits(L1/n)
+	?(Q1=0)2 Q1-1=i*32=n
+	32=s
+	P1
+		Ys ?(s>31)2 1<s&L1i?-1 s+1+n=n
+	P2
+**
+
+
 
 
 rsaEncrypt_test(/)
@@ -156,16 +288,21 @@ rsaEncrypt_test(/)
 	*fopen(F1, 0/a)
 	OQ1 @'rsa_encr.txt'>F1  /F1>C /'\n'>C
 	*fopen(F1, 1/b)
-	?(a=0)1 ?(b=0)1
+	?(a=0)2 ?(b=0)2
 	*** /'descriptor a = '>C *printf(a/) /'\n'>C
 	/'	*******************\n'>C
 	T=t
-	*BNrsaEncrypt(a, b, L5, L4, L6, L2, L3/e)
+	*countBits(L4/n)
+	OZ n:8=n ?(Z=0)1 Dn
+	P1
+		Yn
+		/'n = '>C *printf(n/) /'\n'>C
+		*BNrsaEncrypt(n, a, b, L5, L4, L6, L2, L3/e)
 	T-t=t /'t = '>C *printf(t/) /'\n'>C
 	/'	*******************\n'>C
 	*fclose(a/)
 	*fclose(b/)
-	P1
+	P2
 **
 
 
@@ -249,23 +386,6 @@ BNrsaGen(k/L1, L2, L3, L4, L5)
 
 
 
-
-
-
-*** как определить мощность L1
-BNfromFile(r, L1/L1, e)
-	@+F2(1000)
-	Oi=s=k
-	P1
-		*freadf(r, F2, s, 999/k)
-		?(k=0)2
-		*** /'k = '>C *printf(k/) /'\n'>C
-		k=Q2=s *** /F2>C
-		*inputBN(L1, F2, 0/L1, i) s+i=s ?=1
-	P2
-**
-
-
 *** перевод большого числа в символьный комплекс
 *** e - признак ошибки
 BNtoStr(L1, F2/F2, e)
@@ -286,79 +406,6 @@ BNtoStr(L1, F2/F2, e)
 
 
 
-*** 
-*** 
-*** 
-*** 
-rsaGarnersAlgorithm()
-	
-	
-	
-	
-	
-**
-
-
-*** 
-*** 
-*** 
-rsaChinRemAlg(L1, L2, L3, L4/L5)
-	@+L6(1000) *** M
-	@+L7(1000) *** M^(-1)p
-	@+L8(1000) *** M^(-1)q
-	@+L9(1000) *** вспомогательное слагаемое для метода баррета
-	
-	*BNinvElement(L4, L3/L7, L6)
-	*BNinvElement(L3, L4/L8, L6)
-	*karatsuba(L3, L4/L6) *** L6 = M
-	
-	Q6*2⇒Q9 OL9
-	Q9⇒k+1⇒Q9 1⇒L9k L9/L6⇒L9
-	*karatsuba(L7,L4/L7) *karatsuba(L7,L1/L7)
-	*karatsuba(L8,L3/L8) *karatsuba(L8,L2/L8)
-	L7+L8;L6=L8 *** *barmod(L8, L6, L9/L8)
-	*** /'L8 = '>C *HprintfBN(L8/) /'\n'>C
-	L8=L5
-**
-
-
-
-*** расшифрование блока зашифрованного сообщения
-*** методом китайской теоремы об остатках
-*** L1 - число p из разложения числа N = p*q
-*** L2 - число q из разложения числа N = p*q
-*** L3 - число d секретная экспонента
-*** L4 - число C - расшифрованное значение
-crt_decrypt(L1, L2, L3, L4/L10)
-	@+L5(1000) OQ5 *** d mod (p-1), C^(d mod(p-1)), mp
-	@+L6(1000) OQ6 *** d mod (q-1), C^(d mod(q-1)), mq
-	@+L7(1000) OQ7 *** вспомогательное слагаемое для алгоритма баррета z
-	@+L8(1000) OQ8 *** 1
-	@+L9(1000) OQ9 *** p-1 или q-1
-	*** /'L1 = '>C *HprintfBN(L1/) /'\n'>C
-	*** /'L2 = '>C *HprintfBN(L2/) /'\n'>C
-	*** /'L3 = '>C *HprintfBN(L3/) /'\n'>C
-	*** /'L4 = '>C *HprintfBN(L4/) /'\n'>C
-	
-	1=Q8=L8.0
-	L1-L8=L5 *** L5 = p-1
-	L2-L8=L6 *** L6 = q-1
-	
-	Q5*2⇒Q7 OL7
-	Q7⇒k+1⇒Q7 1⇒L7k L7/L5⇒L7
-	Q5=t L3;L5=L5 t=Q5
-	*** *barmod(L3, L5, L7/L5) *** L5 = d mod (p-1)
-	Q6*2⇒Q7 OL7
-	Q7⇒k+1⇒Q7 1⇒L7k L7/L6⇒L7
-	Q6=t L3;L6=L6 t=Q6
-	*** *barmod(L3, L6, L7/L6) *** L6 = d mod (q-1)
-	
-	*powBN_karat(L4, L5, L1/L5) *** L5 = C^(d mod(p-1)) mod p
-	*powBN_karat(L4, L6, L2/L6) *** L6 = C^(d mod(q-1)) mod q
-	*rsaChinRemAlg(L5, L6, L1, L2/L6)
-	L6=L10
-	
-**
 
 *** преобразование блока символов в логический комплекс
 *** каждый символ это два числа в шестнадцатеричной
@@ -369,13 +416,17 @@ strToBlock(F1, L2/L2, e)
 	OZ=e Q1:4=n ?(Z=0)1 Dn
 	P1
 		n=Q2
-	Oi Q2-1=j 24=s ff000000h=l
+	Oi Q2-1=j OL2j 24=s ff000000h=l
 	P2
-		ffffffffh-l=l L2j&l=L2j F1i<s=l L2j^l=L2j
+		*** F1i<s=l L2j^l=L2j
+		F1i<s^L2j=L2j
 		Di s-8=s ?(i>=Q1)4 ?(s>24)3 ffh<s=l ?=2
 	P3
-		Yj 24=s ff000000h=l ?=2
+		Yj OL2j 24=s ff000000h=l ?=2
 	P4
+		*** /'\n\n'>C
+		*** /'L2j = '>C *Hprintf(L2j/) /'\n'>C
+		s+8=s ffffffffh>s&L2j
 **
 
 
@@ -390,10 +441,14 @@ blockToStr(L1, F2/F2, e)
 		L1i>s=F2j Dj s-8=s ?(s>24)2 ?=1
 	P2
 		Yi 24=s ?(i<Q1)1
+	P3
 **
 
 
 *** Алгоритм шифрования сообщения методом RSA
+*** n - число байт для считывания из файла. В общей
+*** сложности количество бит в этих байтах должно быть
+*** меньше бит в n(модуле, тот, что L4)
 *** r - дескриптор файла, с которого производить чтение
 *** сообщения
 *** w - дескриптор файла, в который производить запись
@@ -401,29 +456,29 @@ blockToStr(L1, F2/F2, e)
 *** L3 - e - открытая экспонента
 *** L4 - n - модуль
 *** e - признак ошибки(не то e, что выше)
-BNrsaEncrypt(r, w, L3, L4, L6, L9, L10/e)
+BNrsaEncrypt(n, r, w, L3, L4, L6, L9, L10/e)
 	@+F1(1000) OQ1
-	@+F2(1000) OQ2
+	Q4*4=t
+	@+F2(t) OQ2
 	@+L5(1000) OQ5
 	@+L8(1000) OQ8
 	Oe
-	P1 *** 124 - не фиксированное значение?
-		*** всё зависит от количества бит в ключе?
-		OQ1 *freadf(r, F1, 0, 124/k)
+	P1
+		OQ1 *freadf(r, F1, 0, n/k)
 		*** обработать случай, когда k может означать ошибку
 		k=Q1 Oi ?(k=0)2
 		*strToBlock(F1, L5/L5, e)
-		*** /'L5 = '>C *HprintfBN(L5/) /'\n'>C
-		*** *blockToStr(L5, F2/F2, e)
-		*** /F2>C
+		/'L5 = '>C *HprintfBN(L5/) /'\n'>C /'\n'>C
+		/'L4 = '>C *HprintfBN(L4/) /'\n'>C
+		*** /'Q5 = '>C *printf(Q5/) /'\n'>C
 		*powBN_karat(L5, L3, L4/L8)
-		OQ2 *BNtoStr(L8, F2/F2, e)
-		' '@>F2
+		/'Q8 = '>C *printf(Q8/) /'\n'>C
+		OQ2 *blockToStr(L8, F2/F2, e)
 		*** /'e = '>C *printf(e/) /'\n'>C
 		*** /'Q2 = '>C *printf(Q2/) /'\n'>C
 		*** /'F2 = '>C /F2>C /'\n'>C
 		*fwritef(w, F2, 0, Q2/k)
-		*** если k меньше Q2 r = 1
+		*** если k меньше Q2 e = 1
 		/'\n##############################\n'>C
 		*crt_decrypt(L9, L10, L6, L8/L8)
 		*** *powBN_karat(L8, L6, L4/L8)
@@ -431,7 +486,6 @@ BNrsaEncrypt(r, w, L3, L4, L6, L9, L10/e)
 		*blockToStr(L8, F2/F2, e)
 		/F2>C
 		/'##############################\n\n'>C
-		
 		?=1
 	P2
 	*** /'Q1 = '>C *printf(Q1/) /'\n'>C
@@ -440,13 +494,6 @@ BNrsaEncrypt(r, w, L3, L4, L6, L9, L10/e)
 
 
 
-*** Алгоритм расшифрования сообщения зашифрованного методом RSA
-*** e - признак ошибки
-BNrsaDecrypt(a, b, L3, L4/e)
-	
-	/'tasty\n'>C
-	
-**
 
 *** Алгоритм Евклида
 *** https://ru.wikipedia.org/wiki/%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC_%D0%95%D0%B2%D0%BA%D0%BB%D0%B8%D0%B4%D0%B0
