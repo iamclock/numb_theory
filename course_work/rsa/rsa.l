@@ -7,8 +7,8 @@ main(/)
 	*** *extEuclAlg_test2(/)
 	*** *extEuclAlg_rowTest(/)
 	*** *rsaGen_test(/)
-	*rsaEncrypt_test(/)
-	*** *rsaDecrypt_test(/)
+	*** *rsaEncrypt_test(/)
+	*rsaDecrypt_test(/)
 	*** *ttt(/)
 **
 
@@ -258,12 +258,13 @@ BNrsaDecrypt(n, r, w, L1, L2, L3, L4/e)
 	P1
 		*freadf(r, F5, 0, n/k)
 		?(k=0)2 k=Q5 *** /F5>C
-		/'k = '>C *printf(k/) /'\n'>C
+		/'\n\nk = '>C *printf(k/) /'\n'>C
 		*strToBlock(F5, L6/L6, e)
+		*** /'Last symb = '>C *printf(F5.254/) /'\n'>C
 		*** /'L6 = '>C *HprintfBN(L6/) /'\n'>C
 		/'Q6 = '>C *printf(Q6/) /'\n'>C
-		*** *crt_decrypt(L3, L4, L1, L6/L6)
-		*powBN_karat(L6, L1, L2/L6)
+		*crt_decrypt(L3, L4, L1, L6/L6)
+		*** *powBN_karat(L6, L1, L2/L6)
 		*** /'L6 = '>C *HprintfBN(L6/) /'\n'>C
 		*blockToStr(L6, F5/F5, e)
 		/F5>C
@@ -425,17 +426,16 @@ strToBlock(F1, L2/L2, e)
 	OZ=e Q1:4=n ?(Z=0)1 Dn
 	P1
 		n=Q2
-	Oi Q2-1=j OL2j 24=s ff000000h=l
+	Oj=s Q1-1=i OL2j
 	P2
-		*** F1i<s=l L2j^l=L2j
 		F1i<s^L2j=L2j
-		Di s-8=s ?(i>=Q1)4 ?(s>24)3 ffh<s=l ?=2
+		Yi s+8=s ?(i>=Q1)4 ?(s>24)3 ?=2
 	P3
-		Yj OL2j 24=s ff000000h=l ?=2
+		Dj OL2j=s ?=2
 	P4
 		*** /'\n\n'>C
 		*** /'L2j = '>C *Hprintf(L2j/) /'\n'>C
-		s+8=s ffffffffh>s&L2j
+		s-8=s ffffffffh>s&L2j
 **
 
 
@@ -468,7 +468,7 @@ blockToStr(L1, F2/F2, e)
 BNrsaEncrypt(n, r, w, L3, L4, L6, L9, L10/e)
 	@+F1(1000) OQ1
 	Q4*4=t
-	@+F2(1000) OQ2
+	@+F2(t) OQ2 *** поменять на t
 	@+L5(1000) OQ5
 	@+L8(1000) OQ8
 	@+L11(1000) OQ11
@@ -484,8 +484,10 @@ BNrsaEncrypt(n, r, w, L3, L4, L6, L9, L10/e)
 		*** /'L5 = '>C *HprintfBN(L5/) /'\n'>C /'\n'>C
 		/'Q5 = '>C *printf(Q5/) /'\n'>C
 		*powBN_karat(L5, L3, L4/L8)
+		/'L8 = '>C *HprintfBN(L8/) /'\n'>C /'\n'>C
 		/'Q8 = '>C *printf(Q8/) /'\n'>C
 		OQ2 *blockToStr(L8, F2/F2, e)
+		*** /'Last symb = '>C *printf(F2.254/) /'\n'>C
 		*** /'e = '>C *printf(e/) /'\n'>C
 		*** /'Q2 = '>C *printf(Q2/) /'\n'>C
 		*** /'F2 = '>C /F2>C /'\n'>C
@@ -496,7 +498,7 @@ BNrsaEncrypt(n, r, w, L3, L4, L6, L9, L10/e)
 		*** *powBN(L8, L6, L4/L11)
 		*** /'L8 = '>C *HprintfBN(L8/) /'\n'>C
 		*blockToStr(L11, F2/F2, e)
-		/F2>C
+		*** /F2>C
 		/'##############################\n\n'>C
 		?=1
 	P2
