@@ -502,7 +502,7 @@ inputBN(L2, F1, i/L2, k)
 	→10
 	§11 l⇒k-1⇒i i-e+1/8⇒Q2 i-e+1;8⇒t ∆k Ol OL2l ↑(t=0)1 Q2+1⇒Q2
 	§1
-		*** 1⇒Q3 F1i⇒F3.0 /F3>C
+		1⇒Q3 F1i⇒F3.0 /F3>C
 		*** *printf(i/) /' '>C
 		↑(F1i<48)7 ↑(F1i>57)2 F1i-'0'⇒x →4
 	§2
@@ -604,13 +604,13 @@ powBN(L1, L2, L3/L4)
 		*** /'L6= '>C *HprintfBN(L6/) /'\n'>C
 		*** /'L5= '>C *HprintfBN(L5/) /'\n'>C
 		*** /'#############\n'>C
-		L5*L6⇒L6
+		L5*L6;L3⇒L6
 		*** /'L6= '>C *HprintfBN(L6/) /'\n'>C
 		*** /'Q6 = '>C *printf(Q6/) /'\n'>C
 		*** /'L3= '>C *HprintfBN(L3/) /'\n'>C
 		*** /'Q3 = '>C *printf(Q3/) /'\n'>C
 		
-		L6;L3⇒L6 *** /'33\n'>C *** Q3⇒Q6
+		*** L6;L3⇒L6 *** /'33\n'>C *** Q3⇒Q6
 	   *** /'L6= '>C *HprintfBN(L6/) /'\n'>C
 	   
 	§2

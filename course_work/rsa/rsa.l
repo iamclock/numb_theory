@@ -7,8 +7,8 @@ main(/)
 	*** *extEuclAlg_test2(/)
 	*** *extEuclAlg_rowTest(/)
 	*** *rsaGen_test(/)
-	*** *rsaEncrypt_test(/)
-	*rsaDecrypt_test(/)
+	*rsaEncrypt_test(/)
+	*** *rsaDecrypt_test(/)
 	*** *ttt(/)
 **
 
@@ -468,10 +468,11 @@ blockToStr(L1, F2/F2, e)
 BNrsaEncrypt(n, r, w, L3, L4, L6, L9, L10/e)
 	@+F1(1000) OQ1
 	Q4*4=t
-	@+F2(t) OQ2
+	@+F2(1000) OQ2
 	@+L5(1000) OQ5
 	@+L8(1000) OQ8
-	Oe
+	@+L11(1000) OQ11
+	Oe 252=n
 	P1
 		OQ1 *freadf(r, F1, 0, n/k)
 		*** обработать случай, когда k может означать ошибку
@@ -479,6 +480,7 @@ BNrsaEncrypt(n, r, w, L3, L4, L6, L9, L10/e)
 		*strToBlock(F1, L5/L5, e)
 		*** *countBits(L4/p)
 		*** /'p = '>C *printf(p/) /'\n'>C
+		*** /'L4 = '>C *HprintfBN(L4/) /'\n'>C /'\n'>C
 		*** /'L5 = '>C *HprintfBN(L5/) /'\n'>C /'\n'>C
 		/'Q5 = '>C *printf(Q5/) /'\n'>C
 		*powBN_karat(L5, L3, L4/L8)
@@ -490,10 +492,10 @@ BNrsaEncrypt(n, r, w, L3, L4, L6, L9, L10/e)
 		*fwritef(w, F2, 0, Q2/k)
 		*** если k меньше Q2 e = 1
 		/'\n##############################\n'>C
-		*crt_decrypt(L9, L10, L6, L8/L8)
-		*** *powBN_karat(L8, L6, L4/L8)
+		*crt_decrypt(L9, L10, L6, L8/L11)
+		*** *powBN(L8, L6, L4/L11)
 		*** /'L8 = '>C *HprintfBN(L8/) /'\n'>C
-		*blockToStr(L8, F2/F2, e)
+		*blockToStr(L11, F2/F2, e)
 		/F2>C
 		/'##############################\n\n'>C
 		?=1
