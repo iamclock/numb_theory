@@ -253,16 +253,16 @@ crt_decrypt(L1, L2, L3, L4/L10)
 *** требуется для алгоритма rsa в расшифровании
 *** e - признак ошибки
 blockToStr_forDecrypt(L1, F2/F2, e)
-	Oe=j Q1*4=Q2
+	Oe=j Q1*4-1=Q2
 	Q1-1=i 24=s
 	P1
-		L1i>s=F2j ?(F2j<9)2 ?(F2j>126)2 Dj
+		L1i>s=F2j ?(F2j=0)2 Dj
 	P2
-		*** *printf(F2j/) /'\n'>C
 		s-8=s ?(s>24)3 ?=1
 	P3
 		Yi 24=s ?(i<Q1)1
-	P4
+		*** /'j = '>C *printf(j/) /'\n'>C
+		j=Q2
 **
 
 
