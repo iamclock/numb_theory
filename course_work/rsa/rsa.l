@@ -12,7 +12,11 @@ main(/)
 	********************************
 	***		freadf считывает на n-1 чисел.
 	**********************************
+	T=t
 	*rsaDecrypt_test(/)
+	T-t=t
+	/'Сколько время?\n'>C *printf(t/) /'\n'>C
+	/'Благодарю!\n'>C
 	*** *ttt(/)
 **
 
@@ -277,6 +281,7 @@ BNrsaDecrypt(n, r, w, L1, L2, L3, L4/e)
 	@+F5(1000) OQ5
 	@+L6(1000) OQ6
 	Ok n-1=l *** /'n = '>C *printf(n/) /'\n'>C
+	T=p
 	P1
 		*freadf(r, F5, 0, n/k)
 		?(k=0)2 k=Q5 *** /F5>C
@@ -285,14 +290,16 @@ BNrsaDecrypt(n, r, w, L1, L2, L3, L4/e)
 		Q6=t
 		*** /'L6 = '>C *HprintfBN(L6/) /'\n'>C
 		*** /'Q6 = '>C *printf(Q6/) /'\n'>C
-		*crt_decrypt(L3, L4, L1, L6/L6)
-		*** *powBN_karat(L6, L1, L2/L6)
+		*** *crt_decrypt(L3, L4, L1, L6/L6)
+		*powBN_karat(L6, L1, L2/L6)
 		t=Q6
 		OQ5 *blockToStr_forDecrypt(L6, F5/F5, e)
 		*fwritef(w, F5, 0, Q5/k)
 		*** /F5>C
 		?=1
 	P2
+		T-p=p
+		/'p = '>C *printf(p/) /'\n'>C
 **
 
 
@@ -323,20 +330,16 @@ rsaEncrypt_test(/)
 	/'d = '>C *HprintfBN(L6/) /'\n'>C
 	OQ1 @'text.txt'>F1
 	*fopen(F1, 0/a)
-	OQ1 @'rsa_encr.txt'>F1  /F1>C /'\n'>C
+	OQ1 @'rsa_encr.txt'>F1 *** /F1>C /'\n'>C
 	*fopen(F1, 1/b)
 	?(a=0)2 ?(b=0)2
 	*** /'descriptor a = '>C *printf(a/) /'\n'>C
-	/'	*******************\n'>C
-	T=t
 	*countBits(L4/n)
 	OZ n:8=n ?(Z=0)1 Dn
 	P1
 		Yn
-		/'n = '>C *printf(n/) /'\n'>C
+		*** /'n = '>C *printf(n/) /'\n'>C
 		*BNrsaEncrypt(n, a, b, L5, L4/e)
-	T-t=t /'t = '>C *printf(t/) /'\n'>C
-	/'	*******************\n'>C
 	*fclose(a/)
 	*fclose(b/)
 	P2
