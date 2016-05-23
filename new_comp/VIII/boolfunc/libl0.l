@@ -208,7 +208,8 @@ Hprintf(a/)
 
 
 
-n2s(a,q/F1)
+n2s(a,q/F1) *** OZ a:q⇒a Z⇒b
+	*** /'a = '>C *printf(a/) /'\n'>C *** что происходит?
 	§1 a;q⇒b a/q⇒a b+'0'⇒c ↑(b<10)2 'A'+b-10@>F1 →3
 	§2 c@>F1
 	§3 a↦1 *pervec(F1/F1)
@@ -489,16 +490,21 @@ randBN(L1/)
 *** k может вернуться больше размерности комплекса F1 => алгоритм не сработает, необходимо проверять в программе, что размер числа > 0
 *** big_int_input(L2, F1, i/L2, k) - старое название
 inputBN(L2, F1, i/L2, k)
-	Oj Ol Os
+	@+F3(1)
+	Oj⇒l⇒s *** /F1>C
 	*** первая проверка может быть лишняя из-за 8го парраграфа
 	↑(Q1=0)6 ↑(i≥Q1)8
 	*** /'i= '>C *printf(i/) /'\n'>C
 	↑(F1i≠'0')7 ∆i ↑(F1i≠'x')7 ∆i⇒l⇒e
 	*** /'e= '>C *printf(e/) /'\n'>C
 	
-	§10 ↑(l=Q1)11 ↑(F1l=32)11 ↑(F1l=10)11 ∆l →10
+	§10 ↑(l=Q1)11 ↑(F1l=32)11 ↑(F1l=10)11 ∆l
+	*** /'l = '>C *printf(l/) /'\n'>C
+	→10
 	§11 l⇒k-1⇒i i-e+1/8⇒Q2 i-e+1;8⇒t ∆k Ol OL2l ↑(t=0)1 Q2+1⇒Q2
 	§1
+		1⇒Q3 F1i⇒F3.0 /F3>C
+		*** *printf(i/) /' '>C
 		↑(F1i<48)7 ↑(F1i>57)2 F1i-'0'⇒x →4
 	§2
 		↑(F1i<65)7 ↑(F1i>70)3 F1i-'A'+10⇒x →4
@@ -594,21 +600,24 @@ powBN(L1, L2, L3/L4)
 	1⇒Q6⇒Q5⇒L6.0 Oj⇒i
 	L1;L3⇒L5 Q3*2⇒l *optimize(L5, l/L5)
 	§1
-		 ↑(i≥32)3 Ii&L2j↪2
-		 *** /'11\n'>C
-		 L5*L6⇒L6
-		 *** /'22\n'>C
-		 *** /'L6= '>C *HprintfBN(L6/) /'\n'>C
-		 *** /'L3= '>C *HprintfBN(L3/) /'\n'>C
-		 
-		 *** /'1\nQ6 = '>C *printf(Q6/) /'\n'>C
-		 *** /'Q3 = '>C *printf(Q3/) /'\n'>C
-		 
-		 L6;L3⇒L6 *** /'33\n'>C *** Q3⇒Q6
+		↑(i≥32)3 Ii&L2j↪2
+		*** /'#############\n'>C
+		*** /'L6= '>C *HprintfBN(L6/) /'\n'>C
+		*** /'L5= '>C *HprintfBN(L5/) /'\n'>C
+		*** /'#############\n'>C
+		L5*L6;L3⇒L6
+		*** /'L6= '>C *HprintfBN(L6/) /'\n'>C
+		*** /'Q6 = '>C *printf(Q6/) /'\n'>C
+		*** /'L3= '>C *HprintfBN(L3/) /'\n'>C
+		*** /'Q3 = '>C *printf(Q3/) /'\n'>C
+		
+		*** L6;L3⇒L6 *** /'33\n'>C *** Q3⇒Q6
 	   *** /'L6= '>C *HprintfBN(L6/) /'\n'>C
+	   
 	§2
-		 L5*L5;L3⇒L5
-	    *** /'L5= '>C *HprintfBN(L5/) /'\n'>C
+		L5*L5;L3⇒L5
+	   *** /'L5= '>C *HprintfBN(L5/) /'\n'>C
+	   *** /'Q5 = '>C *printf(Q5/) /'\n'>C
 	 ∆i →1
 	§3 ∆j ↑(j≥Q2)4 Oi →1
 	§4 Q6⇒Q4 L6⇒L4
@@ -630,17 +639,19 @@ powBN_bar(L1, L2, L3/L4)
 	
 	1⇒Q6⇒Q5⇒L6.0 Oj⇒i
 	*** L1;L3=L5 не заменяется на barmod(...)
-	L1;L3⇒L5 Q3+Q3⇒l *optimize(L6, l/L6) *optimize(L5, l/L5) *** *barmod(L1, L3, L7/L5)
+	L1;L3⇒L5 Q3*2⇒l
 	§1
-		 ↑(i≥32)3 Ii&L2j↪2 Q5+Q6⇒l *optimize(L6, l/L6)
-		 L6*L5⇒L6
-		 *** /'L6= '>C *HprintfBN(L6/) /'\n'>C
-		 *** /'L3= '>C *HprintfBN(L3/) /'\n'>C
-		 *barmod(L6, L3, L7/L6) *** Q3⇒Q6
-		 *** /'L6= '>C *HprintfBN(L6/) /'\n'>C
+		↑(i≥32)3 *optimize(L5, l/L5) *** в barmod обрезается мощность и без этого не работает
+		Ii&L2j↪2 *** Q5+Q6⇒l *optimize(L6, l/L6)
+		L5*L6⇒L6
+		*** /'L6= '>C *HprintfBN(L6/) /'\n'>C
+		*** /'L3= '>C *HprintfBN(L3/) /'\n'>C
+		*** /'11\n'>C
+		*barmod(L6, L3, L7/L6) *** Q3⇒Q6
+		*** /'L6= '>C *HprintfBN(L6/) /'\n'>C
 	§2
-		 Q5+Q5⇒l *optimize(L5, l/L5)
-		 L5*L5⇒L5 *barmod(L5, L3, L7/L5) *** Q3⇒Q5
+		 L5*L5⇒L5
+		 *barmod(L5, L3, L7/L5) *** Q3⇒Q5
 	   *** /'L5= '>C *HprintfBN(L5/) /'\n'>C
 	 ∆i →1
 	§3 ∆j ↑(j≥Q2)4 Oi →1
@@ -659,12 +670,22 @@ powBN_karat(L1, L2, L3/L4)
 	1⇒Q6⇒Q5⇒L6.0 Oj⇒i
 	L1;L3⇒L5 Q3+Q3⇒l *optimize(L6, l/L6) *optimize(L5, l/L5)
 	§1
-		 ↑(i≥32)3 Ii&L2j↪2
-		 *karatsuba(L5, L6/L6) L6;L3⇒L6 Q3⇒Q6
+		↑(i≥32)3 Ii&L2j↪2
+		*** /'#############\n'>C
+		*** /'L6= '>C *HprintfBN(L6/) /'\n'>C
+		*** /'L5= '>C *HprintfBN(L5/) /'\n'>C
+		*** /'#############\n'>C
+		*karatsuba(L5, L6/L6)
+		*** /'L6= '>C *HprintfBN(L6/) /'\n'>C
+		*** /'Q6 = '>C *printf(Q6/) /'\n'>C
+		*** /'L3= '>C *HprintfBN(L3/) /'\n'>C
+		*** /'Q3 = '>C *printf(Q3/) /'\n'>C
+		L6;L3⇒L6 Q3⇒Q6
 	   *** /'L6= '>C *HprintfBN(L6/) /'\n'>C
 	§2
-		 *karatsuba(L5, L5/L5) L5;L3⇒L5 Q3⇒Q5
+		*karatsuba(L5, L5/L5) L5;L3⇒L5 Q3⇒Q5
 	   *** /'L5= '>C *HprintfBN(L5/) /'\n'>C
+	   *** /'Q5 = '>C *printf(Q5/) /'\n'>C
 	 ∆i →1
 	§3 ∆j ↑(j≥Q2)4 Oi →1
 	§4 Q6⇒Q4 L6⇒L4
@@ -894,24 +915,20 @@ randPrimeBN(k/L1)
 	§1 OZ k:32⇒t Z⇒s
 		31⇒c ↑(s=0)2 s-1⇒c ∆t
 	§2
-		↑(t>S1)4 t⇒Q1
+		↑(t>S1)4 t⇒Q1 Is-1⇒s ↑(s>0)3 ffffffffh⇒s
 	§3
 		*randBN(L1/)
 		*** /'t = '>C *printf(t/) /'\n'>C
 		 Q1-1⇒t
-		 /'rBN s = '>C *printf(s/) /'\n'>C
-		 /'begin c = '>C *printf(c/) /'\n'>C
-		 /'t = '>C *printf(t/) /'\n'>C
-		 L1.0∨1⇒L1.0 *** ffffffffh-Ic⇒p
-		 L1t∨Ic⇒L1t *** 32-q⇒c
-		 /'s = '>C *printf(s/) /'\n'>C
-		 *** ffffffffh>c⇒c
-		 Is-1&L1t⇒L1t
-		 /'Current Number: '>C *HprintfBN(L1/) /'\n'>C
+		 *** /'rBN s = '>C *printf(s/) /'\n'>C
+		 *** /'begin c = '>C *printf(c/) /'\n'>C
+		 *** /'t = '>C *printf(t/) /'\n'>C
+		 L1.0∨1⇒L1.0 L1t∨Ic⇒L1t s&L1t⇒L1t
+		 *** /'Current Number: '>C *HprintfBN(L1/) /'\n'>C
 		 *miralBN(L1, 5/b)
-		 /'b = '>C *printf(b/) /'\n'>C
+		 *** /'b = '>C *printf(b/) /'\n'>C
 		  b↪3 *** ↑(b=0)3
-	§4
+	§4 *** /'Q1 = '>C *printf(Q1/) /'\n'>C
 **
 
 *** miller-rabin-algorithm()
@@ -950,7 +967,7 @@ miralBN(L1, r/b)
 		 *** /'L7 = '>C *HprintfBN(L7/) /'\n'>C
 		 *** /'L4 = '>C *HprintfBN(L4/) /'\n'>C
 		 *** /'L1 = '>C *HprintfBN(L1/) /'\n'>C
-		 *powBN(L7, L4, L1/L10) /'qq\n'>C
+		 *powBN(L7, L4, L1/L10)
 		 *** /'L10 = '>C *HprintfBN(L10/) /'\n'>C
 		 ∆i L7+L8⇒L7 1⇒L8.0
 		 *** /'L7^L4 mod L1 = '>C *HprintfBN(L10/) /'\n'>C
@@ -990,7 +1007,6 @@ countZeroesBN(L1/s)
 **
 
 
-
 *** Алгоритм карацубы перемножения 2ух больших чисел
 *** http://samos-it.com/posts/recursive-karatsuba-multiplication-python.html
 *** f - признак нулевого комплекса - требуется восстановить значение 0
@@ -1004,44 +1020,52 @@ karatsuba(L1, L2/L3)
 	@+L11(1000)
 	@+L12(1000)
 	
-	
-	
 	Q1⇒Q11 L1⇒L11 Q2⇒Q12 L2⇒L12
 	
 	*** Q2 сравнивается со старым значением Q1 (t)
 	*** мощность одного из комплексов увеличивается до максимума n
-	Q12⇒n/2⇒w ↑(Q12=Q11)1 Q11⇒t ↑(Q12>t)1 t⇒Q11⇒n/2⇒w
+	Q12⇒n/2⇒w ↑(Q12=Q11)2 ↑(Q12>Q11)1 Q11⇒n/2⇒w *optimize(L12, n/L12) →2
 	§1
-		*optimize(L11, n/L11) *optimize(L12, n/L12)
-		↑(n>50)2
-		Q11+Q12⇒Q3 OL3 1⇒L3.0 L3*L11*L12⇒L3 →8
-	
+		*optimize(L11, n/L11)
 	§2
+		↑(n>50)3
+		n*2⇒Q3 OL3 1⇒L3.0 L3*L11*L12⇒L3 *cutZerosBN(L3/L3) →8
+	
+	§3
 		n;2↪4 n⇒t+1⇒Q11⇒Q12⇒n/2⇒w OL12t OL11t
 	§4
 		L11⇒L5 Q11-w⇒Q5⇒Q4-1⇒t OL4t Q11-w*32⇒t L11>t⇒L4 w⇒Q4
-	§3
 		L12⇒L7 Q12-w⇒Q7⇒Q6-1⇒t OL6t Q12-w*32⇒t L12>t⇒L6 w⇒Q6
-	§6
 		*karatsuba(L4, L6/L8) *** A
 		*karatsuba(L5, L7/L9) *** B
+		*** /'L8 = '>C *HprintfBN(L8/) /'\n\n'>C
 		Q4⇒t+1⇒Q4 OL4t
 		Q6⇒t+1⇒Q6 OL6t
 		L4+L5⇒L4 L6+L7⇒L6
-		Q4-1⇒t ↑(L4t>0)9 t⇒Q4
-	§9
-		Q6-1⇒t ↑(L6t>0)10 t⇒Q6
-	§10
+		Q4-1⇒t ↑(L4t>0)5 t⇒Q4
+	§5
+		Q6-1⇒t ↑(L6t>0)6 t⇒Q6
+	§6
 		*karatsuba(L4, L6/L3) *** C
-	§7
+		*** /'L3 = '>C *HprintfBN(L3/) /'\n'>C
+		*** /'Q3 = '>C *printf(Q3/) /'\n\n'>C
 		Q3⇒t+w⇒Q3 OL3t
-		w⇒q*32⇒t
+		w⇒q<5⇒t
 		L3-L8-L9⇒L3
 		L3<t⇒L3
 		32*n⇒t n+Q8⇒Q8 L8<t⇒L8
+		*** Здесь возможна ситуация, когда мощность L3
+		*** больше L8, тогда требуется к L3 добавить
+		*** содержимое двух комплексов L8 и L9
+		*** иначе(Q8>Q3) к L8 добавить L3 и L9
+		↑(Q8>Q3)7 L3+L8+L9⇒L3 →8
+		*** Q3⇒l *optimize(L8, l/L8)
+	§7
 		L8+L3+L9⇒L3
 	§8
 **
+
+
 
 
 *** Алгоритм баррета приведения числа по модулю
@@ -1099,7 +1123,7 @@ barmod(L1, L2, L3/L4)
 	
 	*BN_greq(L5, L7/c) ↑(c=0)1 L5-L7⇒L6 →2
 	§1
-		L6+L5-L7⇒L6
+		L5+L6-L7⇒L6
 	§2
 		*** /'bar L6 = '>C *HprintfBN(L6/) /'\n'>C
 		*cutZerosBN(L6/L6) *BN_greq(L6, L2/c)

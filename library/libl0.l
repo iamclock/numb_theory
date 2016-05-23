@@ -208,7 +208,8 @@ Hprintf(a/)
 
 
 
-n2s(a,q/F1)
+n2s(a,q/F1) *** OZ a:q⇒a Z⇒b
+	*** /'a = '>C *printf(a/) /'\n'>C *** что происходит?
 	§1 a;q⇒b a/q⇒a b+'0'⇒c ↑(b<10)2 'A'+b-10@>F1 →3
 	§2 c@>F1
 	§3 a↦1 *pervec(F1/F1)
