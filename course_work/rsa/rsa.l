@@ -1,4 +1,8 @@
 main(/)
+	@+L1(1000) OQ1
+	@+L2(1000) OQ2
+	@+L3(1000) OQ3
+	@+L4(1000) OQ4
 	
 	
 	*** *EuclAlg_test(/)
@@ -7,17 +11,19 @@ main(/)
 	*** *extEuclAlg_test2(/)
 	*** *extEuclAlg_rowTest(/)
 	*** *rsaGen_test(/)
-	*rsaEncrypt_test(/)
+	1014=n
+	P1 ?(n<110)2
+	*rsaEncrypt_test(n/L1, L2, L3, L4)
 	
-	********************************
-	***		freadf считывает на n-1 чисел.
-	**********************************
 	T=t
-	*rsaDecrypt_test(/)
+	*rsaDecrypt_test(L4, L3, L1, L2/)
 	T-t=t
-	/'Сколько время?\n'>C *printf(t/) /'\n'>C
-	/'Благодарю!\n'>C
+	/'n = '>C *printf(n/) /'\n'>C
+	/'Время?\n'>C *printf(t/) /'\n'>C
+	n-10=n
+	*** ?=1
 	*** *ttt(/)
+	P2
 **
 
 
@@ -140,24 +146,19 @@ BNextEuclAlg(L1, L2/L3, L4, L5, f)
 *** Q2+Q8=l *optimize(L12, l/L12) 1=L12.0 L12*L2*L8=L12
 
 
-rsaDecrypt_test(/)
+
+*** L2 - закрытый ключ, d
+*** L3 - закрытый ключ, n
+*** L4 - открытый ключ, p
+*** L5 - закрытый ключ, q
+rsaDecrypt_test(L2, L3, L4, L5/)
 	@+F1(1000) OQ1
-	@+L2(1000) OQ2 *** d
-	@+L3(1000) OQ3 *** n
-	@+L4(1000) OQ4 *** p
-	@+L5(1000) OQ5 *** q
 	255=n
+	*** /'p = '>C *HprintfBN(L4/) /'\n'>C
+	*** /'q = '>C *HprintfBN(L5/) /'\n'>C
+	*** /'n = '>C *HprintfBN(L3/) /'\n'>C
+	*** /'d = '>C *HprintfBN(L2/) /'\n'>C
 	/'RSA Decrypt Algorithm\nYou`re Welcome!\n'>C
-	OQ1 @'0x446858CCEA8625A906BD57D2A3ED76044A01F2558A844B200C57B34F34E79EE56DD88A0914F18AC87962E6B35F02805C10DAC103E8A338C40B52CC476CA1D18059E87287B73090CEA6FDC4807C697D866BF034B0E799762BB74EE04C1B3ACEA615F70A676521693CA2DC32E5EE49ECC7EC3024544DE054F9102CF5E16FDC2E10CDC9E9B6D6D335ACB0A4DF561B13622BD44976EAED8EB81C46C787A6F9862143FB51C189D045C1AD5B380A476E67152D4766AECB33E996CFCB3F5E028CB70A9EBED4BC028F4274E3359C3DB889C277BE53225744C1A5C3550852FEC7696CFA03C5A6CD983ADF10517C37CECAA402E3B42BA18D452F9A58490BB6A12CE52B74F3'>F1
-	*inputBN_2(L2, F1/L2)
-	OQ1 @'0x669C85335FC9387D8A1C03BBF5E431066F02EB804FC670B012838CF6CF5B6E5824C4CF0D9F6A502CB6145A0D0E83C08A19482185DCF4D52610FC326B22F2BA4086DCABCB92C8D935FA7CA6C0BA9E3C49A1E84F095B66314192F6507228D835F920F28F9B17B21DDAF44A4C58E56EE32BE248367E74D07F75984370D227CA451A790164DD54959ED83F713E684D10BE621D263A0370DA0DB73B62E179A4F49E7F3745CBC9F67CC1C88A12E881F597F455C3360A0369C099B4B1AE1DB2A6FD2AF712DE48AEDE396989E3D2715BA1B2AB9E613944EA0595446CD05EBB8A303C1A7EA68F8A3EC2B1F79FE15A18A70544AAFF3C72561B09F475CA0C37CDD1CE027555'>F1
-	*inputBN_2(L3, F1/L3)
-	OQ1 @'0x9CE53A27538D159496C85AA5CF1D84AA324A5333E7750710182D83514FDEA24691984E7F66702FCC2F3CFC3DAA9BBD22F502980B67F5EBC87826D1692D89513E5E10DBD7174ED704284D4ED572A31A9A466B05E32FD0CD8090B10081B2081536A6E5422F345AEB3CC49CB26DF5967D1280CBFCBBFE118C383091709969C7CE2F'>F1
-	*inputBN_2(L4, F1/L4)
-	OQ1 @'0xA76D4C23BECBB8C09FB194C1555626762C6DB46F250EF27CB90A12ADDECCCA52ACB2DAFBD7A3EF785201DCD92561976EE3196BC733EC4BB488A83F45A66149CA968E52D3F006E330EB1AC5F1606BDD669E1ABC1FB34BD1ECB3313CDD60108E42573013AB360873E8E269B00919A9D85E7A340577447B65244A146B750C7977BB'>F1
-	*inputBN_2(L5, F1/L5)
-	
-	
 	
 	OQ1 @'rsa_encr.txt'>F1
 	*fopen(F1, 0/a)
@@ -169,7 +170,7 @@ rsaDecrypt_test(/)
 	*countBits(L3/n)
 	OZ n:8=n ?(Z=0)1 Dn
 	P1
-	*** /'n = '>C *printf(n/) /'\n'>C
+	/'bytsDec = '>C *printf(n/) /'\n'>C
 	*BNrsaDecrypt(n, a, b, L2, L3, L4, L5/e)
 	*fclose(a/)
 	*fclose(b/)
@@ -274,8 +275,10 @@ blockToStr_forDecrypt(L1, F2/F2, e)
 *** n - число байт для считывания
 *** r - дескриптор файла для считывания
 *** w - дескриптор файла для записи
-*** L3 - число d, закрытая экспонента
-*** L4 - число n, модуль
+*** L1 - число d, закрытая экспонента
+*** L2 - число n, модуль
+*** L3 - число p, закрытая ключ
+*** L4 - число q, закрытая ключ
 *** e - признак ошибки
 BNrsaDecrypt(n, r, w, L1, L2, L3, L4/e)
 	@+F5(1000) OQ5
@@ -284,18 +287,21 @@ BNrsaDecrypt(n, r, w, L1, L2, L3, L4/e)
 	T=p
 	P1
 		*freadf(r, F5, 0, n/k)
+		/'k = '>C *printf(k/) /'\n'>C
 		?(k=0)2 k=Q5 *** /F5>C
 		*** /'\n\nk = '>C *printf(k/) /'\n'>C
 		*strToBlock(F5, L6/L6, e)
 		Q6=t
 		*** /'L6 = '>C *HprintfBN(L6/) /'\n'>C
-		*** /'Q6 = '>C *printf(Q6/) /'\n'>C
+		/'Q6 = '>C *printf(Q6/) /'\n'>C
 		*crt_decrypt(L3, L4, L1, L6/L6)
 		*** *powBN_karat(L6, L1, L2/L6)
+		*** /'L6 = '>C *HprintfBN(L6/) /'\n'>C
+		/'Q6 = '>C *printf(Q6/) /'\n'>C
 		t=Q6
 		OQ5 *blockToStr_forDecrypt(L6, F5/F5, e)
 		*fwritef(w, F5, 0, Q5/k)
-		*** /F5>C
+		/F5>C
 		?=1
 	P2
 		T-p=p
@@ -314,20 +320,21 @@ countBits(L1/n)
 
 
 
-
-rsaEncrypt_test(/)
+*** k - количество бит
+*** L2 - закрытый ключ, p
+*** L3 - закрытый ключ, q
+*** L4 - открытый ключ, n
+*** L5 - открытый ключ, e
+*** L6 - закрытый ключ, d
+rsaEncrypt_test(k/L2, L3, L4, L6)
 	@+F1(100) OQ1
-	@+L2(1000) OQ2
-	@+L3(1000) OQ3
-	@+L4(1000) OQ4
 	@+L5(1000) OQ5
-	@+L6(1000) OQ6
-	*BNrsaGen(1024/L2, L3, L4, L5, L6)
-	/'p = '>C *HprintfBN(L2/) /'\n'>C
-	/'q = '>C *HprintfBN(L3/) /'\n'>C
-	/'n = '>C *HprintfBN(L4/) /'\n'>C
-	/'e = '>C *HprintfBN(L5/) /'\n'>C
-	/'d = '>C *HprintfBN(L6/) /'\n'>C
+	*BNrsaGen(k/L2, L3, L4, L5, L6)
+	*** /'p = '>C *HprintfBN(L2/) /'\n'>C
+	*** /'q = '>C *HprintfBN(L3/) /'\n'>C
+	*** /'n = '>C *HprintfBN(L4/) /'\n'>C
+	*** /'e = '>C *HprintfBN(L5/) /'\n'>C
+	*** /'d = '>C *HprintfBN(L6/) /'\n'>C
 	OQ1 @'text.txt'>F1
 	*fopen(F1, 0/a)
 	OQ1 @'rsa_encr.txt'>F1 *** /F1>C /'\n'>C
@@ -338,7 +345,7 @@ rsaEncrypt_test(/)
 	OZ n:8=n ?(Z=0)1 Dn
 	P1
 		Yn
-		*** /'n = '>C *printf(n/) /'\n'>C
+		/'bytesEncr = '>C *printf(n/) /'\n'>C
 		*BNrsaEncrypt(n, a, b, L5, L4/e)
 	*fclose(a/)
 	*fclose(b/)
@@ -348,11 +355,11 @@ rsaEncrypt_test(/)
 
 *** https://ru.wikipedia.org/wiki/RSA#.D0.9F.D1.80.D0.B8.D0.BC.D0.B5.D1.80
 *** генерация ключей для алгоритма RSA
-*** L1 - открытый ключ, p
+*** L1 - закрытый ключ, p
 *** L2 - закрытый ключ, q
 *** L3 - открытый ключ, n
 *** L4 - открытый ключ, e
-*** L5 - открытый ключ, d
+*** L5 - закрытый ключ, d
 BNrsaGen(k/L1, L2, L3, L4, L5)
 	@+L6(1000) OQ6
 	@+L7(1000) OQ7
@@ -378,6 +385,7 @@ BNrsaGen(k/L1, L2, L3, L4, L5)
 		X X X X X X X X X X X X
 		X X X X X X X X X X X X
 		X X X X X X X X X X X X
+		*** T=X
 		/'p generates... '>C
 		*randPrimeBN(k/L1)
 		X X X X X X X X X X X X
@@ -391,6 +399,7 @@ BNrsaGen(k/L1, L2, L3, L4, L5)
 		X X X X X X X X X X X X
 		X X X X X X X X X X X X
 		X X X X X X X X X X X X
+		*** T=X
 		/'\nq generates... '>C
 		*randPrimeBN(k/L2)
 		/'\nDone\n'>C
@@ -474,8 +483,14 @@ strToBlock(F1, L2/L2, e)
 *** требуется для алгоритма rsa
 *** e - признак ошибки
 blockToStr(L1, F2/F2, e)
-	Oe=j Q1*4=Q2
-	Q1-1=i 24=s
+	Oe=j Q1-1=i*4=Q2
+	24=s ff000000h=l
+	P4
+		L1i&l=t ?(t>0)5 ?=6
+	P5
+		Q2+1=Q2
+	P6
+		l>8=l ?(l>0)4
 	P1
 		L1i>s=F2j
 		*** *printf(F2j/) /'\n'>C
@@ -507,6 +522,7 @@ BNrsaEncrypt(n, r, w, L3, L4/e)
 	Oe
 	P1
 		OQ1 *freadf(r, F1, 0, n/k)
+		*** /'k = '>C *printf(k/) /'\n'>C
 		*** обработать случай, когда k может означать ошибку
 		k=Q1 Oi ?(k=0)2
 		*strToBlock(F1, L5/L5, e)
@@ -515,8 +531,9 @@ BNrsaEncrypt(n, r, w, L3, L4/e)
 		*** /'L8 = '>C *HprintfBN(L8/) /'\n'>C /'\n'>C
 		*** /'Q8 = '>C *printf(Q8/) /'\n'>C
 		OQ2 *blockToStr(L8, F2/F2, e)
-		*** /'Q2 = '>C *printf(Q2/) /'\n'>C
+		/'Q2 = '>C *printf(Q2/) /'\n'>C
 		*fwritef(w, F2, 0, Q2/k)
+		/'k = '>C *printf(k/) /'\n'>C
 		*** если k меньше Q2 e = 1
 		?=1
 	P2
