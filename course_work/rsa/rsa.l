@@ -11,7 +11,7 @@ main(/)
 	*** *extEuclAlg_test2(/)
 	*** *extEuclAlg_rowTest(/)
 	*** *rsaGen_test(/)
-	1024=n
+	994=n
 	P1 ?(n<110)2
 	*rsaEncrypt_test(n/L1, L2, L3, L4)
 	
@@ -519,8 +519,9 @@ BNrsaEncrypt(n, r, w, L3, L4/e)
 	@+L5(1000) OQ5
 	@+L8(1000) OQ8
 	@+L11(1000) OQ11
-	Oe
+	Oe /'n = '>C *printf(n/) /'\n'>C
 	P1
+		
 		OQ1 *freadf(r, F1, 0, n/k)
 		*** /'k = '>C *printf(k/) /'\n'>C
 		*** обработать случай, когда k может означать ошибку
