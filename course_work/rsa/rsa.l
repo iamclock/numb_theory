@@ -11,7 +11,7 @@ main(/)
 	*** *extEuclAlg_test2(/)
 	*** *extEuclAlg_rowTest(/)
 	*** *rsaGen_test(/)
-	1014=n
+	1024=n
 	P1 ?(n<110)2
 	*rsaEncrypt_test(n/L1, L2, L3, L4)
 	
@@ -21,7 +21,7 @@ main(/)
 	/'n = '>C *printf(n/) /'\n'>C
 	/'Время?\n'>C *printf(t/) /'\n'>C
 	n-10=n
-	*** ?=1
+	?=1
 	*** *ttt(/)
 	P2
 **
@@ -167,8 +167,8 @@ rsaDecrypt_test(L2, L3, L4, L5/)
 	*** /'descriptor a = '>C *printf(a/) /'\n'>C
 	*** /'descriptor b = '>C *printf(b/) /'\n'>C
 	
-	*countBits(L3/n)
-	OZ n:8=n ?(Z=0)1 Dn
+	*** *countBits(L3/n)
+	Q3*4=n
 	P1
 	/'bytsDec = '>C *printf(n/) /'\n'>C
 	*BNrsaDecrypt(n, a, b, L2, L3, L4, L5/e)
@@ -283,21 +283,21 @@ blockToStr_forDecrypt(L1, F2/F2, e)
 BNrsaDecrypt(n, r, w, L1, L2, L3, L4/e)
 	@+F5(1000) OQ5
 	@+L6(1000) OQ6
-	Ok n-1=l *** /'n = '>C *printf(n/) /'\n'>C
-	T=p
+	Ok n-1=l *** /'n Dec = '>C *printf(n/) /'\n'>C
+	T=p 
 	P1
 		*freadf(r, F5, 0, n/k)
-		/'k = '>C *printf(k/) /'\n'>C
+		*** /'k = '>C *printf(k/) /'\n'>C
 		?(k=0)2 k=Q5 *** /F5>C
 		*** /'\n\nk = '>C *printf(k/) /'\n'>C
 		*strToBlock(F5, L6/L6, e)
 		Q6=t
 		*** /'L6 = '>C *HprintfBN(L6/) /'\n'>C
-		/'Q6 = '>C *printf(Q6/) /'\n'>C
+		*** /'Q6 = '>C *printf(Q6/) /'\n'>C
 		*crt_decrypt(L3, L4, L1, L6/L6)
 		*** *powBN_karat(L6, L1, L2/L6)
 		*** /'L6 = '>C *HprintfBN(L6/) /'\n'>C
-		/'Q6 = '>C *printf(Q6/) /'\n'>C
+		*** /'Q6 = '>C *printf(Q6/) /'\n'>C
 		t=Q6
 		OQ5 *blockToStr_forDecrypt(L6, F5/F5, e)
 		*fwritef(w, F5, 0, Q5/k)
@@ -483,14 +483,14 @@ strToBlock(F1, L2/L2, e)
 *** требуется для алгоритма rsa
 *** e - признак ошибки
 blockToStr(L1, F2/F2, e)
-	Oe=j Q1-1=i*4=Q2
+	Oe=j Q1-1=i+1*4=Q2
 	24=s ff000000h=l
 	P4
-		L1i&l=t ?(t>0)5 ?=6
+		*** L1i&l=t ?(t>0)5 ?=6
 	P5
-		Q2+1=Q2
+		*** Q2+1=Q2
 	P6
-		l>8=l ?(l>0)4
+		*** l>8=l ?(l>0)4
 	P1
 		L1i>s=F2j
 		*** *printf(F2j/) /'\n'>C
@@ -528,12 +528,14 @@ BNrsaEncrypt(n, r, w, L3, L4/e)
 		*strToBlock(F1, L5/L5, e)
 		*** /'\n\n ##################################\n\n'>C
 		*powBN_karat(L5, L3, L4/L8)
+		*** /'L4 = '>C *HprintfBN(L4/) /'\n'>C /'\n'>C
+		*** /'L5 = '>C *HprintfBN(L5/) /'\n'>C /'\n'>C
 		*** /'L8 = '>C *HprintfBN(L8/) /'\n'>C /'\n'>C
 		*** /'Q8 = '>C *printf(Q8/) /'\n'>C
 		OQ2 *blockToStr(L8, F2/F2, e)
-		/'Q2 = '>C *printf(Q2/) /'\n'>C
+		*** /'Q2 = '>C *printf(Q2/) /'\n'>C
 		*fwritef(w, F2, 0, Q2/k)
-		/'k = '>C *printf(k/) /'\n'>C
+		*** /'k = '>C *printf(k/) /'\n'>C
 		*** если k меньше Q2 e = 1
 		?=1
 	P2
