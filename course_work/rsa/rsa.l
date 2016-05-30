@@ -11,7 +11,8 @@ main(/)
 	*** *extEuclAlg_test2(/)
 	*** *extEuclAlg_rowTest(/)
 	*** *rsaGen_test(/)
-	994=n
+	*** 1024=n
+	504=n
 	P1 ?(n<110)2
 	*rsaEncrypt_test(n/L1, L2, L3, L4)
 	
@@ -20,8 +21,9 @@ main(/)
 	T-t=t
 	/'n = '>C *printf(n/) /'\n'>C
 	/'Время?\n'>C *printf(t/) /'\n'>C
+	/'\n**************************************************\n'>C
 	n-10=n
-	?=1
+	*** ?=1
 	*** *ttt(/)
 	P2
 **
@@ -170,7 +172,7 @@ rsaDecrypt_test(L2, L3, L4, L5/)
 	*** *countBits(L3/n)
 	Q3*4=n
 	P1
-	/'bytsDec = '>C *printf(n/) /'\n'>C
+	*** /'bytsDec = '>C *printf(n/) /'\n'>C
 	*BNrsaDecrypt(n, a, b, L2, L3, L4, L5/e)
 	*fclose(a/)
 	*fclose(b/)
@@ -283,7 +285,7 @@ blockToStr_forDecrypt(L1, F2/F2, e)
 BNrsaDecrypt(n, r, w, L1, L2, L3, L4/e)
 	@+F5(1000) OQ5
 	@+L6(1000) OQ6
-	Ok n-1=l *** /'n Dec = '>C *printf(n/) /'\n'>C
+	Ok n-1=l /'n Dec = '>C *printf(n/) /'\n'>C
 	T=p 
 	P1
 		*freadf(r, F5, 0, n/k)
@@ -293,11 +295,11 @@ BNrsaDecrypt(n, r, w, L1, L2, L3, L4/e)
 		*strToBlock(F5, L6/L6, e)
 		Q6=t
 		*** /'L6 = '>C *HprintfBN(L6/) /'\n'>C
-		*** /'Q6 = '>C *printf(Q6/) /'\n'>C
+		/'\nQ6 = '>C *printf(Q6/) /'\n'>C
 		*crt_decrypt(L3, L4, L1, L6/L6)
 		*** *powBN_karat(L6, L1, L2/L6)
 		*** /'L6 = '>C *HprintfBN(L6/) /'\n'>C
-		*** /'Q6 = '>C *printf(Q6/) /'\n'>C
+		/'Q6 = '>C *printf(Q6/) /'\n'>C
 		t=Q6
 		OQ5 *blockToStr_forDecrypt(L6, F5/F5, e)
 		*fwritef(w, F5, 0, Q5/k)
@@ -345,7 +347,7 @@ rsaEncrypt_test(k/L2, L3, L4, L6)
 	OZ n:8=n ?(Z=0)1 Dn
 	P1
 		Yn
-		/'bytesEncr = '>C *printf(n/) /'\n'>C
+		*** /'bytesEncr = '>C *printf(n/) /'\n'>C
 		*BNrsaEncrypt(n, a, b, L5, L4/e)
 	*fclose(a/)
 	*fclose(b/)
@@ -485,12 +487,6 @@ strToBlock(F1, L2/L2, e)
 blockToStr(L1, F2/F2, e)
 	Oe=j Q1-1=i+1*4=Q2
 	24=s ff000000h=l
-	P4
-		*** L1i&l=t ?(t>0)5 ?=6
-	P5
-		*** Q2+1=Q2
-	P6
-		*** l>8=l ?(l>0)4
 	P1
 		L1i>s=F2j
 		*** *printf(F2j/) /'\n'>C
@@ -527,12 +523,16 @@ BNrsaEncrypt(n, r, w, L3, L4/e)
 		*** обработать случай, когда k может означать ошибку
 		k=Q1 Oi ?(k=0)2
 		*strToBlock(F1, L5/L5, e)
+		/F1>C
 		*** /'\n\n ##################################\n\n'>C
+		/'\nQ4 = '>C *printf(Q4/) /'\n'>C
+		Q4-1=t OL8t
 		*powBN_karat(L5, L3, L4/L8)
 		*** /'L4 = '>C *HprintfBN(L4/) /'\n'>C /'\n'>C
 		*** /'L5 = '>C *HprintfBN(L5/) /'\n'>C /'\n'>C
 		*** /'L8 = '>C *HprintfBN(L8/) /'\n'>C /'\n'>C
-		*** /'Q8 = '>C *printf(Q8/) /'\n'>C
+		/'Q8 = '>C *printf(Q8/) /'\n'>C
+		Q4=Q8
 		OQ2 *blockToStr(L8, F2/F2, e)
 		*** /'Q2 = '>C *printf(Q2/) /'\n'>C
 		*fwritef(w, F2, 0, Q2/k)
