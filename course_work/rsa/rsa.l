@@ -22,12 +22,15 @@ main(/)
 	/'n = '>C *printf(n/) /'\n'>C
 	/'Время?\n'>C *printf(t/) /'\n'>C
 	/'\n**************************************************\n'>C
+	?(n<490)2
 	n-10=n
-	?(n<10)2 ?=1
+	?=1
 	*** *ttt(/)
 	P2
 **
 
+
+*** echo -n > rsa_encr.txt > rsa_decr.txt && ./rsa_ | tee output.txt
 
 *** возможна проблема, если числа будут отрицательными в rsaGen
 *** в powBN_bar L1;L3=L5 не заменяется на barmod(...)
@@ -201,22 +204,37 @@ rsaChinRemAlg(L1, L2, L3, L4/L5)
 	@+L6(1000) *** M
 	@+L7(1000) *** M^(-1)p
 	@+L8(1000) *** M^(-1)q
+	*** /'\n\nrsaChinRemAlg:\n'>C
+	
 	
 	*BNinvElement(L4, L3/L7, L6)
+	*** /'L6 = '>C *HprintfBN(L6/) /'\n\n'>C
+	*** /'L7 = '>C *HprintfBN(L7/) /'\n\n'>C
 	*BNinvElement(L3, L4/L8, L6)
+	*** /'L6 = '>C *HprintfBN(L6/) /'\n\n'>C
+	*** /'L8 = '>C *HprintfBN(L8/) /'\n\n'>C
 	*karatsuba(L3, L4/L6) *** L6 = M
-	*karatsuba(L7, L4/L7) *karatsuba(L7, L1/L7)
-	*karatsuba(L8, L3/L8) *karatsuba(L8, L2/L8)
+	*** /'L6 = '>C *HprintfBN(L6/) /'\n\n'>C
+	*karatsuba(L7, L4/L7)
+	*** /'L7 = '>C *HprintfBN(L7/) /'\n\n'>C
+	*karatsuba(L7, L1/L7)
+	*** /'L7 = '>C *HprintfBN(L7/) /'\n\n'>C
+	*karatsuba(L8, L3/L8)
+	*** /'L8 = '>C *HprintfBN(L8/) /'\n\n'>C
+	*karatsuba(L8, L2/L8)
+	*** /'L8 = '>C *HprintfBN(L8/) /'\n\n'>C
 	*** /'Q7 = '>C *printf(Q7/) /'\n'>C
 	*** /'Q8 = '>C *printf(Q8/) /'\n'>C
 	*** /'L7 = '>C *HprintfBN(L7/) /'\n\n'>C
 	*** /'L8 = '>C *HprintfBN(L8/) /'\n\n'>C
-	?(Q7>Q8)2
-	P1
-		L8+L7;L6=L8 ?=3
-	P2
-		L7+L8;L6=L8
-	P3
+	*** ?(Q7>Q8)2
+	*** P1
+	Q7+Q8=l *optimize(L8, l/L8)
+	L8+L7;L6=L8 *** ?=3
+	*** P2
+		*** L7+L8;L6=L8
+	*** P3
+		Q6=Q8
 	*** /'L8 = '>C *HprintfBN(L8/) /'\n'>C
 	L8=L5
 **
@@ -262,9 +280,15 @@ crt_decrypt(L1, L2, L3, L4/L10)
 	*** *barmod(L3, L6, L7/L6) *** L6 = d mod (q-1)
 	Q6=t L3;L6=L6 t=Q6 *** L6 = d mod (q-1)
 	
+	*** /'dp = '>C *HprintfBN(L5/) /'\n\n'>C
+	*** /'dq = '>C *HprintfBN(L6/) /'\n\n'>C
 	
 	*powBN_karat(L4, L5, L1/L5) *** L5 = C^(d mod(p-1)) mod p
 	*powBN_karat(L4, L6, L2/L6) *** L6 = C^(d mod(q-1)) mod q
+	
+	*** /'Cp = '>C *HprintfBN(L5/) /'\n\n'>C
+	*** /'Cq = '>C *HprintfBN(L6/) /'\n\n'>C
+	
 	*rsaChinRemAlg(L5, L6, L1, L2/L6)
 	*** /'result = '>C *HprintfBN(L6/) /'\n'>C
 	
@@ -305,18 +329,23 @@ blockToStr_forDecrypt(L1, F2/F2, e)
 BNrsaDecrypt(n, r, w, L1, L2, L3, L4/e)
 	@+F5(1000) OQ5
 	@+L6(1000) OQ6
-	Ok n-1=l *** /'n Dec = '>C *printf(n/) /'\n'>C
+	Ok *** /'n Dec = '>C *printf(n/) /'\n'>C
 	T=p 
 	P1
+		Ok
 		*freadf(r, F5, 0, n/k)
 		*** /'k = '>C *printf(k/) /'\n'>C
 		?(k=0)2 k=Q5 *** /F5>C
 		*** /'\n\nk = '>C *printf(k/) /'\n'>C
 		*strToBlock(F5, L6/L6, e)
+		*** /'\n\nQ5 = '>C *printf(Q5/) /'\n'>C
 		Q6=t
+		*** /'L6 encrypted:\n'>C
+		*** /'L6 = '>C *HprintfBN(L6/) /'\n\n'>C
 		*crt_decrypt(L3, L4, L1, L6/L6)
 		*** *powBN_karat(L6, L1, L2/L6)
-		*** /'L6 = '>C *HprintfBN(L6/) /'\n'>C
+		*** /'L6 decrypted:\n'>C
+		*** /'L6 = '>C *HprintfBN(L6/) /'\n\n'>C
 		*** /'Q6 = '>C *printf(Q6/) /'\n'>C
 		t=Q6
 		OQ5 *blockToStr_forDecrypt(L6, F5/F5, e)
@@ -325,7 +354,7 @@ BNrsaDecrypt(n, r, w, L1, L2, L3, L4/e)
 		?=1
 	P2
 		T-p=p
-		/'p = '>C *printf(p/) /'\n'>C
+		/'\np = '>C *printf(p/) /'\n'>C
 **
 
 
@@ -489,7 +518,7 @@ strToBlock(F1, L2/L2, e)
 	Oj=s Q1-1=i OL2j
 	P2
 		*** *printf(F1i/) /'\n'>C
-		F1i<s^L2j=L2j
+		F1i<s|L2j=L2j
 		Yi s+8=s ?(i>=Q1)4 ?(s>24)3 ?=2
 	P3
 		Dj OL2j=s ?=2
@@ -504,7 +533,7 @@ strToBlock(F1, L2/L2, e)
 *** e - признак ошибки
 blockToStr(L1, F2/F2, e)
 	Oe=j Q1-1=i+1*4=Q2
-	24=s ff000000h=l
+	24=s
 	P1
 		L1i>s=F2j
 		*** *printf(F2j/) /'\n'>C
@@ -548,8 +577,8 @@ BNrsaEncrypt(n, r, w, L3, L4/e)
 		Q4-1=t OL8t
 		*powBN_karat(L5, L3, L4/L8)
 		*** /'L4 = '>C *HprintfBN(L4/) /'\n'>C /'\n'>C
-		*** /'L5 = '>C *HprintfBN(L5/) /'\n'>C /'\n'>C
-		*** /'L8 = '>C *HprintfBN(L8/) /'\n'>C /'\n'>C
+		*** /'L8 = '>C *HprintfBN(L8/) /'\n\n'>C
+		*** /'L5 = '>C *HprintfBN(L5/) /'\n\n'>C
 		*** /'Q8 = '>C *printf(Q8/) /'\n'>C
 		Q4=Q8
 		OQ2 *blockToStr(L8, F2/F2, e)
