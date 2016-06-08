@@ -22,7 +22,7 @@ main(/)
 	/'n = '>C *printf(n/) /'\n'>C
 	/'Время?\n'>C *printf(t/) /'\n'>C
 	/'\n**************************************************\n'>C
-	?(n<490)2
+	?(n<10)2
 	n-10=n
 	?=1
 	*** *ttt(/)
@@ -163,7 +163,7 @@ rsaDecrypt_test(L2, L3, L4, L5/)
 	*** /'q = '>C *HprintfBN(L5/) /'\n'>C
 	*** /'n = '>C *HprintfBN(L3/) /'\n'>C
 	*** /'d = '>C *HprintfBN(L2/) /'\n'>C
-	/'		RSA Decrypt Algorithm\nYou`re Welcome!\n'>C
+	/'		RSA Decrypt Algorithm\n		You`re Welcome!\n'>C
 	
 	OQ1 @'rsa_encr.txt'>F1
 	*fopen(F1, 0/a)
@@ -342,15 +342,15 @@ BNrsaDecrypt(n, r, w, L1, L2, L3, L4/e)
 		Q6=t
 		*** /'L6 encrypted:\n'>C
 		*** /'L6 = '>C *HprintfBN(L6/) /'\n\n'>C
-		*crt_decrypt(L3, L4, L1, L6/L6)
-		*** *powBN_karat(L6, L1, L2/L6)
+		*** *crt_decrypt(L3, L4, L1, L6/L6)
+		*powBN_karat(L6, L1, L2/L6)
 		*** /'L6 decrypted:\n'>C
 		*** /'L6 = '>C *HprintfBN(L6/) /'\n\n'>C
 		*** /'Q6 = '>C *printf(Q6/) /'\n'>C
 		t=Q6
 		OQ5 *blockToStr_forDecrypt(L6, F5/F5, e)
 		*fwritef(w, F5, 0, Q5/k)
-		/F5>C
+		*** /F5>C
 		?=1
 	P2
 		T-p=p
