@@ -3,8 +3,9 @@ main(/)
 	@+L2(1000) OQ2
 	@+L3(1000) OQ3
 	@+L4(1000) OQ4
-	
-	
+	@+F5(100)
+	/F5<C
+	*s2n(F5, 10/n)
 	*** *EuclAlg_test(/)
 	*** *dih_bar_test(/)
 	*** *degree_tset(/)
@@ -12,8 +13,8 @@ main(/)
 	*** *extEuclAlg_rowTest(/)
 	*** *rsaGen_test(/)
 	*** 1024=n
-	4=n
 	P1
+	*printf(n/) /'\n'>C
 	*rsaEncrypt_test(n/L1, L2, L3, L4)
 	
 	T=t
@@ -342,15 +343,15 @@ BNrsaDecrypt(n, r, w, L1, L2, L3, L4/e)
 		Q6=t
 		*** /'L6 encrypted:\n'>C
 		*** /'L6 = '>C *HprintfBN(L6/) /'\n\n'>C
-		*crt_decrypt(L3, L4, L1, L6/L6)
-		*** *powBN_karat(L6, L1, L2/L6)
+		*** *crt_decrypt(L3, L4, L1, L6/L6)
+		*powBN_karat(L6, L1, L2/L6)
 		*** /'L6 decrypted:\n'>C
 		*** /'L6 = '>C *HprintfBN(L6/) /'\n\n'>C
 		*** /'Q6 = '>C *printf(Q6/) /'\n'>C
 		t=Q6
 		OQ5 *blockToStr_forDecrypt(L6, F5/F5, e)
 		*fwritef(w, F5, 0, Q5/k)
-		/F5>C
+		*** /F5>C
 		?=1
 	P2
 		T-p=p
@@ -379,11 +380,11 @@ rsaEncrypt_test(k/L2, L3, L4, L6)
 	@+F1(100) OQ1
 	@+L5(1000) OQ5
 	*BNrsaGen(k/L2, L3, L4, L5, L6)
-	/'p = '>C *HprintfBN(L2/) /'\n'>C
-	/'q = '>C *HprintfBN(L3/) /'\n'>C
-	/'n = '>C *HprintfBN(L4/) /'\n'>C
-	/'e = '>C *HprintfBN(L5/) /'\n'>C
-	/'d = '>C *HprintfBN(L6/) /'\n'>C
+	*** /'p = '>C *HprintfBN(L2/) /'\n'>C
+	*** /'q = '>C *HprintfBN(L3/) /'\n'>C
+	*** /'n = '>C *HprintfBN(L4/) /'\n'>C
+	*** /'e = '>C *HprintfBN(L5/) /'\n'>C
+	*** /'d = '>C *HprintfBN(L6/) /'\n'>C
 	OQ1 @'text.txt'>F1
 	*fopen(F1, 0/a)
 	OQ1 @'rsa_encr.txt'>F1 *** /F1>C /'\n'>C
