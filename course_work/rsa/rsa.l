@@ -13,7 +13,7 @@ main(/)
 	*** *extEuclAlg_rowTest(/)
 	*** *rsaGen_test(/)
 	*** 1024=n
-	P1
+	*** P1
 	*printf(n/) /'\n'>C
 	*rsaEncrypt_test(n/L1, L2, L3, L4)
 	
@@ -23,8 +23,8 @@ main(/)
 	/'n = '>C *printf(n/) /'\n'>C
 	/'Время?\n'>C *printf(t/) /'\n'>C
 	/'\n**************************************************\n'>C
-	?(n<10)2
-	n-10=n
+	*** ?(n<10)2
+	*** n-10=n
 	*** ?=1
 	*** *ttt(/)
 	P2
@@ -40,6 +40,26 @@ main(/)
 ***********************************************************
 *********************    Алгоритмы    *********************
 ***********************************************************
+
+
+emptyShot(n/)
+	Oi
+	P1
+		X X X X X X X X X X X X
+		X X X X X X X X X X X X
+		X X X X X X X X X X X X
+		X X X X X X X X X X X X
+		X X X X X X X X X X X X
+		X X X X X X X X X X X X
+		X X X X X X X X X X X X
+		X X X X X X X X X X X X
+		X X X X X X X X X X X X
+		X X X X X X X X X X X X
+		X X X X X X X X X X X X
+		Di ?(i<n)1
+	P2
+**
+
 
 
 
@@ -427,31 +447,13 @@ BNrsaGen(k/L1, L2, L3, L4, L5)
 	*** /'s = '>C *printf(s/) /'\n'>C
 	P1
 		q+s=Q1=Q2
-		X X X X X X X X X X X X
-		X X X X X X X X X X X X
-		X X X X X X X X X X X X
-		X X X X X X X X X X X X
-		X X X X X X X X X X X X
-		X X X X X X X X X X X X
-		X X X X X X X X X X X X
-		X X X X X X X X X X X X
-		X X X X X X X X X X X X
-		X X X X X X X X X X X X
-		X X X X X X X X X X X X
+		k/10=r 102-r*3+1=r
+		*emptyShot(r/)
 		*** T=X
+		/'k = '>C *printf(k/) /'\n'>C
 		/'p generates... '>C
 		*randPrimeBN(k/L1)
-		X X X X X X X X X X X X
-		X X X X X X X X X X X X
-		X X X X X X X X X X X X
-		X X X X X X X X X X X X
-		X X X X X X X X X X X X
-		X X X X X X X X X X X X
-		X X X X X X X X X X X X
-		X X X X X X X X X X X X
-		X X X X X X X X X X X X
-		X X X X X X X X X X X X
-		X X X X X X X X X X X X
+		*emptyShot(1/)
 		*** T=X
 		/'\nq generates... '>C
 		*randPrimeBN(k/L2)
