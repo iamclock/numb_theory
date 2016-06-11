@@ -447,7 +447,7 @@ BNrsaGen(k/L1, L2, L3, L4, L5)
 	*** /'s = '>C *printf(s/) /'\n'>C
 	P1
 		q+s=Q1=Q2
-		k/10=r 102-r*3+1=r
+		k/10=r 102-r*2+1=r
 		*emptyShot(r/)
 		*** T=X
 		/'k = '>C *printf(k/) /'\n'>C
