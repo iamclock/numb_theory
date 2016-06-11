@@ -485,7 +485,7 @@ div_mul_test(L1, L2/L3)
 randBN(L1/)
 	Q1⇒i X
 	§1 i↪2 ∇i OL1i
-	X&ff000000h∨L1i⇒L1i X>8&00ff0000h∨L1i⇒L1i X>16&0000ff00h∨L1i⇒L1i X>24&0000ffh∨L1i⇒L1i →1
+	X&ffff0000h∨L1i⇒L1i X>16&0000ffffh∨L1i⇒L1i →1
 	§2
 **
 
