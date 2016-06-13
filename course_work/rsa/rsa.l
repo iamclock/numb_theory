@@ -363,8 +363,8 @@ BNrsaDecrypt(n, r, w, L1, L2, L3, L4/e)
 		Q6=t
 		*** /'L6 encrypted:\n'>C
 		*** /'L6 = '>C *HprintfBN(L6/) /'\n\n'>C
-		*** *crt_decrypt(L3, L4, L1, L6/L6)
-		*powBN_karat(L6, L1, L2/L6)
+		*crt_decrypt(L3, L4, L1, L6/L6)
+		*** *powBN_karat(L6, L1, L2/L6)
 		*** /'L6 decrypted:\n'>C
 		*** /'L6 = '>C *HprintfBN(L6/) /'\n\n'>C
 		*** /'Q6 = '>C *printf(Q6/) /'\n'>C
