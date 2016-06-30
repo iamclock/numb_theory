@@ -295,17 +295,25 @@ copySymbComplex(F1, F2/F2)
 **
 
 
+*** 
+*** l - для обработки ситуации, когда все переменные нули
+*** t - 
+*** s - 
+*** f - если 1, надо добавить знак +
+*** j - 
+*** i - 
 printANF(L1/F2)
 	Q1=n OQ2
 	@+L3(n)
 	@+F4(10)
 	*mobiusTransform(L1/L3)
 	*BFoutput_string(L3/) /'\n'>C
-	L3.0-1=n Q3-1=m 1=i Of
+	L3.0-1=n Q3-1=m 1=i Of=l
 	P91
 		Os
 		?(L3i=0)93 *** s=0 - начинаю с начала
 	P92
+		/'f = '>C *printf(f/) /'\n'>C
 		?(s>31)93 L3.0=t ?(s>It)93 ?(f=0)96 Of @' + '>F2
 	P96
 		*** /'i = '>C *printf(i/) /'\n'>C
@@ -314,12 +322,14 @@ printANF(L1/F2)
 		*** /'t = '>C *printf(t/) /'\n'>C
 		Ds ?(t=0)92
 		Oj i-1*32+s-1=k
+		*** /'k = '>C *printf(k/) /'\n\n'>C
 	P94
-		
 		1=f ?(j>n)92
-		/'s = '>C *printf(s/) /'\n'>C
+		*** /'s = '>C *printf(s/) /'\n'>C
 		*** /'i = '>C *printf(i/) /'\n'>C
 		*** /'k = '>C *printf(k/) /'\n'>C
+		?(k>0)97 @'1'>F2 ?=92
+	P97 
 		Ij&k=t Dj
 		*** /'t = '>C *printf(t/) /'\n'>C
 		?(t>0)95 ?=94
